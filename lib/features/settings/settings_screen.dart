@@ -496,9 +496,9 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
               minutesAvantRappel: s.minutesAvantRappel,
             );
           }
+          navigator.pop();
           if (!mounted) return;
           setState(() => _pendingProvince = null);
-          navigator.pop();
         },
       );
     });
