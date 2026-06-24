@@ -1,0 +1,90 @@
+{
+  "@@locale": "en",
+  "appTitle": "Prayer Times",
+  "nextPrayer": "Next Prayer",
+  "today": "Today",
+  "settings": "Settings",
+  "city": "City",
+  "language": "Language",
+  "notifications": "Notifications",
+  "reminderBefore": "minutes before reminder",
+  "imsak": "Fajr (Imsak)",
+  "gunes": "Sunrise",
+  "ogle": "Dhuhr",
+  "ikindi": "Asr",
+  "aksam": "Maghrib",
+  "yatsi": "Isha",
+  "offlineMode": "Offline Mode",
+  "refreshData": "Refresh Data",
+  "selectCity": "Select City",
+  "selectProvince": "Select Province",
+  "selectDistrict": "Select District",
+  "darkMode": "Dark Mode",
+  "lightMode": "Light Mode",
+  "systemMode": "System Mode",
+  "prayerTime": "{prayer} Time",
+  "@prayerTime": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "minutes": "{count} minutes",
+  "@minutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dataStale": "Data may be outdated",
+  "noConnection": "No internet connection",
+  "retry": "Retry",
+  "welcome": "Welcome",
+  "chooseLanguage": "Choose your language",
+  "chooseCity": "Choose your city",
+  "startApp": "Get Started",
+  "calendar": "Calendar",
+  "hijriDate": "Hijri Date",
+  "province": "Province",
+  "district": "District",
+  "save": "Save",
+  "cancel": "Cancel",
+  "errorLoadingData": "Error loading data",
+  "appVersion": "App Version",
+  "home": "Home",
+  "reminderDelay": "Reminder Delay",
+  "notificationSound": "Notification Sound",
+  "theme": "Theme",
+  "about": "About",
+  "noDataOffline": "No offline data. Please check your internet connection.",
+  "dataUpdated": "Data updated",
+  "prayerReminder": "{prayer} prayer in {minutes} minutes",
+  "@prayerReminder": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "currentPrayer": "Current Prayer",
+  "timeRemaining": "Time Remaining",
+  "hijri": "Hijri",
+  "gregorian": "Gregorian",
+  "searchCity": "Search city...",
+  "searchDistrict": "Search district...",
+  "notificationEnabled": "Notification on",
+  "notificationDisabled": "Notification off",
+  "serverError": "Server error. Please try again.",
+  "updateRequired": "Application update required",
+  "permissionDenied": "Notification permission denied",
+  "enableNotifications": "Enable Notifications",
+  "minutesBefore5": "5 minutes before",
+  "minutesBefore10": "10 minutes before",
+  "minutesBefore15": "15 minutes before",
+  "minutesBefore30": "30 minutes before"
+}

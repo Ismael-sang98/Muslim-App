@@ -1,0 +1,90 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Namaz Vakitleri",
+  "nextPrayer": "Sonraki Namaz",
+  "today": "Bugün",
+  "settings": "Ayarlar",
+  "city": "Şehir",
+  "language": "Dil",
+  "notifications": "Bildirimler",
+  "reminderBefore": "dakika önce hatırlat",
+  "imsak": "İmsak",
+  "gunes": "Güneş",
+  "ogle": "Öğle",
+  "ikindi": "İkindi",
+  "aksam": "Akşam",
+  "yatsi": "Yatsı",
+  "offlineMode": "Çevrimdışı Mod",
+  "refreshData": "Verileri Yenile",
+  "selectCity": "Şehir Seç",
+  "selectProvince": "İl Seç",
+  "selectDistrict": "İlçe Seç",
+  "darkMode": "Karanlık Mod",
+  "lightMode": "Aydınlık Mod",
+  "systemMode": "Sistem Modu",
+  "prayerTime": "{prayer} Vakti",
+  "@prayerTime": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "minutes": "{count} dakika",
+  "@minutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dataStale": "Veriler güncel olmayabilir",
+  "noConnection": "İnternet bağlantısı yok",
+  "retry": "Tekrar Dene",
+  "welcome": "Hoş Geldiniz",
+  "chooseLanguage": "Dil seçin",
+  "chooseCity": "Şehrinizi seçin",
+  "startApp": "Başla",
+  "calendar": "Takvim",
+  "hijriDate": "Hicri Tarih",
+  "province": "İl",
+  "district": "İlçe",
+  "save": "Kaydet",
+  "cancel": "İptal",
+  "errorLoadingData": "Veri yüklenirken hata oluştu",
+  "appVersion": "Uygulama Sürümü",
+  "home": "Ana Sayfa",
+  "reminderDelay": "Hatırlatma Süresi",
+  "notificationSound": "Bildirim Sesi",
+  "theme": "Tema",
+  "about": "Hakkında",
+  "noDataOffline": "Çevrimdışı veri yok. Lütfen internet bağlantısını kontrol edin.",
+  "dataUpdated": "Veriler güncellendi",
+  "prayerReminder": "{prayer} vakti {minutes} dakika sonra",
+  "@prayerReminder": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "currentPrayer": "Mevcut Namaz",
+  "timeRemaining": "Kalan Süre",
+  "hijri": "Hicri",
+  "gregorian": "Miladi",
+  "searchCity": "Şehir ara...",
+  "searchDistrict": "İlçe ara...",
+  "notificationEnabled": "Bildirim açık",
+  "notificationDisabled": "Bildirim kapalı",
+  "serverError": "Sunucu hatası. Lütfen tekrar deneyin.",
+  "updateRequired": "Uygulama güncellemesi gerekli",
+  "permissionDenied": "Bildirim izni reddedildi",
+  "enableNotifications": "Bildirimleri Etkinleştir",
+  "minutesBefore5": "5 dakika önce",
+  "minutesBefore10": "10 dakika önce",
+  "minutesBefore15": "15 dakika önce",
+  "minutesBefore30": "30 dakika önce"
+}

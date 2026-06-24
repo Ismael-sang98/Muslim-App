@@ -1,0 +1,90 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Horaires de Prière",
+  "nextPrayer": "Prochaine Prière",
+  "today": "Aujourd'hui",
+  "settings": "Paramètres",
+  "city": "Ville",
+  "language": "Langue",
+  "notifications": "Notifications",
+  "reminderBefore": "minutes avant rappel",
+  "imsak": "Imsak (Fajr)",
+  "gunes": "Lever du soleil",
+  "ogle": "Dhuhr",
+  "ikindi": "Asr",
+  "aksam": "Maghrib",
+  "yatsi": "Isha",
+  "offlineMode": "Mode Hors-ligne",
+  "refreshData": "Rafraîchir les données",
+  "selectCity": "Sélectionner une ville",
+  "selectProvince": "Sélectionner une province",
+  "selectDistrict": "Sélectionner un district",
+  "darkMode": "Mode Sombre",
+  "lightMode": "Mode Clair",
+  "systemMode": "Mode Système",
+  "prayerTime": "Heure de {prayer}",
+  "@prayerTime": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "minutes": "{count} minutes",
+  "@minutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dataStale": "Les données peuvent être périmées",
+  "noConnection": "Pas de connexion internet",
+  "retry": "Réessayer",
+  "welcome": "Bienvenue",
+  "chooseLanguage": "Choisissez votre langue",
+  "chooseCity": "Choisissez votre ville",
+  "startApp": "Commencer",
+  "calendar": "Calendrier",
+  "hijriDate": "Date Hégirienne",
+  "province": "Province",
+  "district": "District",
+  "save": "Enregistrer",
+  "cancel": "Annuler",
+  "errorLoadingData": "Erreur lors du chargement des données",
+  "appVersion": "Version de l'application",
+  "home": "Accueil",
+  "reminderDelay": "Délai de rappel",
+  "notificationSound": "Son de notification",
+  "theme": "Thème",
+  "about": "À propos",
+  "noDataOffline": "Pas de données hors-ligne. Veuillez vérifier votre connexion internet.",
+  "dataUpdated": "Données mises à jour",
+  "prayerReminder": "Prière {prayer} dans {minutes} minutes",
+  "@prayerReminder": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "currentPrayer": "Prière en cours",
+  "timeRemaining": "Temps restant",
+  "hijri": "Hégire",
+  "gregorian": "Grégorien",
+  "searchCity": "Rechercher une ville...",
+  "searchDistrict": "Rechercher un district...",
+  "notificationEnabled": "Notification activée",
+  "notificationDisabled": "Notification désactivée",
+  "serverError": "Erreur serveur. Veuillez réessayer.",
+  "updateRequired": "Mise à jour de l'application requise",
+  "permissionDenied": "Permission de notification refusée",
+  "enableNotifications": "Activer les notifications",
+  "minutesBefore5": "5 minutes avant",
+  "minutesBefore10": "10 minutes avant",
+  "minutesBefore15": "15 minutes avant",
+  "minutesBefore30": "30 minutes avant"
+}

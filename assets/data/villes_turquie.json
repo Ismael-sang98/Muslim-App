@@ -1,0 +1,1465 @@
+{
+  "provinces": [
+    {
+      "id": "1",
+      "nom": "Adana",
+      "districts": [
+        {"id": "9001", "nom": "Adana (Merkez)"},
+        {"id": "9002", "nom": "Ceyhan"},
+        {"id": "9003", "nom": "Çukurova"},
+        {"id": "9004", "nom": "Feke"},
+        {"id": "9005", "nom": "İmamoğlu"},
+        {"id": "9006", "nom": "Karaisalı"},
+        {"id": "9007", "nom": "Karataş"},
+        {"id": "9008", "nom": "Kozan"},
+        {"id": "9009", "nom": "Pozantı"},
+        {"id": "9010", "nom": "Saimbeyli"},
+        {"id": "9011", "nom": "Sarıçam"},
+        {"id": "9012", "nom": "Seyhan"},
+        {"id": "9013", "nom": "Tufanbeyli"},
+        {"id": "9014", "nom": "Yumurtalık"},
+        {"id": "9015", "nom": "Yüreğir"}
+      ]
+    },
+    {
+      "id": "2",
+      "nom": "Adıyaman",
+      "districts": [
+        {"id": "9016", "nom": "Adıyaman (Merkez)"},
+        {"id": "9017", "nom": "Besni"},
+        {"id": "9018", "nom": "Çelikhan"},
+        {"id": "9019", "nom": "Gerger"},
+        {"id": "9020", "nom": "Gölbaşı"},
+        {"id": "9021", "nom": "Kahta"},
+        {"id": "9022", "nom": "Samsat"},
+        {"id": "9023", "nom": "Sincik"},
+        {"id": "9024", "nom": "Tut"}
+      ]
+    },
+    {
+      "id": "3",
+      "nom": "Afyonkarahisar",
+      "districts": [
+        {"id": "9025", "nom": "Afyonkarahisar (Merkez)"},
+        {"id": "9026", "nom": "Başmakçı"},
+        {"id": "9027", "nom": "Bayat"},
+        {"id": "9028", "nom": "Bolvadin"},
+        {"id": "9029", "nom": "Çay"},
+        {"id": "9030", "nom": "Çobanlar"},
+        {"id": "9031", "nom": "Dazkırı"},
+        {"id": "9032", "nom": "Dinar"},
+        {"id": "9033", "nom": "Emirdağ"},
+        {"id": "9034", "nom": "Evciler"},
+        {"id": "9035", "nom": "Hocalar"},
+        {"id": "9036", "nom": "İhsaniye"},
+        {"id": "9037", "nom": "İscehisar"},
+        {"id": "9038", "nom": "Kızılören"},
+        {"id": "9039", "nom": "Sandıklı"},
+        {"id": "9040", "nom": "Sinanpaşa"},
+        {"id": "9041", "nom": "Sultandağı"},
+        {"id": "9042", "nom": "Şuhut"}
+      ]
+    },
+    {
+      "id": "4",
+      "nom": "Ağrı",
+      "districts": [
+        {"id": "9043", "nom": "Ağrı (Merkez)"},
+        {"id": "9044", "nom": "Diyadin"},
+        {"id": "9045", "nom": "Doğubayazıt"},
+        {"id": "9046", "nom": "Eleşkirt"},
+        {"id": "9047", "nom": "Hamur"},
+        {"id": "9048", "nom": "Patnos"},
+        {"id": "9049", "nom": "Taşlıçay"},
+        {"id": "9050", "nom": "Tutak"}
+      ]
+    },
+    {
+      "id": "5",
+      "nom": "Amasya",
+      "districts": [
+        {"id": "9051", "nom": "Amasya (Merkez)"},
+        {"id": "9052", "nom": "Göynücek"},
+        {"id": "9053", "nom": "Gümüşhacıköy"},
+        {"id": "9054", "nom": "Hamamözü"},
+        {"id": "9055", "nom": "Merzifon"},
+        {"id": "9056", "nom": "Suluova"},
+        {"id": "9057", "nom": "Taşova"}
+      ]
+    },
+    {
+      "id": "6",
+      "nom": "Ankara",
+      "districts": [
+        {"id": "9058", "nom": "Altındağ"},
+        {"id": "9059", "nom": "Ayaş"},
+        {"id": "9060", "nom": "Bala"},
+        {"id": "9061", "nom": "Beypazarı"},
+        {"id": "9062", "nom": "Çamlıdere"},
+        {"id": "9063", "nom": "Çankaya"},
+        {"id": "9064", "nom": "Çubuk"},
+        {"id": "9065", "nom": "Elmadağ"},
+        {"id": "9066", "nom": "Etimesgut"},
+        {"id": "9067", "nom": "Evren"},
+        {"id": "9068", "nom": "Gölbaşı"},
+        {"id": "9069", "nom": "Güdül"},
+        {"id": "9070", "nom": "Haymana"},
+        {"id": "9071", "nom": "Kahramankazan"},
+        {"id": "9072", "nom": "Kalecik"},
+        {"id": "9073", "nom": "Keçiören"},
+        {"id": "9074", "nom": "Kızılcahamam"},
+        {"id": "9075", "nom": "Mamak"},
+        {"id": "9076", "nom": "Nallıhan"},
+        {"id": "9077", "nom": "Polatlı"},
+        {"id": "9078", "nom": "Pursaklar"},
+        {"id": "9079", "nom": "Sincan"},
+        {"id": "9080", "nom": "Şereflikoçhisar"},
+        {"id": "9081", "nom": "Yenimahalle"}
+      ]
+    },
+    {
+      "id": "7",
+      "nom": "Antalya",
+      "districts": [
+        {"id": "9082", "nom": "Akseki"},
+        {"id": "9083", "nom": "Aksu"},
+        {"id": "9084", "nom": "Alanya"},
+        {"id": "9085", "nom": "Demre"},
+        {"id": "9086", "nom": "Döşemealtı"},
+        {"id": "9087", "nom": "Elmalı"},
+        {"id": "9088", "nom": "Finike"},
+        {"id": "9089", "nom": "Gazipaşa"},
+        {"id": "9090", "nom": "Gündoğmuş"},
+        {"id": "9091", "nom": "İbradı"},
+        {"id": "9092", "nom": "Kaş"},
+        {"id": "9093", "nom": "Kemer"},
+        {"id": "9094", "nom": "Kepez"},
+        {"id": "9095", "nom": "Konyaaltı"},
+        {"id": "9096", "nom": "Korkuteli"},
+        {"id": "9097", "nom": "Kumluca"},
+        {"id": "9098", "nom": "Manavgat"},
+        {"id": "9099", "nom": "Muratpaşa"},
+        {"id": "9100", "nom": "Serik"}
+      ]
+    },
+    {
+      "id": "8",
+      "nom": "Artvin",
+      "districts": [
+        {"id": "9101", "nom": "Artvin (Merkez)"},
+        {"id": "9102", "nom": "Ardanuç"},
+        {"id": "9103", "nom": "Arhavi"},
+        {"id": "9104", "nom": "Borçka"},
+        {"id": "9105", "nom": "Hopa"},
+        {"id": "9106", "nom": "Kemalpaşa"},
+        {"id": "9107", "nom": "Murgul"},
+        {"id": "9108", "nom": "Şavşat"},
+        {"id": "9109", "nom": "Yusufeli"}
+      ]
+    },
+    {
+      "id": "9",
+      "nom": "Aydın",
+      "districts": [
+        {"id": "9110", "nom": "Aydın (Merkez)"},
+        {"id": "9111", "nom": "Bozdoğan"},
+        {"id": "9112", "nom": "Buharkent"},
+        {"id": "9113", "nom": "Çine"},
+        {"id": "9114", "nom": "Didim"},
+        {"id": "9115", "nom": "Efeler"},
+        {"id": "9116", "nom": "Germencik"},
+        {"id": "9117", "nom": "İncirliova"},
+        {"id": "9118", "nom": "Karacasu"},
+        {"id": "9119", "nom": "Karpuzlu"},
+        {"id": "9120", "nom": "Koçarlı"},
+        {"id": "9121", "nom": "Köşk"},
+        {"id": "9122", "nom": "Kuşadası"},
+        {"id": "9123", "nom": "Kuyucak"},
+        {"id": "9124", "nom": "Nazilli"},
+        {"id": "9125", "nom": "Söke"},
+        {"id": "9126", "nom": "Sultanhisar"},
+        {"id": "9127", "nom": "Yenipazar"}
+      ]
+    },
+    {
+      "id": "10",
+      "nom": "Balıkesir",
+      "districts": [
+        {"id": "9128", "nom": "Altıeylül"},
+        {"id": "9129", "nom": "Ayvalık"},
+        {"id": "9130", "nom": "Balya"},
+        {"id": "9131", "nom": "Bandırma"},
+        {"id": "9132", "nom": "Bigadiç"},
+        {"id": "9133", "nom": "Burhaniye"},
+        {"id": "9134", "nom": "Dursunbey"},
+        {"id": "9135", "nom": "Edremit"},
+        {"id": "9136", "nom": "Erdek"},
+        {"id": "9137", "nom": "Gomaniçe"},
+        {"id": "9138", "nom": "Gömeç"},
+        {"id": "9139", "nom": "Gönen"},
+        {"id": "9140", "nom": "Havran"},
+        {"id": "9141", "nom": "İvrindi"},
+        {"id": "9142", "nom": "Karesi"},
+        {"id": "9143", "nom": "Kepsut"},
+        {"id": "9144", "nom": "Manyas"},
+        {"id": "9145", "nom": "Marmara"},
+        {"id": "9146", "nom": "Pamukçu"},
+        {"id": "9147", "nom": "Sindırgı"},
+        {"id": "9148", "nom": "Sındırgı"},
+        {"id": "9149", "nom": "Susurluk"}
+      ]
+    },
+    {
+      "id": "11",
+      "nom": "Bilecik",
+      "districts": [
+        {"id": "9150", "nom": "Bilecik (Merkez)"},
+        {"id": "9151", "nom": "Bozüyük"},
+        {"id": "9152", "nom": "Gölpazarı"},
+        {"id": "9153", "nom": "İnhisar"},
+        {"id": "9154", "nom": "Osmaneli"},
+        {"id": "9155", "nom": "Pazaryeri"},
+        {"id": "9156", "nom": "Söğüt"},
+        {"id": "9157", "nom": "Yenipazar"}
+      ]
+    },
+    {
+      "id": "12",
+      "nom": "Bingöl",
+      "districts": [
+        {"id": "9158", "nom": "Bingöl (Merkez)"},
+        {"id": "9159", "nom": "Adaklı"},
+        {"id": "9160", "nom": "Genç"},
+        {"id": "9161", "nom": "Karlıova"},
+        {"id": "9162", "nom": "Kiğı"},
+        {"id": "9163", "nom": "Solhan"},
+        {"id": "9164", "nom": "Yayladere"},
+        {"id": "9165", "nom": "Yedisu"}
+      ]
+    },
+    {
+      "id": "13",
+      "nom": "Bitlis",
+      "districts": [
+        {"id": "9166", "nom": "Bitlis (Merkez)"},
+        {"id": "9167", "nom": "Adilcevaz"},
+        {"id": "9168", "nom": "Ahlat"},
+        {"id": "9169", "nom": "Güroymak"},
+        {"id": "9170", "nom": "Hizan"},
+        {"id": "9171", "nom": "Mutki"},
+        {"id": "9172", "nom": "Tatvan"}
+      ]
+    },
+    {
+      "id": "14",
+      "nom": "Bolu",
+      "districts": [
+        {"id": "9173", "nom": "Bolu (Merkez)"},
+        {"id": "9174", "nom": "Dörtdivan"},
+        {"id": "9175", "nom": "Gerede"},
+        {"id": "9176", "nom": "Göynük"},
+        {"id": "9177", "nom": "Kıbrıscık"},
+        {"id": "9178", "nom": "Mengen"},
+        {"id": "9179", "nom": "Mudurnu"},
+        {"id": "9180", "nom": "Seben"},
+        {"id": "9181", "nom": "Yeniçağa"}
+      ]
+    },
+    {
+      "id": "15",
+      "nom": "Burdur",
+      "districts": [
+        {"id": "9182", "nom": "Burdur (Merkez)"},
+        {"id": "9183", "nom": "Ağlasun"},
+        {"id": "9184", "nom": "Altınyayla"},
+        {"id": "9185", "nom": "Bucak"},
+        {"id": "9186", "nom": "Çavdır"},
+        {"id": "9187", "nom": "Çeltikçi"},
+        {"id": "9188", "nom": "Gölhisar"},
+        {"id": "9189", "nom": "Karamanlı"},
+        {"id": "9190", "nom": "Kemer"},
+        {"id": "9191", "nom": "Tefenni"},
+        {"id": "9192", "nom": "Yeşilova"}
+      ]
+    },
+    {
+      "id": "16",
+      "nom": "Bursa",
+      "districts": [
+        {"id": "9193", "nom": "Büyükorhan"},
+        {"id": "9194", "nom": "Gemlik"},
+        {"id": "9195", "nom": "Gürsu"},
+        {"id": "9196", "nom": "Harmancık"},
+        {"id": "9197", "nom": "İnegöl"},
+        {"id": "9198", "nom": "İznik"},
+        {"id": "9199", "nom": "Karacabey"},
+        {"id": "9200", "nom": "Keles"},
+        {"id": "9201", "nom": "Kestel"},
+        {"id": "9202", "nom": "Mudanya"},
+        {"id": "9203", "nom": "Mustafakemalpaşa"},
+        {"id": "9204", "nom": "Nilüfer"},
+        {"id": "9205", "nom": "Orhaneli"},
+        {"id": "9206", "nom": "Orhangazi"},
+        {"id": "9207", "nom": "Osmangazi"},
+        {"id": "9208", "nom": "Yıldırım"},
+        {"id": "9209", "nom": "Yenişehir"}
+      ]
+    },
+    {
+      "id": "17",
+      "nom": "Çanakkale",
+      "districts": [
+        {"id": "9210", "nom": "Çanakkale (Merkez)"},
+        {"id": "9211", "nom": "Ayvacık"},
+        {"id": "9212", "nom": "Bayramiç"},
+        {"id": "9213", "nom": "Biga"},
+        {"id": "9214", "nom": "Bozcaada"},
+        {"id": "9215", "nom": "Çan"},
+        {"id": "9216", "nom": "Eceabat"},
+        {"id": "9217", "nom": "Ezine"},
+        {"id": "9218", "nom": "Gelibolu"},
+        {"id": "9219", "nom": "Gökçeada"},
+        {"id": "9220", "nom": "Lapseki"},
+        {"id": "9221", "nom": "Yenice"}
+      ]
+    },
+    {
+      "id": "18",
+      "nom": "Çankırı",
+      "districts": [
+        {"id": "9222", "nom": "Çankırı (Merkez)"},
+        {"id": "9223", "nom": "Atkaracalar"},
+        {"id": "9224", "nom": "Bayramören"},
+        {"id": "9225", "nom": "Çerkeş"},
+        {"id": "9226", "nom": "Eldivan"},
+        {"id": "9227", "nom": "Ilgaz"},
+        {"id": "9228", "nom": "Kızılırmak"},
+        {"id": "9229", "nom": "Korgun"},
+        {"id": "9230", "nom": "Kurşunlu"},
+        {"id": "9231", "nom": "Orta"},
+        {"id": "9232", "nom": "Şabanözü"},
+        {"id": "9233", "nom": "Yapraklı"}
+      ]
+    },
+    {
+      "id": "19",
+      "nom": "Çorum",
+      "districts": [
+        {"id": "9234", "nom": "Çorum (Merkez)"},
+        {"id": "9235", "nom": "Alaca"},
+        {"id": "9236", "nom": "Bayat"},
+        {"id": "9237", "nom": "Boğazkale"},
+        {"id": "9238", "nom": "Dodurga"},
+        {"id": "9239", "nom": "İskilip"},
+        {"id": "9240", "nom": "Kargı"},
+        {"id": "9241", "nom": "Laçin"},
+        {"id": "9242", "nom": "Mecitözü"},
+        {"id": "9243", "nom": "Oğuzlar"},
+        {"id": "9244", "nom": "Ortaköy"},
+        {"id": "9245", "nom": "Osmancık"},
+        {"id": "9246", "nom": "Sungurlu"},
+        {"id": "9247", "nom": "Uğurludağ"}
+      ]
+    },
+    {
+      "id": "20",
+      "nom": "Denizli",
+      "districts": [
+        {"id": "9248", "nom": "Acıpayam"},
+        {"id": "9249", "nom": "Babadağ"},
+        {"id": "9250", "nom": "Baklan"},
+        {"id": "9251", "nom": "Bekilli"},
+        {"id": "9252", "nom": "Beyağaç"},
+        {"id": "9253", "nom": "Bozkurt"},
+        {"id": "9254", "nom": "Buldan"},
+        {"id": "9255", "nom": "Çal"},
+        {"id": "9256", "nom": "Çameli"},
+        {"id": "9257", "nom": "Çardak"},
+        {"id": "9258", "nom": "Çivril"},
+        {"id": "9259", "nom": "Güney"},
+        {"id": "9260", "nom": "Honaz"},
+        {"id": "9261", "nom": "Kale"},
+        {"id": "9262", "nom": "Merkezefendi"},
+        {"id": "9263", "nom": "Pamukkale"},
+        {"id": "9264", "nom": "Sarayköy"},
+        {"id": "9265", "nom": "Serinhisar"},
+        {"id": "9266", "nom": "Tavas"}
+      ]
+    },
+    {
+      "id": "21",
+      "nom": "Diyarbakır",
+      "districts": [
+        {"id": "9267", "nom": "Bağlar"},
+        {"id": "9268", "nom": "Bismil"},
+        {"id": "9269", "nom": "Çermik"},
+        {"id": "9270", "nom": "Çınar"},
+        {"id": "9271", "nom": "Çüngüş"},
+        {"id": "9272", "nom": "Dicle"},
+        {"id": "9273", "nom": "Eğil"},
+        {"id": "9274", "nom": "Ergani"},
+        {"id": "9275", "nom": "Hani"},
+        {"id": "9276", "nom": "Hazro"},
+        {"id": "9277", "nom": "Kayapınar"},
+        {"id": "9278", "nom": "Kocaköy"},
+        {"id": "9279", "nom": "Kulp"},
+        {"id": "9280", "nom": "Lice"},
+        {"id": "9281", "nom": "Silvan"},
+        {"id": "9282", "nom": "Sur"},
+        {"id": "9283", "nom": "Yenişehir"}
+      ]
+    },
+    {
+      "id": "22",
+      "nom": "Edirne",
+      "districts": [
+        {"id": "9284", "nom": "Edirne (Merkez)"},
+        {"id": "9285", "nom": "Enez"},
+        {"id": "9286", "nom": "Havsa"},
+        {"id": "9287", "nom": "İpsala"},
+        {"id": "9288", "nom": "Keşan"},
+        {"id": "9289", "nom": "Lalapaşa"},
+        {"id": "9290", "nom": "Meriç"},
+        {"id": "9291", "nom": "Süloğlu"},
+        {"id": "9292", "nom": "Uzunköprü"}
+      ]
+    },
+    {
+      "id": "23",
+      "nom": "Elazığ",
+      "districts": [
+        {"id": "9293", "nom": "Elazığ (Merkez)"},
+        {"id": "9294", "nom": "Ağın"},
+        {"id": "9295", "nom": "Alacakaya"},
+        {"id": "9296", "nom": "Arıcak"},
+        {"id": "9297", "nom": "Baskil"},
+        {"id": "9298", "nom": "Karakoçan"},
+        {"id": "9299", "nom": "Keban"},
+        {"id": "9300", "nom": "Kovancılar"},
+        {"id": "9301", "nom": "Maden"},
+        {"id": "9302", "nom": "Palu"},
+        {"id": "9303", "nom": "Sivrice"}
+      ]
+    },
+    {
+      "id": "24",
+      "nom": "Erzincan",
+      "districts": [
+        {"id": "9304", "nom": "Erzincan (Merkez)"},
+        {"id": "9305", "nom": "Çayırlı"},
+        {"id": "9306", "nom": "İliç"},
+        {"id": "9307", "nom": "Kemah"},
+        {"id": "9308", "nom": "Kemaliye"},
+        {"id": "9309", "nom": "Otlukbeli"},
+        {"id": "9310", "nom": "Refahiye"},
+        {"id": "9311", "nom": "Tercan"},
+        {"id": "9312", "nom": "Üzümlü"}
+      ]
+    },
+    {
+      "id": "25",
+      "nom": "Erzurum",
+      "districts": [
+        {"id": "9313", "nom": "Erzurum (Merkez)"},
+        {"id": "9314", "nom": "Aşkale"},
+        {"id": "9315", "nom": "Aziziye"},
+        {"id": "9316", "nom": "Çat"},
+        {"id": "9317", "nom": "Hınıs"},
+        {"id": "9318", "nom": "Horasan"},
+        {"id": "9319", "nom": "İspir"},
+        {"id": "9320", "nom": "Karaçoban"},
+        {"id": "9321", "nom": "Karayazı"},
+        {"id": "9322", "nom": "Köprüköy"},
+        {"id": "9323", "nom": "Narman"},
+        {"id": "9324", "nom": "Oltu"},
+        {"id": "9325", "nom": "Olur"},
+        {"id": "9326", "nom": "Palandöken"},
+        {"id": "9327", "nom": "Pasinler"},
+        {"id": "9328", "nom": "Pazaryolu"},
+        {"id": "9329", "nom": "Şenkaya"},
+        {"id": "9330", "nom": "Tekman"},
+        {"id": "9331", "nom": "Tortum"},
+        {"id": "9332", "nom": "Uzundere"},
+        {"id": "9333", "nom": "Yakutiye"}
+      ]
+    },
+    {
+      "id": "26",
+      "nom": "Eskişehir",
+      "districts": [
+        {"id": "9334", "nom": "Alpu"},
+        {"id": "9335", "nom": "Beylikova"},
+        {"id": "9336", "nom": "Çifteler"},
+        {"id": "9337", "nom": "Günyüzü"},
+        {"id": "9338", "nom": "Han"},
+        {"id": "9339", "nom": "İnönü"},
+        {"id": "9340", "nom": "Mahmudiye"},
+        {"id": "9341", "nom": "Mihalgazi"},
+        {"id": "9342", "nom": "Mihalıççık"},
+        {"id": "9343", "nom": "Odunpazarı"},
+        {"id": "9344", "nom": "Sarıcakaya"},
+        {"id": "9345", "nom": "Seyitgazi"},
+        {"id": "9346", "nom": "Sivrihisar"},
+        {"id": "9347", "nom": "Tepebaşı"}
+      ]
+    },
+    {
+      "id": "27",
+      "nom": "Gaziantep",
+      "districts": [
+        {"id": "9348", "nom": "Araban"},
+        {"id": "9349", "nom": "İslahiye"},
+        {"id": "9350", "nom": "Karkamış"},
+        {"id": "9351", "nom": "Nizip"},
+        {"id": "9352", "nom": "Nurdağı"},
+        {"id": "9353", "nom": "Oğuzeli"},
+        {"id": "9354", "nom": "Şahinbey"},
+        {"id": "9355", "nom": "Şehitkamil"},
+        {"id": "9356", "nom": "Yavuzeli"}
+      ]
+    },
+    {
+      "id": "28",
+      "nom": "Giresun",
+      "districts": [
+        {"id": "9357", "nom": "Giresun (Merkez)"},
+        {"id": "9358", "nom": "Alucra"},
+        {"id": "9359", "nom": "Bulancak"},
+        {"id": "9360", "nom": "Çamoluk"},
+        {"id": "9361", "nom": "Çanakçı"},
+        {"id": "9362", "nom": "Dereli"},
+        {"id": "9363", "nom": "Doğankent"},
+        {"id": "9364", "nom": "Espiye"},
+        {"id": "9365", "nom": "Eynesil"},
+        {"id": "9366", "nom": "Görele"},
+        {"id": "9367", "nom": "Güce"},
+        {"id": "9368", "nom": "Keşap"},
+        {"id": "9369", "nom": "Piraziz"},
+        {"id": "9370", "nom": "Şebinkarahisar"},
+        {"id": "9371", "nom": "Tirebolu"},
+        {"id": "9372", "nom": "Yağlıdere"}
+      ]
+    },
+    {
+      "id": "29",
+      "nom": "Gümüşhane",
+      "districts": [
+        {"id": "9373", "nom": "Gümüşhane (Merkez)"},
+        {"id": "9374", "nom": "Kelkit"},
+        {"id": "9375", "nom": "Köse"},
+        {"id": "9376", "nom": "Kürtün"},
+        {"id": "9377", "nom": "Şiran"},
+        {"id": "9378", "nom": "Torul"}
+      ]
+    },
+    {
+      "id": "30",
+      "nom": "Hakkari",
+      "districts": [
+        {"id": "9379", "nom": "Hakkari (Merkez)"},
+        {"id": "9380", "nom": "Çukurca"},
+        {"id": "9381", "nom": "Derecik"},
+        {"id": "9382", "nom": "Şemdinli"},
+        {"id": "9383", "nom": "Yüksekova"}
+      ]
+    },
+    {
+      "id": "31",
+      "nom": "Hatay",
+      "districts": [
+        {"id": "9384", "nom": "Altınözü"},
+        {"id": "9385", "nom": "Antakya"},
+        {"id": "9386", "nom": "Arsuz"},
+        {"id": "9387", "nom": "Belen"},
+        {"id": "9388", "nom": "Defne"},
+        {"id": "9389", "nom": "Dörtyol"},
+        {"id": "9390", "nom": "Erzin"},
+        {"id": "9391", "nom": "Hassa"},
+        {"id": "9392", "nom": "İskenderun"},
+        {"id": "9393", "nom": "Kırıkhan"},
+        {"id": "9394", "nom": "Kumlu"},
+        {"id": "9395", "nom": "Payas"},
+        {"id": "9396", "nom": "Reyhanlı"},
+        {"id": "9397", "nom": "Samandağ"},
+        {"id": "9398", "nom": "Yayladağı"}
+      ]
+    },
+    {
+      "id": "32",
+      "nom": "Isparta",
+      "districts": [
+        {"id": "9399", "nom": "Isparta (Merkez)"},
+        {"id": "9400", "nom": "Aksu"},
+        {"id": "9401", "nom": "Atabey"},
+        {"id": "9402", "nom": "Eğirdir"},
+        {"id": "9403", "nom": "Gelendost"},
+        {"id": "9404", "nom": "Gönen"},
+        {"id": "9405", "nom": "Keçiborlu"},
+        {"id": "9406", "nom": "Senirkent"},
+        {"id": "9407", "nom": "Sütçüler"},
+        {"id": "9408", "nom": "Şarkikaraağaç"},
+        {"id": "9409", "nom": "Uluborlu"},
+        {"id": "9410", "nom": "Yalvaç"},
+        {"id": "9411", "nom": "Yenişarbademli"}
+      ]
+    },
+    {
+      "id": "33",
+      "nom": "Mersin",
+      "districts": [
+        {"id": "9412", "nom": "Akdeniz"},
+        {"id": "9413", "nom": "Anamur"},
+        {"id": "9414", "nom": "Aydıncık"},
+        {"id": "9415", "nom": "Bozyazı"},
+        {"id": "9416", "nom": "Çamlıyayla"},
+        {"id": "9417", "nom": "Erdemli"},
+        {"id": "9418", "nom": "Gülnar"},
+        {"id": "9419", "nom": "Mezitli"},
+        {"id": "9420", "nom": "Mut"},
+        {"id": "9421", "nom": "Silifke"},
+        {"id": "9422", "nom": "Tarsus"},
+        {"id": "9423", "nom": "Toroslar"},
+        {"id": "9424", "nom": "Yenişehir"}
+      ]
+    },
+    {
+      "id": "34",
+      "nom": "İstanbul",
+      "districts": [
+        {"id": "9425", "nom": "Adalar"},
+        {"id": "9426", "nom": "Arnavutköy"},
+        {"id": "9427", "nom": "Ataşehir"},
+        {"id": "9428", "nom": "Avcılar"},
+        {"id": "9429", "nom": "Bağcılar"},
+        {"id": "9430", "nom": "Bahçelievler"},
+        {"id": "9431", "nom": "Bakırköy"},
+        {"id": "9432", "nom": "Başakşehir"},
+        {"id": "9433", "nom": "Bayrampaşa"},
+        {"id": "9434", "nom": "Beşiktaş"},
+        {"id": "9435", "nom": "Beykoz"},
+        {"id": "9436", "nom": "Beylikdüzü"},
+        {"id": "9437", "nom": "Beyoğlu"},
+        {"id": "9438", "nom": "Büyükçekmece"},
+        {"id": "9439", "nom": "Çatalca"},
+        {"id": "9440", "nom": "Çekmeköy"},
+        {"id": "9441", "nom": "Esenler"},
+        {"id": "9442", "nom": "Esenyurt"},
+        {"id": "9443", "nom": "Eyüpsultan"},
+        {"id": "9444", "nom": "Fatih"},
+        {"id": "9445", "nom": "Gaziosmanpaşa"},
+        {"id": "9446", "nom": "Güngören"},
+        {"id": "9447", "nom": "Kadıköy"},
+        {"id": "9448", "nom": "Kağıthane"},
+        {"id": "9449", "nom": "Kartal"},
+        {"id": "9450", "nom": "Küçükçekmece"},
+        {"id": "9451", "nom": "Maltepe"},
+        {"id": "9452", "nom": "Pendik"},
+        {"id": "9453", "nom": "Sancaktepe"},
+        {"id": "9454", "nom": "Sarıyer"},
+        {"id": "9455", "nom": "Silivri"},
+        {"id": "9456", "nom": "Sultanbeyli"},
+        {"id": "9457", "nom": "Sultangazi"},
+        {"id": "9458", "nom": "Şile"},
+        {"id": "9459", "nom": "Şişli"},
+        {"id": "9460", "nom": "Tuzla"},
+        {"id": "9461", "nom": "Ümraniye"},
+        {"id": "9462", "nom": "Üsküdar"},
+        {"id": "9463", "nom": "Zeytinburnu"}
+      ]
+    },
+    {
+      "id": "35",
+      "nom": "İzmir",
+      "districts": [
+        {"id": "9464", "nom": "Aliağa"},
+        {"id": "9465", "nom": "Balçova"},
+        {"id": "9466", "nom": "Bayındır"},
+        {"id": "9467", "nom": "Bayraklı"},
+        {"id": "9468", "nom": "Bergama"},
+        {"id": "9469", "nom": "Beydağ"},
+        {"id": "9470", "nom": "Bornova"},
+        {"id": "9471", "nom": "Buca"},
+        {"id": "9472", "nom": "Çeşme"},
+        {"id": "9473", "nom": "Çiğli"},
+        {"id": "9474", "nom": "Dikili"},
+        {"id": "9475", "nom": "Foça"},
+        {"id": "9476", "nom": "Gaziemir"},
+        {"id": "9477", "nom": "Güzelbahçe"},
+        {"id": "9478", "nom": "Karabağlar"},
+        {"id": "9479", "nom": "Karaburun"},
+        {"id": "9480", "nom": "Karşıyaka"},
+        {"id": "9481", "nom": "Kemalpaşa"},
+        {"id": "9482", "nom": "Kınık"},
+        {"id": "9483", "nom": "Kiraz"},
+        {"id": "9484", "nom": "Konak"},
+        {"id": "9485", "nom": "Menderes"},
+        {"id": "9486", "nom": "Menemen"},
+        {"id": "9487", "nom": "Narlıdere"},
+        {"id": "9488", "nom": "Ödemiş"},
+        {"id": "9489", "nom": "Seferihisar"},
+        {"id": "9490", "nom": "Selçuk"},
+        {"id": "9491", "nom": "Tire"},
+        {"id": "9492", "nom": "Torbalı"},
+        {"id": "9493", "nom": "Urla"}
+      ]
+    },
+    {
+      "id": "36",
+      "nom": "Kars",
+      "districts": [
+        {"id": "9494", "nom": "Kars (Merkez)"},
+        {"id": "9495", "nom": "Akyaka"},
+        {"id": "9496", "nom": "Arpaçay"},
+        {"id": "9497", "nom": "Digor"},
+        {"id": "9498", "nom": "Kağızman"},
+        {"id": "9499", "nom": "Sarıkamış"},
+        {"id": "9500", "nom": "Selim"},
+        {"id": "9501", "nom": "Susuz"}
+      ]
+    },
+    {
+      "id": "37",
+      "nom": "Kastamonu",
+      "districts": [
+        {"id": "9502", "nom": "Kastamonu (Merkez)"},
+        {"id": "9503", "nom": "Abana"},
+        {"id": "9504", "nom": "Ağlı"},
+        {"id": "9505", "nom": "Araç"},
+        {"id": "9506", "nom": "Azdavay"},
+        {"id": "9507", "nom": "Bozkurt"},
+        {"id": "9508", "nom": "Cide"},
+        {"id": "9509", "nom": "Çatalzeytin"},
+        {"id": "9510", "nom": "Daday"},
+        {"id": "9511", "nom": "Devrekani"},
+        {"id": "9512", "nom": "Doğanyurt"},
+        {"id": "9513", "nom": "Hanönü"},
+        {"id": "9514", "nom": "İhsangazi"},
+        {"id": "9515", "nom": "İnebolu"},
+        {"id": "9516", "nom": "Küre"},
+        {"id": "9517", "nom": "Pınarbaşı"},
+        {"id": "9518", "nom": "Seydiler"},
+        {"id": "9519", "nom": "Şenpazar"},
+        {"id": "9520", "nom": "Taşköprü"},
+        {"id": "9521", "nom": "Tosya"}
+      ]
+    },
+    {
+      "id": "38",
+      "nom": "Kayseri",
+      "districts": [
+        {"id": "9522", "nom": "Akkışla"},
+        {"id": "9523", "nom": "Bünyan"},
+        {"id": "9524", "nom": "Develi"},
+        {"id": "9525", "nom": "Felahiye"},
+        {"id": "9526", "nom": "Hacılar"},
+        {"id": "9527", "nom": "İncesu"},
+        {"id": "9528", "nom": "Kocasinan"},
+        {"id": "9529", "nom": "Melikgazi"},
+        {"id": "9530", "nom": "Özvatan"},
+        {"id": "9531", "nom": "Pınarbaşı"},
+        {"id": "9532", "nom": "Sarıoğlan"},
+        {"id": "9533", "nom": "Sarız"},
+        {"id": "9534", "nom": "Talas"},
+        {"id": "9535", "nom": "Tomarza"},
+        {"id": "9536", "nom": "Yahyalı"},
+        {"id": "9537", "nom": "Yeşilhisar"}
+      ]
+    },
+    {
+      "id": "39",
+      "nom": "Kırklareli",
+      "districts": [
+        {"id": "9538", "nom": "Kırklareli (Merkez)"},
+        {"id": "9539", "nom": "Babaeski"},
+        {"id": "9540", "nom": "Demirköy"},
+        {"id": "9541", "nom": "Kofçaz"},
+        {"id": "9542", "nom": "Lüleburgaz"},
+        {"id": "9543", "nom": "Pehlivanköy"},
+        {"id": "9544", "nom": "Pınarhisar"},
+        {"id": "9545", "nom": "Vize"}
+      ]
+    },
+    {
+      "id": "40",
+      "nom": "Kırşehir",
+      "districts": [
+        {"id": "9546", "nom": "Kırşehir (Merkez)"},
+        {"id": "9547", "nom": "Akçakent"},
+        {"id": "9548", "nom": "Akpınar"},
+        {"id": "9549", "nom": "Boztepe"},
+        {"id": "9550", "nom": "Çiçekdağı"},
+        {"id": "9551", "nom": "Kaman"},
+        {"id": "9552", "nom": "Mucur"}
+      ]
+    },
+    {
+      "id": "41",
+      "nom": "Kocaeli",
+      "districts": [
+        {"id": "9553", "nom": "Başiskele"},
+        {"id": "9554", "nom": "Çayırova"},
+        {"id": "9555", "nom": "Darıca"},
+        {"id": "9556", "nom": "Derince"},
+        {"id": "9557", "nom": "Dilovası"},
+        {"id": "9558", "nom": "Gebze"},
+        {"id": "9559", "nom": "Gölcük"},
+        {"id": "9560", "nom": "İzmit"},
+        {"id": "9561", "nom": "Kandıra"},
+        {"id": "9562", "nom": "Karamürsel"},
+        {"id": "9563", "nom": "Kartepe"},
+        {"id": "9564", "nom": "Körfez"}
+      ]
+    },
+    {
+      "id": "42",
+      "nom": "Konya",
+      "districts": [
+        {"id": "9565", "nom": "Ahırlı"},
+        {"id": "9566", "nom": "Akören"},
+        {"id": "9567", "nom": "Akşehir"},
+        {"id": "9568", "nom": "Altınekin"},
+        {"id": "9569", "nom": "Beyşehir"},
+        {"id": "9570", "nom": "Bozkır"},
+        {"id": "9571", "nom": "Cihanbeyli"},
+        {"id": "9572", "nom": "Çeltik"},
+        {"id": "9573", "nom": "Çumra"},
+        {"id": "9574", "nom": "Derbent"},
+        {"id": "9575", "nom": "Derebucak"},
+        {"id": "9576", "nom": "Doğanhisar"},
+        {"id": "9577", "nom": "Emirgazi"},
+        {"id": "9578", "nom": "Ereğli"},
+        {"id": "9579", "nom": "Güneysınır"},
+        {"id": "9580", "nom": "Hadim"},
+        {"id": "9581", "nom": "Halkapınar"},
+        {"id": "9582", "nom": "Hüyük"},
+        {"id": "9583", "nom": "Ilgın"},
+        {"id": "9584", "nom": "Kadınhanı"},
+        {"id": "9585", "nom": "Karapınar"},
+        {"id": "9586", "nom": "Karatay"},
+        {"id": "9587", "nom": "Kulu"},
+        {"id": "9588", "nom": "Meram"},
+        {"id": "9589", "nom": "Sarayönü"},
+        {"id": "9590", "nom": "Selçuklu"},
+        {"id": "9591", "nom": "Seydişehir"},
+        {"id": "9592", "nom": "Taşkent"},
+        {"id": "9593", "nom": "Tuzlukçu"},
+        {"id": "9594", "nom": "Yalıhüyük"},
+        {"id": "9595", "nom": "Yunak"}
+      ]
+    },
+    {
+      "id": "43",
+      "nom": "Kütahya",
+      "districts": [
+        {"id": "9596", "nom": "Kütahya (Merkez)"},
+        {"id": "9597", "nom": "Altıntaş"},
+        {"id": "9598", "nom": "Aslanapa"},
+        {"id": "9599", "nom": "Çavdarhisar"},
+        {"id": "9600", "nom": "Domaniç"},
+        {"id": "9601", "nom": "Dumlupınar"},
+        {"id": "9602", "nom": "Emet"},
+        {"id": "9603", "nom": "Gediz"},
+        {"id": "9604", "nom": "Hisarcık"},
+        {"id": "9605", "nom": "Pazarlar"},
+        {"id": "9606", "nom": "Simav"},
+        {"id": "9607", "nom": "Şaphane"},
+        {"id": "9608", "nom": "Tavşanlı"}
+      ]
+    },
+    {
+      "id": "44",
+      "nom": "Malatya",
+      "districts": [
+        {"id": "9609", "nom": "Akçadağ"},
+        {"id": "9610", "nom": "Arguvan"},
+        {"id": "9611", "nom": "Battalgazi"},
+        {"id": "9612", "nom": "Darende"},
+        {"id": "9613", "nom": "Doğanşehir"},
+        {"id": "9614", "nom": "Doğanyol"},
+        {"id": "9615", "nom": "Hekimhan"},
+        {"id": "9616", "nom": "Kale"},
+        {"id": "9617", "nom": "Kuluncak"},
+        {"id": "9618", "nom": "Pütürge"},
+        {"id": "9619", "nom": "Yazıhan"},
+        {"id": "9620", "nom": "Yeşilyurt"}
+      ]
+    },
+    {
+      "id": "45",
+      "nom": "Manisa",
+      "districts": [
+        {"id": "9621", "nom": "Ahmetli"},
+        {"id": "9622", "nom": "Akhisar"},
+        {"id": "9623", "nom": "Alaşehir"},
+        {"id": "9624", "nom": "Demirci"},
+        {"id": "9625", "nom": "Gölmarmara"},
+        {"id": "9626", "nom": "Gördes"},
+        {"id": "9627", "nom": "Kırkağaç"},
+        {"id": "9628", "nom": "Köprübaşı"},
+        {"id": "9629", "nom": "Kula"},
+        {"id": "9630", "nom": "Sarıgöl"},
+        {"id": "9631", "nom": "Saruhanlı"},
+        {"id": "9632", "nom": "Selendi"},
+        {"id": "9633", "nom": "Soma"},
+        {"id": "9634", "nom": "Şehzadeler"},
+        {"id": "9635", "nom": "Turgutlu"},
+        {"id": "9636", "nom": "Yunusemre"}
+      ]
+    },
+    {
+      "id": "46",
+      "nom": "Kahramanmaraş",
+      "districts": [
+        {"id": "9637", "nom": "Afşin"},
+        {"id": "9638", "nom": "Andırın"},
+        {"id": "9639", "nom": "Çağlayancerit"},
+        {"id": "9640", "nom": "Dulkadiroğlu"},
+        {"id": "9641", "nom": "Ekinözü"},
+        {"id": "9642", "nom": "Elbistan"},
+        {"id": "9643", "nom": "Göksun"},
+        {"id": "9644", "nom": "Nurhak"},
+        {"id": "9645", "nom": "Onikişubat"},
+        {"id": "9646", "nom": "Pazarcık"},
+        {"id": "9647", "nom": "Türkoğlu"}
+      ]
+    },
+    {
+      "id": "47",
+      "nom": "Mardin",
+      "districts": [
+        {"id": "9648", "nom": "Artuklu"},
+        {"id": "9649", "nom": "Dargeçit"},
+        {"id": "9650", "nom": "Derik"},
+        {"id": "9651", "nom": "Kızıltepe"},
+        {"id": "9652", "nom": "Mazıdağı"},
+        {"id": "9653", "nom": "Midyat"},
+        {"id": "9654", "nom": "Nusaybin"},
+        {"id": "9655", "nom": "Ömerli"},
+        {"id": "9656", "nom": "Savur"},
+        {"id": "9657", "nom": "Yeşilli"}
+      ]
+    },
+    {
+      "id": "48",
+      "nom": "Muğla",
+      "districts": [
+        {"id": "9658", "nom": "Bodrum"},
+        {"id": "9659", "nom": "Dalaman"},
+        {"id": "9660", "nom": "Datça"},
+        {"id": "9661", "nom": "Fethiye"},
+        {"id": "9662", "nom": "Kavaklıdere"},
+        {"id": "9663", "nom": "Köyceğiz"},
+        {"id": "9664", "nom": "Marmaris"},
+        {"id": "9665", "nom": "Menteşe"},
+        {"id": "9666", "nom": "Milas"},
+        {"id": "9667", "nom": "Ortaca"},
+        {"id": "9668", "nom": "Seydikemer"},
+        {"id": "9669", "nom": "Ula"},
+        {"id": "9670", "nom": "Yatağan"}
+      ]
+    },
+    {
+      "id": "49",
+      "nom": "Muş",
+      "districts": [
+        {"id": "9671", "nom": "Muş (Merkez)"},
+        {"id": "9672", "nom": "Bulanık"},
+        {"id": "9673", "nom": "Hasköy"},
+        {"id": "9674", "nom": "Korkut"},
+        {"id": "9675", "nom": "Malazgirt"},
+        {"id": "9676", "nom": "Varto"}
+      ]
+    },
+    {
+      "id": "50",
+      "nom": "Nevşehir",
+      "districts": [
+        {"id": "9677", "nom": "Nevşehir (Merkez)"},
+        {"id": "9678", "nom": "Acıgöl"},
+        {"id": "9679", "nom": "Avanos"},
+        {"id": "9680", "nom": "Derinkuyu"},
+        {"id": "9681", "nom": "Gülşehir"},
+        {"id": "9682", "nom": "Hacıbektaş"},
+        {"id": "9683", "nom": "Kozaklı"},
+        {"id": "9684", "nom": "Ürgüp"}
+      ]
+    },
+    {
+      "id": "51",
+      "nom": "Niğde",
+      "districts": [
+        {"id": "9685", "nom": "Niğde (Merkez)"},
+        {"id": "9686", "nom": "Altunhisar"},
+        {"id": "9687", "nom": "Bor"},
+        {"id": "9688", "nom": "Çamardı"},
+        {"id": "9689", "nom": "Çiftlik"},
+        {"id": "9690", "nom": "Ulukışla"}
+      ]
+    },
+    {
+      "id": "52",
+      "nom": "Ordu",
+      "districts": [
+        {"id": "9691", "nom": "Ordu (Merkez)"},
+        {"id": "9692", "nom": "Akkuş"},
+        {"id": "9693", "nom": "Altınordu"},
+        {"id": "9694", "nom": "Aybastı"},
+        {"id": "9695", "nom": "Çamaş"},
+        {"id": "9696", "nom": "Çatalpınar"},
+        {"id": "9697", "nom": "Çaybaşı"},
+        {"id": "9698", "nom": "Fatsa"},
+        {"id": "9699", "nom": "Gölköy"},
+        {"id": "9700", "nom": "Gülyalı"},
+        {"id": "9701", "nom": "Gürgentepe"},
+        {"id": "9702", "nom": "İkizce"},
+        {"id": "9703", "nom": "Kabadüz"},
+        {"id": "9704", "nom": "Kabataş"},
+        {"id": "9705", "nom": "Korgan"},
+        {"id": "9706", "nom": "Kumru"},
+        {"id": "9707", "nom": "Mesudiye"},
+        {"id": "9708", "nom": "Perşembe"},
+        {"id": "9709", "nom": "Ulubey"},
+        {"id": "9710", "nom": "Ünye"}
+      ]
+    },
+    {
+      "id": "53",
+      "nom": "Rize",
+      "districts": [
+        {"id": "9711", "nom": "Rize (Merkez)"},
+        {"id": "9712", "nom": "Ardeşen"},
+        {"id": "9713", "nom": "Çamlıhemşin"},
+        {"id": "9714", "nom": "Çayeli"},
+        {"id": "9715", "nom": "Derepazarı"},
+        {"id": "9716", "nom": "Fındıklı"},
+        {"id": "9717", "nom": "Güneysu"},
+        {"id": "9718", "nom": "Hemşin"},
+        {"id": "9719", "nom": "İkizdere"},
+        {"id": "9720", "nom": "İyidere"},
+        {"id": "9721", "nom": "Kalkandere"},
+        {"id": "9722", "nom": "Pazar"}
+      ]
+    },
+    {
+      "id": "54",
+      "nom": "Sakarya",
+      "districts": [
+        {"id": "9723", "nom": "Adapazarı"},
+        {"id": "9724", "nom": "Akyazı"},
+        {"id": "9725", "nom": "Arifiye"},
+        {"id": "9726", "nom": "Erenler"},
+        {"id": "9727", "nom": "Ferizli"},
+        {"id": "9728", "nom": "Geyve"},
+        {"id": "9729", "nom": "Hendek"},
+        {"id": "9730", "nom": "Karapürçek"},
+        {"id": "9731", "nom": "Karasu"},
+        {"id": "9732", "nom": "Kaynarca"},
+        {"id": "9733", "nom": "Kocaali"},
+        {"id": "9734", "nom": "Mithatpaşa"},
+        {"id": "9735", "nom": "Pamukova"},
+        {"id": "9736", "nom": "Sapanca"},
+        {"id": "9737", "nom": "Serdivan"},
+        {"id": "9738", "nom": "Söğütlü"},
+        {"id": "9739", "nom": "Taraklı"}
+      ]
+    },
+    {
+      "id": "55",
+      "nom": "Samsun",
+      "districts": [
+        {"id": "9740", "nom": "Alaçam"},
+        {"id": "9741", "nom": "Asarcık"},
+        {"id": "9742", "nom": "Atakum"},
+        {"id": "9743", "nom": "Ayvacık"},
+        {"id": "9744", "nom": "Bafra"},
+        {"id": "9745", "nom": "Canik"},
+        {"id": "9746", "nom": "Çarşamba"},
+        {"id": "9747", "nom": "Havza"},
+        {"id": "9748", "nom": "İlkadım"},
+        {"id": "9749", "nom": "Kavak"},
+        {"id": "9750", "nom": "Ladik"},
+        {"id": "9751", "nom": "Ondokuzmayıs"},
+        {"id": "9752", "nom": "Salıpazarı"},
+        {"id": "9753", "nom": "Tekkeköy"},
+        {"id": "9754", "nom": "Terme"},
+        {"id": "9755", "nom": "Vezirköprü"},
+        {"id": "9756", "nom": "Yakakent"}
+      ]
+    },
+    {
+      "id": "56",
+      "nom": "Siirt",
+      "districts": [
+        {"id": "9757", "nom": "Siirt (Merkez)"},
+        {"id": "9758", "nom": "Baykan"},
+        {"id": "9759", "nom": "Eruh"},
+        {"id": "9760", "nom": "Kurtalan"},
+        {"id": "9761", "nom": "Pervari"},
+        {"id": "9762", "nom": "Şirvan"},
+        {"id": "9763", "nom": "Tillo"}
+      ]
+    },
+    {
+      "id": "57",
+      "nom": "Sinop",
+      "districts": [
+        {"id": "9764", "nom": "Sinop (Merkez)"},
+        {"id": "9765", "nom": "Ayancık"},
+        {"id": "9766", "nom": "Boyabat"},
+        {"id": "9767", "nom": "Dikmen"},
+        {"id": "9768", "nom": "Durağan"},
+        {"id": "9769", "nom": "Erfelek"},
+        {"id": "9770", "nom": "Gerze"},
+        {"id": "9771", "nom": "Saraydüzü"},
+        {"id": "9772", "nom": "Türkeli"}
+      ]
+    },
+    {
+      "id": "58",
+      "nom": "Sivas",
+      "districts": [
+        {"id": "9773", "nom": "Sivas (Merkez)"},
+        {"id": "9774", "nom": "Akıncılar"},
+        {"id": "9775", "nom": "Altınyayla"},
+        {"id": "9776", "nom": "Divriği"},
+        {"id": "9777", "nom": "Doğanşar"},
+        {"id": "9778", "nom": "Gemerek"},
+        {"id": "9779", "nom": "Gölova"},
+        {"id": "9780", "nom": "Gürun"},
+        {"id": "9781", "nom": "Hafik"},
+        {"id": "9782", "nom": "İmranlı"},
+        {"id": "9783", "nom": "Kangal"},
+        {"id": "9784", "nom": "Koyulhisar"},
+        {"id": "9785", "nom": "Suşehri"},
+        {"id": "9786", "nom": "Şarkışla"},
+        {"id": "9787", "nom": "Ulaş"},
+        {"id": "9788", "nom": "Yıldızeli"},
+        {"id": "9789", "nom": "Zara"}
+      ]
+    },
+    {
+      "id": "59",
+      "nom": "Tekirdağ",
+      "districts": [
+        {"id": "9790", "nom": "Çerkezköy"},
+        {"id": "9791", "nom": "Çorlu"},
+        {"id": "9792", "nom": "Ergene"},
+        {"id": "9793", "nom": "Hayrabolu"},
+        {"id": "9794", "nom": "Kapaklı"},
+        {"id": "9795", "nom": "Malkara"},
+        {"id": "9796", "nom": "Marmaraereğlisi"},
+        {"id": "9797", "nom": "Muratlı"},
+        {"id": "9798", "nom": "Saray"},
+        {"id": "9799", "nom": "Süleymanpaşa"},
+        {"id": "9800", "nom": "Şarköy"}
+      ]
+    },
+    {
+      "id": "60",
+      "nom": "Tokat",
+      "districts": [
+        {"id": "9801", "nom": "Tokat (Merkez)"},
+        {"id": "9802", "nom": "Almus"},
+        {"id": "9803", "nom": "Artova"},
+        {"id": "9804", "nom": "Başçiftlik"},
+        {"id": "9805", "nom": "Erbaa"},
+        {"id": "9806", "nom": "Niksar"},
+        {"id": "9807", "nom": "Pazar"},
+        {"id": "9808", "nom": "Reşadiye"},
+        {"id": "9809", "nom": "Sulusaray"},
+        {"id": "9810", "nom": "Turhal"},
+        {"id": "9811", "nom": "Yeşilyurt"},
+        {"id": "9812", "nom": "Zile"}
+      ]
+    },
+    {
+      "id": "61",
+      "nom": "Trabzon",
+      "districts": [
+        {"id": "9813", "nom": "Trabzon (Merkez)"},
+        {"id": "9814", "nom": "Akçaabat"},
+        {"id": "9815", "nom": "Araklı"},
+        {"id": "9816", "nom": "Arsin"},
+        {"id": "9817", "nom": "Beşikdüzü"},
+        {"id": "9818", "nom": "Çaykara"},
+        {"id": "9819", "nom": "Dernekpazarı"},
+        {"id": "9820", "nom": "Düzköy"},
+        {"id": "9821", "nom": "Hayrat"},
+        {"id": "9822", "nom": "Köprübaşı"},
+        {"id": "9823", "nom": "Maçka"},
+        {"id": "9824", "nom": "Of"},
+        {"id": "9825", "nom": "Ortahisar"},
+        {"id": "9826", "nom": "Şalpazarı"},
+        {"id": "9827", "nom": "Sürmene"},
+        {"id": "9828", "nom": "Tonya"},
+        {"id": "9829", "nom": "Vakfıkebir"},
+        {"id": "9830", "nom": "Yomra"}
+      ]
+    },
+    {
+      "id": "62",
+      "nom": "Tunceli",
+      "districts": [
+        {"id": "9831", "nom": "Tunceli (Merkez)"},
+        {"id": "9832", "nom": "Çemişgezek"},
+        {"id": "9833", "nom": "Hozat"},
+        {"id": "9834", "nom": "Mazgirt"},
+        {"id": "9835", "nom": "Nazımiye"},
+        {"id": "9836", "nom": "Ovacık"},
+        {"id": "9837", "nom": "Pertek"},
+        {"id": "9838", "nom": "Pülümür"}
+      ]
+    },
+    {
+      "id": "63",
+      "nom": "Şanlıurfa",
+      "districts": [
+        {"id": "9839", "nom": "Akçakale"},
+        {"id": "9840", "nom": "Birecik"},
+        {"id": "9841", "nom": "Bozova"},
+        {"id": "9842", "nom": "Ceylanpınar"},
+        {"id": "9843", "nom": "Eyyübiye"},
+        {"id": "9844", "nom": "Halfeti"},
+        {"id": "9845", "nom": "Haliliye"},
+        {"id": "9846", "nom": "Harran"},
+        {"id": "9847", "nom": "Hilvan"},
+        {"id": "9848", "nom": "Karaköprü"},
+        {"id": "9849", "nom": "Siverek"},
+        {"id": "9850", "nom": "Suruç"},
+        {"id": "9851", "nom": "Viranşehir"}
+      ]
+    },
+    {
+      "id": "64",
+      "nom": "Uşak",
+      "districts": [
+        {"id": "9852", "nom": "Uşak (Merkez)"},
+        {"id": "9853", "nom": "Banaz"},
+        {"id": "9854", "nom": "Eşme"},
+        {"id": "9855", "nom": "Karahallı"},
+        {"id": "9856", "nom": "Sivaslı"},
+        {"id": "9857", "nom": "Ulubey"}
+      ]
+    },
+    {
+      "id": "65",
+      "nom": "Van",
+      "districts": [
+        {"id": "9858", "nom": "Van (Merkez)"},
+        {"id": "9859", "nom": "Bahçesaray"},
+        {"id": "9860", "nom": "Başkale"},
+        {"id": "9861", "nom": "Çaldıran"},
+        {"id": "9862", "nom": "Çatak"},
+        {"id": "9863", "nom": "Edremit"},
+        {"id": "9864", "nom": "Erciş"},
+        {"id": "9865", "nom": "Gevaş"},
+        {"id": "9866", "nom": "Gürpınar"},
+        {"id": "9867", "nom": "İpekyolu"},
+        {"id": "9868", "nom": "Muradiye"},
+        {"id": "9869", "nom": "Özalp"},
+        {"id": "9870", "nom": "Saray"},
+        {"id": "9871", "nom": "Tuşba"}
+      ]
+    },
+    {
+      "id": "66",
+      "nom": "Yozgat",
+      "districts": [
+        {"id": "9872", "nom": "Yozgat (Merkez)"},
+        {"id": "9873", "nom": "Akdağmadeni"},
+        {"id": "9874", "nom": "Aydıncık"},
+        {"id": "9875", "nom": "Boğazlıyan"},
+        {"id": "9876", "nom": "Çandır"},
+        {"id": "9877", "nom": "Çayıralan"},
+        {"id": "9878", "nom": "Çekerek"},
+        {"id": "9879", "nom": "Kadışehri"},
+        {"id": "9880", "nom": "Saraykent"},
+        {"id": "9881", "nom": "Sarıkaya"},
+        {"id": "9882", "nom": "Şefaatli"},
+        {"id": "9883", "nom": "Sorgun"},
+        {"id": "9884", "nom": "Yenifakılı"},
+        {"id": "9885", "nom": "Yerköy"}
+      ]
+    },
+    {
+      "id": "67",
+      "nom": "Zonguldak",
+      "districts": [
+        {"id": "9886", "nom": "Zonguldak (Merkez)"},
+        {"id": "9887", "nom": "Alaplı"},
+        {"id": "9888", "nom": "Çaycuma"},
+        {"id": "9889", "nom": "Devrek"},
+        {"id": "9890", "nom": "Gökçebey"},
+        {"id": "9891", "nom": "Kilimli"},
+        {"id": "9892", "nom": "Kozlu"}
+      ]
+    },
+    {
+      "id": "68",
+      "nom": "Aksaray",
+      "districts": [
+        {"id": "9893", "nom": "Aksaray (Merkez)"},
+        {"id": "9894", "nom": "Ağaçören"},
+        {"id": "9895", "nom": "Eskil"},
+        {"id": "9896", "nom": "Gülağaç"},
+        {"id": "9897", "nom": "Güzelyurt"},
+        {"id": "9898", "nom": "Ortaköy"},
+        {"id": "9899", "nom": "Sarıyahşi"}
+      ]
+    },
+    {
+      "id": "69",
+      "nom": "Bayburt",
+      "districts": [
+        {"id": "9900", "nom": "Bayburt (Merkez)"},
+        {"id": "9901", "nom": "Aydıntepe"},
+        {"id": "9902", "nom": "Demirözü"}
+      ]
+    },
+    {
+      "id": "70",
+      "nom": "Karaman",
+      "districts": [
+        {"id": "9903", "nom": "Karaman (Merkez)"},
+        {"id": "9904", "nom": "Ayrancı"},
+        {"id": "9905", "nom": "Başyayla"},
+        {"id": "9906", "nom": "Ermenek"},
+        {"id": "9907", "nom": "Kazımkarabekir"},
+        {"id": "9908", "nom": "Sarıveliler"}
+      ]
+    },
+    {
+      "id": "71",
+      "nom": "Kırıkkale",
+      "districts": [
+        {"id": "9909", "nom": "Kırıkkale (Merkez)"},
+        {"id": "9910", "nom": "Bahşili"},
+        {"id": "9911", "nom": "Balışeyh"},
+        {"id": "9912", "nom": "Çelebi"},
+        {"id": "9913", "nom": "Delice"},
+        {"id": "9914", "nom": "Karakeçili"},
+        {"id": "9915", "nom": "Keskin"},
+        {"id": "9916", "nom": "Sulakyurt"},
+        {"id": "9917", "nom": "Yahşihan"}
+      ]
+    },
+    {
+      "id": "72",
+      "nom": "Batman",
+      "districts": [
+        {"id": "9918", "nom": "Batman (Merkez)"},
+        {"id": "9919", "nom": "Beşiri"},
+        {"id": "9920", "nom": "Gercüş"},
+        {"id": "9921", "nom": "Hasankeyf"},
+        {"id": "9922", "nom": "Kozluk"},
+        {"id": "9923", "nom": "Sason"}
+      ]
+    },
+    {
+      "id": "73",
+      "nom": "Şırnak",
+      "districts": [
+        {"id": "9924", "nom": "Şırnak (Merkez)"},
+        {"id": "9925", "nom": "Beytüşşebap"},
+        {"id": "9926", "nom": "Cizre"},
+        {"id": "9927", "nom": "Güçlükonak"},
+        {"id": "9928", "nom": "İdil"},
+        {"id": "9929", "nom": "Silopi"},
+        {"id": "9930", "nom": "Uludere"}
+      ]
+    },
+    {
+      "id": "74",
+      "nom": "Bartın",
+      "districts": [
+        {"id": "9931", "nom": "Bartın (Merkez)"},
+        {"id": "9932", "nom": "Arit"},
+        {"id": "9933", "nom": "Kurucaşile"},
+        {"id": "9934", "nom": "Ulus"}
+      ]
+    },
+    {
+      "id": "75",
+      "nom": "Ardahan",
+      "districts": [
+        {"id": "9935", "nom": "Ardahan (Merkez)"},
+        {"id": "9936", "nom": "Çıldır"},
+        {"id": "9937", "nom": "Damal"},
+        {"id": "9938", "nom": "Göle"},
+        {"id": "9939", "nom": "Hanak"},
+        {"id": "9940", "nom": "Posof"}
+      ]
+    },
+    {
+      "id": "76",
+      "nom": "Iğdır",
+      "districts": [
+        {"id": "9941", "nom": "Iğdır (Merkez)"},
+        {"id": "9942", "nom": "Aralık"},
+        {"id": "9943", "nom": "Karakoyunlu"},
+        {"id": "9944", "nom": "Tuzluca"}
+      ]
+    },
+    {
+      "id": "77",
+      "nom": "Yalova",
+      "districts": [
+        {"id": "9945", "nom": "Yalova (Merkez)"},
+        {"id": "9946", "nom": "Altınova"},
+        {"id": "9947", "nom": "Armutlu"},
+        {"id": "9948", "nom": "Çiftlikköy"},
+        {"id": "9949", "nom": "Çınarcık"},
+        {"id": "9950", "nom": "Termal"}
+      ]
+    },
+    {
+      "id": "78",
+      "nom": "Karabük",
+      "districts": [
+        {"id": "9951", "nom": "Karabük (Merkez)"},
+        {"id": "9952", "nom": "Eflani"},
+        {"id": "9953", "nom": "Eskipazar"},
+        {"id": "9954", "nom": "Ovacık"},
+        {"id": "9955", "nom": "Safranbolu"},
+        {"id": "9956", "nom": "Yenice"}
+      ]
+    },
+    {
+      "id": "79",
+      "nom": "Kilis",
+      "districts": [
+        {"id": "9957", "nom": "Kilis (Merkez)"},
+        {"id": "9958", "nom": "Elbeyli"},
+        {"id": "9959", "nom": "Musabeyli"},
+        {"id": "9960", "nom": "Polateli"}
+      ]
+    },
+    {
+      "id": "80",
+      "nom": "Osmaniye",
+      "districts": [
+        {"id": "9961", "nom": "Osmaniye (Merkez)"},
+        {"id": "9962", "nom": "Bahçe"},
+        {"id": "9963", "nom": "Düziçi"},
+        {"id": "9964", "nom": "Hasanbeyli"},
+        {"id": "9965", "nom": "Kadirli"},
+        {"id": "9966", "nom": "Sumbas"},
+        {"id": "9967", "nom": "Toprakkale"}
+      ]
+    },
+    {
+      "id": "81",
+      "nom": "Düzce",
+      "districts": [
+        {"id": "9968", "nom": "Düzce (Merkez)"},
+        {"id": "9969", "nom": "Akçakoca"},
+        {"id": "9970", "nom": "Cumayeri"},
+        {"id": "9971", "nom": "Çilimli"},
+        {"id": "9972", "nom": "Gölyaka"},
+        {"id": "9973", "nom": "Gümüşova"},
+        {"id": "9974", "nom": "Kaynaşlı"},
+        {"id": "9975", "nom": "Yığılca"}
+      ]
+    }
+  ]
+}
