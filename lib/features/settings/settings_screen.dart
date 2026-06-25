@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -476,32 +477,38 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
       _showPicker(
         title: 'İlçe Seçin — ${prov.nom}',
         items: prov.districts.map((d) => (d.id, d.nom)).toList(),
-        onSelect: (id, nom) async {
-          final navigator = Navigator.of(context);
-          final oldVilleId = ref.read(settingsProvider).villeId;
-          await ref
-              .read(settingsProvider.notifier)
-              .updateCity(id, nom, provinceNom: prov.nom);
-          if (oldVilleId.isNotEmpty && oldVilleId != id) {
-            ref.invalidate(prayerDataProvider(oldVilleId));
-          }
-          // Cancel stale notifications and reschedule for new city
-          await NotificationService.cancelAll();
-          final newPs = ref.read(prayerDataProvider(id));
-          if (newPs is PrayerDataLoaded) {
-            final s = ref.read(settingsProvider);
-            await NotificationService.scheduleMonthlyPrayers(
-              horaires: newPs.horaires,
-              notificationsActives: s.notificationsActives,
-              minutesAvantRappel: s.minutesAvantRappel,
-            );
-          }
-          navigator.pop();
-          if (!mounted) return;
-          setState(() => _pendingProvince = null);
+        onSelect: (id, nom) {
+          Navigator.of(context).pop();
+          unawaited(_updateCityAndReschedule(id, nom, prov.nom));
         },
       );
     });
+  }
+
+  Future<void> _updateCityAndReschedule(
+    String id,
+    String nom,
+    String provinceNom,
+  ) async {
+    final oldVilleId = ref.read(settingsProvider).villeId;
+    await ref
+        .read(settingsProvider.notifier)
+        .updateCity(id, nom, provinceNom: provinceNom);
+    if (oldVilleId.isNotEmpty && oldVilleId != id) {
+      ref.invalidate(prayerDataProvider(oldVilleId));
+    }
+    await NotificationService.cancelAll();
+    final newPs = ref.read(prayerDataProvider(id));
+    if (newPs is PrayerDataLoaded) {
+      final s = ref.read(settingsProvider);
+      await NotificationService.scheduleMonthlyPrayers(
+        horaires: newPs.horaires,
+        notificationsActives: s.notificationsActives,
+        minutesAvantRappel: s.minutesAvantRappel,
+      );
+    }
+    if (!mounted) return;
+    setState(() => _pendingProvince = null);
   }
 
   void _showPicker({

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/api/prayer_api_service.dart';
@@ -69,9 +70,15 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
     final moisAnnee = PrayerCacheModel.currentMoisAnnee();
     final cached = HiveService.getCache(_villeId, moisAnnee);
 
-    // Cache fresh (< 24h) → show immediately
+    // Cache fresh (< 24h) → show immediately, reschedule notifications
     if (cached != null && cached.isFresh) {
       state = PrayerDataLoaded(cached.horairesMensuels, DataFreshness.fresh);
+      final settings = _ref.read(settingsProvider);
+      unawaited(NotificationService.scheduleMonthlyPrayers(
+        horaires: cached.horairesMensuels,
+        notificationsActives: settings.notificationsActives,
+        minutesAvantRappel: settings.minutesAvantRappel,
+      ));
       return;
     }
 
@@ -108,8 +115,13 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
           final freshness = cached.isStale
               ? DataFreshness.stale
               : DataFreshness.offline;
-          state =
-              PrayerDataLoaded(cached.horairesMensuels, freshness);
+          state = PrayerDataLoaded(cached.horairesMensuels, freshness);
+          final settings = _ref.read(settingsProvider);
+          unawaited(NotificationService.scheduleMonthlyPrayers(
+            horaires: cached.horairesMensuels,
+            notificationsActives: settings.notificationsActives,
+            minutesAvantRappel: settings.minutesAvantRappel,
+          ));
         } else {
           state = PrayerDataError(e.message);
         }
@@ -119,6 +131,12 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
         final freshness =
             cached.isStale ? DataFreshness.stale : DataFreshness.offline;
         state = PrayerDataLoaded(cached.horairesMensuels, freshness);
+        final settings = _ref.read(settingsProvider);
+        unawaited(NotificationService.scheduleMonthlyPrayers(
+          horaires: cached.horairesMensuels,
+          notificationsActives: settings.notificationsActives,
+          minutesAvantRappel: settings.minutesAvantRappel,
+        ));
       } else {
         state = PrayerDataError('İnternet bağlantısı yok ve önbellek bulunamadı');
       }
