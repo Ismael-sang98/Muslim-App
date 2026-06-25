@@ -90,16 +90,12 @@ class SettingsScreen extends ConsumerWidget {
                     .fadeIn(duration: 300.ms)
                     .slideY(begin: 0.15),
 
-                const SizedBox(height: 16),
-
                 // ── KONUM ───────────────────────────────────────────────────
                 _SectionLabel('KONUM'),
                 _WhiteCard(child: _LocationSection(settings: settings))
                     .animate(delay: 100.ms)
                     .fadeIn(duration: 300.ms)
                     .slideY(begin: 0.15),
-
-                const SizedBox(height: 16),
 
                 // ── HATIRLATMA ───────────────────────────────────────────────
                 _SectionLabel('HATIRLATMA'),
@@ -191,8 +187,6 @@ class SettingsScreen extends ConsumerWidget {
                     .fadeIn(duration: 300.ms)
                     .slideY(begin: 0.15),
 
-                const SizedBox(height: 16),
-
                 // ── BİLDİRİMLER ──────────────────────────────────────────────
                 _SectionLabel('BİLDİRİMLER'),
                 _WhiteCard(
@@ -211,8 +205,6 @@ class SettingsScreen extends ConsumerWidget {
                     .fadeIn(duration: 300.ms)
                     .slideY(begin: 0.15),
 
-                const SizedBox(height: 16),
-
                 // ── HAKKINDA ─────────────────────────────────────────────────
                 _SectionLabel('HAKKINDA'),
                 _WhiteCard(
@@ -221,11 +213,14 @@ class SettingsScreen extends ConsumerWidget {
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const AboutScreen()),
+                            builder: (_) => const AboutScreen(),
+                          ),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 14),
+                            horizontal: 16,
+                            vertical: 14,
+                          ),
                           child: Row(
                             children: [
                               _IconCircle(
@@ -241,8 +236,10 @@ class SettingsScreen extends ConsumerWidget {
                                 ),
                               ),
                               const Spacer(),
-                              const Icon(Icons.chevron_right,
-                                  color: Colors.grey),
+                              const Icon(
+                                Icons.chevron_right,
+                                color: Colors.grey,
+                              ),
                             ],
                           ),
                         ),

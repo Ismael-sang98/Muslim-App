@@ -79,8 +79,6 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
         notificationsActives: settings.notificationsActives,
         minutesAvantRappel: settings.minutesAvantRappel,
       ));
-      unawaited(NotificationService.updatePersistentNotification(
-          cached.horairesMensuels));
       return;
     }
 
@@ -112,7 +110,6 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
           notificationsActives: settings.notificationsActives,
           minutesAvantRappel: settings.minutesAvantRappel,
         );
-        unawaited(NotificationService.updatePersistentNotification(horaires));
       } on ApiException catch (e) {
         if (cached != null) {
           final freshness = cached.isStale
@@ -125,8 +122,6 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
             notificationsActives: settings.notificationsActives,
             minutesAvantRappel: settings.minutesAvantRappel,
           ));
-          unawaited(NotificationService.updatePersistentNotification(
-              cached.horairesMensuels));
         } else {
           state = PrayerDataError(e.message);
         }
@@ -142,8 +137,6 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
           notificationsActives: settings.notificationsActives,
           minutesAvantRappel: settings.minutesAvantRappel,
         ));
-        unawaited(NotificationService.updatePersistentNotification(
-            cached.horairesMensuels));
       } else {
         state = PrayerDataError('İnternet bağlantısı yok ve önbellek bulunamadı');
       }

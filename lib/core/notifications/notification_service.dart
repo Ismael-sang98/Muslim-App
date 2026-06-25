@@ -154,6 +154,9 @@ class NotificationService {
         }
       }
     }
+
+    // Re-show persistent notification after cancelAll()
+    await updatePersistentNotification(horaires);
   }
 
   static String _buildAtTimeTitle(String prayerKey) {

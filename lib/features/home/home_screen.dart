@@ -10,6 +10,7 @@ import '../../core/utils/hijri_converter.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../core/services/update_service.dart';
+import '../qibla/qibla_screen.dart';
 import '../settings/settings_provider.dart';
 import 'home_provider.dart';
 import 'widgets/next_prayer_card.dart';
@@ -172,6 +173,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     const CountdownTimerWidget(),
 
                     const SizedBox(height: 10),
+
+                    // ── Qibla button ───────────────────────────────────────
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                      child: _QiblaButton(),
+                    ),
 
                     // ── Dark green prayer panel ────────────────────────────
                     if (today != null)
@@ -466,6 +473,64 @@ class _ExactAlarmBanner extends StatelessWidget {
               const Icon(Icons.chevron_right, color: Colors.white, size: 18),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Qibla button ──────────────────────────────────────────────────────────────
+
+class _QiblaButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const QiblaScreen()),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.10),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: AppTheme.primaryGreen.withValues(alpha: 0.2),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.explore, color: AppTheme.primaryGreen, size: 20),
+            ),
+            const SizedBox(width: 14),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Kıble Yönü',
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'Kabe\'nin yönünü bul',
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: Colors.white54,
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
+            const Icon(Icons.chevron_right, color: Colors.white38, size: 22),
+          ],
         ),
       ),
     );
