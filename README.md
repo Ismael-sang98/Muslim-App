@@ -1,6 +1,8 @@
 <div align="center">
 
+<table><tr><td bgcolor="#0A1F14" align="center" width="160">
 <img src="assets/Logo.png" alt="Namaz Vakti Logo" width="120"/>
+</td></tr></table>
 
 # Muslim App
 
