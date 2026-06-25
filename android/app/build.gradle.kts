@@ -14,7 +14,7 @@ if (keyPropsFile.exists()) {
 
 android {
     namespace = "com.example.namaz_vakti"
-    compileSdk = 35
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

@@ -9,6 +9,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/hijri_converter.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/widgets/gradient_scaffold.dart';
+import '../../core/services/update_service.dart';
 import '../settings/settings_provider.dart';
 import 'home_provider.dart';
 import 'widgets/next_prayer_card.dart';
@@ -28,6 +29,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) UpdateService.checkForUpdate(context);
+    });
   }
 
   @override
@@ -42,6 +46,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       final villeId = ref.read(settingsProvider).villeId;
       ref.invalidate(nextPrayerProvider(villeId));
       ref.invalidate(currentPrayerProvider(villeId));
+      ref.invalidate(exactAlarmGrantedProvider);
       _rescheduleNotifications(villeId);
     }
   }
@@ -96,10 +101,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
         ? prayerState.freshness
         : null;
 
+    final exactAlarmGranted = ref.watch(exactAlarmGrantedProvider);
+
     return SafeArea(
       bottom: false,
       child: Column(
         children: [
+          // ── Bannière permission alarme exacte (Android 12 uniquement) ──────
+          if (exactAlarmGranted is AsyncData<bool> &&
+              exactAlarmGranted.value == false)
+            _ExactAlarmBanner(onTap: () async {
+              await NotificationService.requestExactAlarmPermission();
+            }),
+
           // ── Dark green header ──────────────────────────────────────────────
           _HomeHeader(
             today: today,
@@ -414,6 +428,45 @@ class _FreshnessBadge extends StatelessWidget {
             style: GoogleFonts.poppins(fontSize: 10, color: Colors.white),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// ── Bannière permission alarme exacte ─────────────────────────────────────────
+
+class _ExactAlarmBanner extends StatelessWidget {
+  final VoidCallback onTap;
+  const _ExactAlarmBanner({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          color: const Color(0xFFB45309),
+          child: Row(
+            children: [
+              const Icon(Icons.alarm_off, color: Colors.white, size: 18),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  'Notifications exactes désactivées — Appuyer pour activer',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              const Icon(Icons.chevron_right, color: Colors.white, size: 18),
+            ],
+          ),
+        ),
       ),
     );
   }

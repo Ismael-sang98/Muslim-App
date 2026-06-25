@@ -79,6 +79,8 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
         notificationsActives: settings.notificationsActives,
         minutesAvantRappel: settings.minutesAvantRappel,
       ));
+      unawaited(NotificationService.updatePersistentNotification(
+          cached.horairesMensuels));
       return;
     }
 
@@ -110,6 +112,7 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
           notificationsActives: settings.notificationsActives,
           minutesAvantRappel: settings.minutesAvantRappel,
         );
+        unawaited(NotificationService.updatePersistentNotification(horaires));
       } on ApiException catch (e) {
         if (cached != null) {
           final freshness = cached.isStale
@@ -122,6 +125,8 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
             notificationsActives: settings.notificationsActives,
             minutesAvantRappel: settings.minutesAvantRappel,
           ));
+          unawaited(NotificationService.updatePersistentNotification(
+              cached.horairesMensuels));
         } else {
           state = PrayerDataError(e.message);
         }
@@ -137,6 +142,8 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
           notificationsActives: settings.notificationsActives,
           minutesAvantRappel: settings.minutesAvantRappel,
         ));
+        unawaited(NotificationService.updatePersistentNotification(
+            cached.horairesMensuels));
       } else {
         state = PrayerDataError('İnternet bağlantısı yok ve önbellek bulunamadı');
       }
@@ -207,6 +214,11 @@ final nextPrayerProvider = Provider.family<NextPrayerInfo?, String>(
     );
   },
 );
+
+// Exact alarm permission check
+final exactAlarmGrantedProvider = FutureProvider<bool>((ref) async {
+  return NotificationService.canScheduleExactAlarms();
+});
 
 // Current active prayer (the one whose window we're currently in)
 final currentPrayerProvider = Provider.family<String?, String>(

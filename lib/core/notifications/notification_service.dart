@@ -10,6 +10,10 @@ class NotificationService {
   static const String _channelId = 'prayer_channel';
   static const String _channelName = 'Namaz Bildirimleri';
 
+  static const String _persistentChannelId = 'prayer_persistent';
+  static const String _persistentChannelName = 'Sonraki Namaz';
+  static const int _persistentId = 999999;
+
   static Future<void> init() async {
     const androidSettings = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
@@ -58,7 +62,10 @@ class NotificationService {
     final nowTz = tz.TZDateTime.now(istanbulTz);
     final maxDays = Platform.isIOS ? 10 : 31;
 
-    const scheduleMode = AndroidScheduleMode.inexactAllowWhileIdle;
+    final canExact = await canScheduleExactAlarms();
+    final scheduleMode = canExact
+        ? AndroidScheduleMode.exactAllowWhileIdle
+        : AndroidScheduleMode.inexactAllowWhileIdle;
 
     for (final jour in horaires) {
       final dateParts = jour.date.split('-');
@@ -197,8 +204,82 @@ class NotificationService {
     return '${names[prayerKey] ?? prayerKey} namazına $minutes dakika kaldı';
   }
 
+  static Future<void> updatePersistentNotification(
+      List<HorairesJourModel> horaires) async {
+    if (!Platform.isAndroid) return;
+
+    final now = DateTime.now();
+    final todayStr =
+        '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+
+    HorairesJourModel? today;
+    try {
+      today = horaires.firstWhere((h) => h.date == todayStr);
+    } catch (_) {
+      return;
+    }
+
+    final reference = DateTime(now.year, now.month, now.day);
+    String? nextKey;
+    String? nextTime;
+
+    for (final key in HorairesJourModel.prayerKeys) {
+      final dt = today.timeAsDateTime(key, reference);
+      if (dt.isAfter(now)) {
+        nextKey = key;
+        nextTime = today.timeForPrayer(key);
+        break;
+      }
+    }
+
+    nextKey ??= 'imsak';
+    nextTime ??= today.imsak;
+
+    const names = {
+      'imsak': 'İmsak',
+      'gunes': 'Güneş',
+      'ogle': 'Öğle',
+      'ikindi': 'İkindi',
+      'aksam': 'Akşam',
+      'yatsi': 'Yatsı',
+    };
+
+    await _plugin.show(
+      _persistentId,
+      '🕌 ${names[nextKey] ?? nextKey} — $nextTime',
+      'Bir sonraki namaz',
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          _persistentChannelId,
+          _persistentChannelName,
+          importance: Importance.low,
+          priority: Priority.low,
+          ongoing: true,
+          autoCancel: false,
+          showWhen: false,
+          playSound: false,
+          enableVibration: false,
+          icon: '@mipmap/ic_launcher',
+        ),
+      ),
+    );
+  }
+
+  static Future<bool> canScheduleExactAlarms() async {
+    if (!Platform.isAndroid) return true;
+    final impl = _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    return await impl?.canScheduleExactNotifications() ?? false;
+  }
+
+  static Future<void> requestExactAlarmPermission() async {
+    if (!Platform.isAndroid) return;
+    final impl = _plugin.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    await impl?.requestExactAlarmsPermission();
+  }
+
   static Future<void> cancelAll() async {
     await _plugin.cancelAll();
   }
-
 }

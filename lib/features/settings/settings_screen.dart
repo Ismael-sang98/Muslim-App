@@ -10,6 +10,7 @@ import '../onboarding/onboarding_provider.dart';
 import '../home/home_provider.dart';
 import '../settings/settings_provider.dart';
 import 'widgets/notification_toggle_tile.dart';
+import 'about_screen.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -207,6 +208,47 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                     )
                     .animate(delay: 300.ms)
+                    .fadeIn(duration: 300.ms)
+                    .slideY(begin: 0.15),
+
+                const SizedBox(height: 16),
+
+                // ── HAKKINDA ─────────────────────────────────────────────────
+                _SectionLabel('HAKKINDA'),
+                _WhiteCard(
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const AboutScreen()),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 14),
+                          child: Row(
+                            children: [
+                              _IconCircle(
+                                icon: Icons.info_outline,
+                                color: AppTheme.primaryGreen,
+                              ),
+                              const SizedBox(width: 12),
+                              Text(
+                                'Uygulama hakkında',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const Spacer(),
+                              const Icon(Icons.chevron_right,
+                                  color: Colors.grey),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                    .animate(delay: 400.ms)
                     .fadeIn(duration: 300.ms)
                     .slideY(begin: 0.15),
               ],

@@ -5,7 +5,7 @@
     "districts": [
       {
         "id": "9146",
-        "nom": "ADANA"
+        "nom": "ADANA (Merkez)"
       },
       {
         "id": "9147",
@@ -59,7 +59,7 @@
     "districts": [
       {
         "id": "9158",
-        "nom": "ADIYAMAN"
+        "nom": "ADIYAMAN (Merkez)"
       },
       {
         "id": "9159",
@@ -101,7 +101,7 @@
     "districts": [
       {
         "id": "9167",
-        "nom": "AFYONKARAHİSAR"
+        "nom": "AFYONKARAHİSAR (Merkez)"
       },
       {
         "id": "9168",
@@ -179,7 +179,7 @@
     "districts": [
       {
         "id": "9185",
-        "nom": "AĞRI"
+        "nom": "AĞRI (Merkez)"
       },
       {
         "id": "9186",
@@ -217,7 +217,7 @@
       },
       {
         "id": "9193",
-        "nom": "AKSARAY"
+        "nom": "AKSARAY (Merkez)"
       },
       {
         "id": "9194",
@@ -251,7 +251,7 @@
     "districts": [
       {
         "id": "9198",
-        "nom": "AMASYA"
+        "nom": "AMASYA (Merkez)"
       },
       {
         "id": "9199",
@@ -289,7 +289,7 @@
       },
       {
         "id": "9206",
-        "nom": "ANKARA"
+        "nom": "ANKARA (Merkez)"
       },
       {
         "id": "9207",
@@ -371,7 +371,7 @@
       },
       {
         "id": "9225",
-        "nom": "ANTALYA"
+        "nom": "ANTALYA (Merkez)"
       },
       {
         "id": "9226",
@@ -429,7 +429,7 @@
     "districts": [
       {
         "id": "9238",
-        "nom": "ARDAHAN"
+        "nom": "ARDAHAN (Merkez)"
       },
       {
         "id": "9239",
@@ -467,7 +467,7 @@
       },
       {
         "id": "9246",
-        "nom": "ARTVİN"
+        "nom": "ARTVİN (Merkez)"
       },
       {
         "id": "9247",
@@ -501,7 +501,7 @@
     "districts": [
       {
         "id": "9252",
-        "nom": "AYDIN"
+        "nom": "AYDIN (Merkez)"
       },
       {
         "id": "9253",
@@ -579,7 +579,7 @@
       },
       {
         "id": "9270",
-        "nom": "BALIKESİR"
+        "nom": "BALIKESİR (Merkez)"
       },
       {
         "id": "9271",
@@ -657,7 +657,7 @@
     "districts": [
       {
         "id": "9285",
-        "nom": "BARTIN"
+        "nom": "BARTIN (Merkez)"
       },
       {
         "id": "9286",
@@ -675,7 +675,7 @@
     "districts": [
       {
         "id": "9288",
-        "nom": "BATMAN"
+        "nom": "BATMAN (Merkez)"
       },
       {
         "id": "9289",
@@ -709,7 +709,7 @@
       },
       {
         "id": "9295",
-        "nom": "BAYBURT"
+        "nom": "BAYBURT (Merkez)"
       },
       {
         "id": "9296",
@@ -723,7 +723,7 @@
     "districts": [
       {
         "id": "9297",
-        "nom": "BİLECİK"
+        "nom": "BİLECİK (Merkez)"
       },
       {
         "id": "9298",
@@ -765,7 +765,7 @@
       },
       {
         "id": "9303",
-        "nom": "BİNGÖL"
+        "nom": "BİNGÖL (Merkez)"
       },
       {
         "id": "9304",
@@ -803,7 +803,7 @@
       },
       {
         "id": "9311",
-        "nom": "BİTLİS"
+        "nom": "BİTLİS (Merkez)"
       },
       {
         "id": "17887",
@@ -829,7 +829,7 @@
     "districts": [
       {
         "id": "9315",
-        "nom": "BOLU"
+        "nom": "BOLU (Merkez)"
       },
       {
         "id": "9316",
@@ -883,7 +883,7 @@
       },
       {
         "id": "9327",
-        "nom": "BURDUR"
+        "nom": "BURDUR (Merkez)"
       },
       {
         "id": "9328",
@@ -921,7 +921,7 @@
     "districts": [
       {
         "id": "9335",
-        "nom": "BURSA"
+        "nom": "BURSA (Merkez)"
       },
       {
         "id": "9336",
@@ -1003,7 +1003,7 @@
       },
       {
         "id": "9352",
-        "nom": "ÇANAKKALE"
+        "nom": "ÇANAKKALE (Merkez)"
       },
       {
         "id": "17882",
@@ -1041,7 +1041,7 @@
       },
       {
         "id": "9359",
-        "nom": "ÇANKIRI"
+        "nom": "ÇANKIRI (Merkez)"
       },
       {
         "id": "9360",
@@ -1091,7 +1091,7 @@
       },
       {
         "id": "9370",
-        "nom": "ÇORUM"
+        "nom": "ÇORUM (Merkez)"
       },
       {
         "id": "9371",
@@ -1185,7 +1185,7 @@
       },
       {
         "id": "9392",
-        "nom": "DENİZLİ"
+        "nom": "DENİZLİ (Merkez)"
       },
       {
         "id": "9381",
@@ -1239,7 +1239,7 @@
       },
       {
         "id": "9402",
-        "nom": "DİYARBAKIR"
+        "nom": "DİYARBAKIR (Merkez)"
       },
       {
         "id": "9403",
@@ -1293,7 +1293,7 @@
       },
       {
         "id": "9414",
-        "nom": "DÜZCE"
+        "nom": "DÜZCE (Merkez)"
       },
       {
         "id": "9415",
@@ -1319,7 +1319,7 @@
     "districts": [
       {
         "id": "9419",
-        "nom": "EDİRNE"
+        "nom": "EDİRNE (Merkez)"
       },
       {
         "id": "9420",
@@ -1377,7 +1377,7 @@
       },
       {
         "id": "9432",
-        "nom": "ELAZIĞ"
+        "nom": "ELAZIĞ (Merkez)"
       },
       {
         "id": "9433",
@@ -1415,7 +1415,7 @@
       },
       {
         "id": "9440",
-        "nom": "ERZİNCAN"
+        "nom": "ERZİNCAN (Merkez)"
       },
       {
         "id": "9441",
@@ -1465,7 +1465,7 @@
       },
       {
         "id": "9451",
-        "nom": "ERZURUM"
+        "nom": "ERZURUM (Merkez)"
       },
       {
         "id": "9452",
@@ -1547,7 +1547,7 @@
       },
       {
         "id": "9470",
-        "nom": "ESKİŞEHİR"
+        "nom": "ESKİŞEHİR (Merkez)"
       },
       {
         "id": "9471",
@@ -1597,7 +1597,7 @@
       },
       {
         "id": "9479",
-        "nom": "GAZİANTEP"
+        "nom": "GAZİANTEP (Merkez)"
       },
       {
         "id": "9480",
@@ -1663,7 +1663,7 @@
       },
       {
         "id": "9494",
-        "nom": "GİRESUN"
+        "nom": "GİRESUN (Merkez)"
       },
       {
         "id": "9495",
@@ -1701,7 +1701,7 @@
     "districts": [
       {
         "id": "9501",
-        "nom": "GÜMÜŞHANE"
+        "nom": "GÜMÜŞHANE (Merkez)"
       },
       {
         "id": "16746",
@@ -1739,7 +1739,7 @@
       },
       {
         "id": "9507",
-        "nom": "HAKKARİ"
+        "nom": "HAKKARİ (Merkez)"
       },
       {
         "id": "9508",
@@ -1781,7 +1781,7 @@
       },
       {
         "id": "20089",
-        "nom": "HATAY"
+        "nom": "HATAY (Merkez)"
       },
       {
         "id": "9516",
@@ -1823,7 +1823,7 @@
       },
       {
         "id": "9522",
-        "nom": "IĞDIR"
+        "nom": "IĞDIR (Merkez)"
       },
       {
         "id": "9523",
@@ -1861,7 +1861,7 @@
       },
       {
         "id": "9528",
-        "nom": "ISPARTA"
+        "nom": "ISPARTA (Merkez)"
       },
       {
         "id": "9529",
@@ -1931,7 +1931,7 @@
       },
       {
         "id": "9541",
-        "nom": "İSTANBUL"
+        "nom": "İSTANBUL (Merkez)"
       },
       {
         "id": "9542",
@@ -2013,7 +2013,7 @@
       },
       {
         "id": "9560",
-        "nom": "İZMİR"
+        "nom": "İZMİR (Merkez)"
       },
       {
         "id": "9561",
@@ -2095,7 +2095,7 @@
       },
       {
         "id": "9577",
-        "nom": "KAHRAMANMARAŞ"
+        "nom": "KAHRAMANMARAŞ (Merkez)"
       },
       {
         "id": "9578",
@@ -2125,7 +2125,7 @@
       },
       {
         "id": "9581",
-        "nom": "KARABÜK"
+        "nom": "KARABÜK (Merkez)"
       },
       {
         "id": "9582",
@@ -2155,7 +2155,7 @@
       },
       {
         "id": "9587",
-        "nom": "KARAMAN"
+        "nom": "KARAMAN (Merkez)"
       },
       {
         "id": "9588",
@@ -2189,7 +2189,7 @@
       },
       {
         "id": "9594",
-        "nom": "KARS"
+        "nom": "KARS (Merkez)"
       },
       {
         "id": "9595",
@@ -2263,7 +2263,7 @@
       },
       {
         "id": "9609",
-        "nom": "KASTAMONU"
+        "nom": "KASTAMONU (Merkez)"
       },
       {
         "id": "9610",
@@ -2317,7 +2317,7 @@
       },
       {
         "id": "9620",
-        "nom": "KAYSERİ"
+        "nom": "KAYSERİ (Merkez)"
       },
       {
         "id": "9621",
@@ -2359,7 +2359,7 @@
       },
       {
         "id": "9629",
-        "nom": "KİLİS"
+        "nom": "KİLİS (Merkez)"
       },
       {
         "id": "9630",
@@ -2397,7 +2397,7 @@
       },
       {
         "id": "9635",
-        "nom": "KIRIKKALE"
+        "nom": "KIRIKKALE (Merkez)"
       },
       {
         "id": "9636",
@@ -2419,7 +2419,7 @@
       },
       {
         "id": "9638",
-        "nom": "KIRKLARELİ"
+        "nom": "KIRKLARELİ (Merkez)"
       },
       {
         "id": "9639",
@@ -2461,7 +2461,7 @@
       },
       {
         "id": "9646",
-        "nom": "KIRŞEHİR"
+        "nom": "KIRŞEHİR (Merkez)"
       },
       {
         "id": "9647",
@@ -2503,7 +2503,7 @@
       },
       {
         "id": "9654",
-        "nom": "KOCAELİ"
+        "nom": "KOCAELİ (Merkez)"
       },
       {
         "id": "9655",
@@ -2605,7 +2605,7 @@
       },
       {
         "id": "9676",
-        "nom": "KONYA"
+        "nom": "KONYA (Merkez)"
       },
       {
         "id": "9677",
@@ -2683,7 +2683,7 @@
       },
       {
         "id": "9689",
-        "nom": "KÜTAHYA"
+        "nom": "KÜTAHYA (Merkez)"
       },
       {
         "id": "9690",
@@ -2745,7 +2745,7 @@
       },
       {
         "id": "9703",
-        "nom": "MALATYA"
+        "nom": "MALATYA (Merkez)"
       },
       {
         "id": "9704",
@@ -2803,7 +2803,7 @@
       },
       {
         "id": "9716",
-        "nom": "MANİSA"
+        "nom": "MANİSA (Merkez)"
       },
       {
         "id": "9717",
@@ -2849,7 +2849,7 @@
       },
       {
         "id": "9726",
-        "nom": "MARDİN"
+        "nom": "MARDİN (Merkez)"
       },
       {
         "id": "9727",
@@ -2903,7 +2903,7 @@
       },
       {
         "id": "9737",
-        "nom": "MERSİN"
+        "nom": "MERSİN (Merkez)"
       },
       {
         "id": "9738",
@@ -2953,7 +2953,7 @@
       },
       {
         "id": "9747",
-        "nom": "MUĞLA"
+        "nom": "MUĞLA (Merkez)"
       },
       {
         "id": "9748",
@@ -2995,7 +2995,7 @@
       },
       {
         "id": "9755",
-        "nom": "MUŞ"
+        "nom": "MUŞ (Merkez)"
       },
       {
         "id": "9756",
@@ -3025,7 +3025,7 @@
       },
       {
         "id": "9760",
-        "nom": "NEVŞEHİR"
+        "nom": "NEVŞEHİR (Merkez)"
       },
       {
         "id": "9761",
@@ -3055,7 +3055,7 @@
       },
       {
         "id": "9766",
-        "nom": "NİĞDE"
+        "nom": "NİĞDE (Merkez)"
       },
       {
         "id": "9767",
@@ -3125,7 +3125,7 @@
       },
       {
         "id": "9782",
-        "nom": "ORDU"
+        "nom": "ORDU (Merkez)"
       },
       {
         "id": "9783",
@@ -3155,7 +3155,7 @@
       },
       {
         "id": "9788",
-        "nom": "OSMANİYE"
+        "nom": "OSMANİYE (Merkez)"
       },
       {
         "id": "9789",
@@ -3205,7 +3205,7 @@
       },
       {
         "id": "9799",
-        "nom": "RİZE"
+        "nom": "RİZE (Merkez)"
       }
     ]
   },
@@ -3243,7 +3243,7 @@
       },
       {
         "id": "9807",
-        "nom": "SAKARYA"
+        "nom": "SAKARYA (Merkez)"
       },
       {
         "id": "9808",
@@ -3301,7 +3301,7 @@
       },
       {
         "id": "9819",
-        "nom": "SAMSUN"
+        "nom": "SAMSUN (Merkez)"
       },
       {
         "id": "9820",
@@ -3355,7 +3355,7 @@
       },
       {
         "id": "9831",
-        "nom": "ŞANLIURFA"
+        "nom": "ŞANLIURFA (Merkez)"
       },
       {
         "id": "9832",
@@ -3393,7 +3393,7 @@
       },
       {
         "id": "9839",
-        "nom": "SİİRT"
+        "nom": "SİİRT (Merkez)"
       },
       {
         "id": "17888",
@@ -3435,7 +3435,7 @@
       },
       {
         "id": "9847",
-        "nom": "SİNOP"
+        "nom": "SİNOP (Merkez)"
       },
       {
         "id": "9848",
@@ -3469,7 +3469,7 @@
       },
       {
         "id": "9854",
-        "nom": "ŞIRNAK"
+        "nom": "ŞIRNAK (Merkez)"
       },
       {
         "id": "9855",
@@ -3531,7 +3531,7 @@
       },
       {
         "id": "9868",
-        "nom": "SİVAS"
+        "nom": "SİVAS (Merkez)"
       },
       {
         "id": "9869",
@@ -3593,7 +3593,7 @@
       },
       {
         "id": "9879",
-        "nom": "TEKİRDAĞ"
+        "nom": "TEKİRDAĞ (Merkez)"
       }
     ]
   },
@@ -3635,7 +3635,7 @@
       },
       {
         "id": "9887",
-        "nom": "TOKAT"
+        "nom": "TOKAT (Merkez)"
       },
       {
         "id": "9888",
@@ -3713,7 +3713,7 @@
       },
       {
         "id": "9905",
-        "nom": "TRABZON"
+        "nom": "TRABZON (Merkez)"
       },
       {
         "id": "9906",
@@ -3755,7 +3755,7 @@
       },
       {
         "id": "9914",
-        "nom": "TUNCELİ"
+        "nom": "TUNCELİ (Merkez)"
       }
     ]
   },
@@ -3785,7 +3785,7 @@
       },
       {
         "id": "9919",
-        "nom": "UŞAK"
+        "nom": "UŞAK (Merkez)"
       }
     ]
   },
@@ -3839,7 +3839,7 @@
       },
       {
         "id": "9930",
-        "nom": "VAN"
+        "nom": "VAN (Merkez)"
       }
     ]
   },
@@ -3865,7 +3865,7 @@
       },
       {
         "id": "9935",
-        "nom": "YALOVA"
+        "nom": "YALOVA (Merkez)"
       }
     ]
   },
@@ -3927,7 +3927,7 @@
       },
       {
         "id": "9949",
-        "nom": "YOZGAT"
+        "nom": "YOZGAT (Merkez)"
       }
     ]
   },
@@ -3957,7 +3957,7 @@
       },
       {
         "id": "9955",
-        "nom": "ZONGULDAK"
+        "nom": "ZONGULDAK (Merkez)"
       }
     ]
   }
