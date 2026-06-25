@@ -8,9 +8,13 @@
 [![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![Android](https://img.shields.io/badge/Android-API%2021+-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0-orange.svg)](pubspec.yaml)
+[![GitHub release](https://img.shields.io/github/v/release/Ismael-sang98/Muslim-App?color=orange&label=Version)](https://github.com/Ismael-sang98/Muslim-App/releases/latest)
 
 **[Türkçe](#türkçe) · [English](#english) · [Français](#français)**
+
+### Télécharger / Download / İndir
+
+[![Télécharger APK](https://img.shields.io/badge/Télécharger%20APK-Dernière%20version-2EA85D?style=for-the-badge&logo=android&logoColor=white)](https://github.com/Ismael-sang98/Muslim-App/releases/latest)
 
 </div>
 
@@ -27,6 +31,7 @@
 - **Resmi Diyanet Vakitleri** — Türkiye'nin tüm il ve ilçeleri için API üzerinden alınan veriler
 - **Akıllı Bildirimler** — Her namaz için 10, 20 veya 30 dakika önce hatırlatma + tam vakitte bildirim
 - **Şehir Seçimi** — Türkiye'nin tüm il ve ilçeleri mevcut
+- **Kıble Pusulası** — GPS konumundan Kabe yönünü gösteren canlı manyetik pusula
 - **Karanlık / Aydınlık Tema** — İslami gradyan ile uyarlanabilir tema
 - **Aylık Takvim** — Hicri tarih dahil aylık namaz vakitleri görünümü
 - **Çevrimdışı Önbellek** — İnternet bağlantısı olmadan erişim için veriler önbelleğe alınır
@@ -35,7 +40,7 @@
 ### Kurulum
 
 ```bash
-git clone https://github.com/ton-username/namaz_vakti.git
+git clone https://github.com/Ismael-sang98/Muslim-App.git
 cd namaz_vakti
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
@@ -54,6 +59,7 @@ lib/
 │   └── widgets/          # Paylaşılan widget'lar (GradientScaffold vb.)
 ├── features/
 │   ├── home/             # Ana ekran — sonraki namaz, geri sayım
+│   ├── qibla/            # Kıble pusulası — GPS + manyetometre
 │   ├── calendar/         # Aylık takvim
 │   ├── settings/         # Ayarlar — şehir, tema, bildirimler
 │   └── onboarding/       # İlk başlatma — şehir seçimi + izinler
@@ -85,6 +91,7 @@ lib/
 - **Official Diyanet Prayer Times** — Data fetched via API for all provinces and districts in Turkey
 - **Smart Notifications** — Configurable reminder 10, 20 or 30 minutes before each prayer + notification at the exact prayer time
 - **City Selection** — All provinces and districts in Turkey available
+- **Qibla Compass** — Live magnetic compass showing the direction of the Kaaba based on GPS location
 - **Dark / Light Theme** — Adaptive theme with Islamic gradient
 - **Monthly Calendar** — Full month prayer times view with Hijri date
 - **Offline Cache** — Data is cached for access without an internet connection
@@ -93,7 +100,7 @@ lib/
 ### Installation
 
 ```bash
-git clone https://github.com/ton-username/namaz_vakti.git
+git clone https://github.com/Ismael-sang98/Muslim-App.git
 cd namaz_vakti
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
@@ -112,6 +119,7 @@ lib/
 │   └── widgets/          # Shared widgets (GradientScaffold, etc.)
 ├── features/
 │   ├── home/             # Main screen — next prayer, countdown
+│   ├── qibla/            # Qibla compass — GPS + magnetometer
 │   ├── calendar/         # Monthly calendar
 │   ├── settings/         # Settings — city, theme, notifications
 │   └── onboarding/       # First launch — city selection + permissions
@@ -130,6 +138,8 @@ lib/
 | [Dio](https://pub.dev/packages/dio) | HTTP client |
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Scheduled notifications |
 | [timezone](https://pub.dev/packages/timezone) | Timezone handling (Europe/Istanbul) |
+| [geolocator](https://pub.dev/packages/geolocator) | GPS position for Qibla calculation |
+| [flutter_compass](https://pub.dev/packages/flutter_compass) | Magnetometer heading stream |
 | [Google Fonts](https://pub.dev/packages/google_fonts) | Typography (Poppins, Teko) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | UI animations |
 
@@ -180,6 +190,7 @@ flutter build apk --release
 - **Horaires officiels Diyanet** — données récupérées via API pour toutes les provinces et districts de Turquie
 - **Notifications intelligentes** — rappel configurable 10, 20 ou 30 minutes avant chaque prière + notification à l'heure exacte
 - **Sélection de la ville** — toutes les provinces et districts de Turquie disponibles
+- **Boussole Qibla** — boussole magnétique en temps réel indiquant la direction de la Kaaba depuis la position GPS
 - **Mode sombre / clair** — thème adaptatif avec gradient islamique
 - **Calendrier mensuel** — vue calendrier avec les horaires du mois complet et date hijri
 - **Cache hors-ligne** — les données sont mises en cache pour un accès sans connexion
@@ -188,7 +199,7 @@ flutter build apk --release
 ### Installation
 
 ```bash
-git clone https://github.com/ton-username/namaz_vakti.git
+git clone https://github.com/Ismael-sang98/Muslim-App.git
 cd namaz_vakti
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
@@ -207,6 +218,7 @@ lib/
 │   └── widgets/          # Widgets partagés (GradientScaffold, etc.)
 ├── features/
 │   ├── home/             # Écran principal — prochaine prière, countdown
+│   ├── qibla/            # Boussole Qibla — GPS + magnétomètre
 │   ├── calendar/         # Calendrier mensuel
 │   ├── settings/         # Paramètres — ville, thème, notifications
 │   └── onboarding/       # Premier lancement — sélection ville + permissions
@@ -225,6 +237,8 @@ lib/
 | [Dio](https://pub.dev/packages/dio) | Client HTTP |
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Notifications planifiées |
 | [timezone](https://pub.dev/packages/timezone) | Gestion du fuseau horaire (Europe/Istanbul) |
+| [geolocator](https://pub.dev/packages/geolocator) | Position GPS pour le calcul de la Qibla |
+| [flutter_compass](https://pub.dev/packages/flutter_compass) | Flux de cap magnétomètre |
 | [Google Fonts](https://pub.dev/packages/google_fonts) | Typographies (Poppins, Teko) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | Animations d'interface |
 
