@@ -7,6 +7,8 @@ class HiveService {
   static const String _settingsBoxName = 'settings';
   static const String _cacheBoxName = 'prayer_cache';
 
+  static const String _quranCacheBoxName = 'quran_cache';
+
   static Future<void> init() async {
     await Hive.initFlutter();
     // Registration order MUST match typeId order: 0, 1, 2
@@ -15,6 +17,7 @@ class HiveService {
     Hive.registerAdapter(PrayerCacheModelAdapter());
     await Hive.openBox<SettingsModel>(_settingsBoxName);
     await Hive.openBox<PrayerCacheModel>(_cacheBoxName);
+    await Hive.openBox<String>(_quranCacheBoxName);
   }
 
   static Box<SettingsModel> get settingsBox =>
@@ -46,4 +49,7 @@ class HiveService {
   static Future<void> clearCache() async {
     await cacheBox.clear();
   }
+
+  static Box<String> get quranCacheBox =>
+      Hive.box<String>(_quranCacheBoxName);
 }

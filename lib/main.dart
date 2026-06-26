@@ -11,6 +11,8 @@ import 'features/settings/settings_provider.dart';
 import 'features/home/home_screen.dart';
 import 'features/calendar/calendar_screen.dart';
 import 'features/settings/settings_screen.dart';
+import 'features/quran/quran_screen.dart';
+import 'features/quran/quran_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
@@ -55,41 +57,41 @@ class NamazVaktiApp extends ConsumerWidget {
   }
 }
 
-class MainShell extends StatefulWidget {
+class MainShell extends ConsumerWidget {
   const MainShell({super.key});
 
-  @override
-  State<MainShell> createState() => _MainShellState();
-}
-
-class _MainShellState extends State<MainShell> {
-  int _currentIndex = 0;
-
-  static const _screens = [HomeScreen(), CalendarScreen(), SettingsScreen()];
+  static const _screens = [
+    HomeScreen(),
+    CalendarScreen(),
+    QuranScreen(),
+    SettingsScreen(),
+  ];
 
   static const _icons = [
     Icons.home_rounded,
     Icons.calendar_month_rounded,
+    Icons.menu_book_rounded,
     Icons.settings_rounded,
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentIndex = ref.watch(activeTabProvider);
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBody: true,
       body: AnimatedSwitcher(
         duration: const Duration(milliseconds: 200),
         child: IndexedStack(
-          key: ValueKey(_currentIndex),
-          index: _currentIndex,
+          key: ValueKey(currentIndex),
+          index: currentIndex,
           children: _screens,
         ),
       ),
       bottomNavigationBar: _CustomBottomNav(
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         icons: _icons,
-        onTap: (i) => setState(() => _currentIndex = i),
+        onTap: (i) => ref.read(activeTabProvider.notifier).state = i,
       ),
     );
   }

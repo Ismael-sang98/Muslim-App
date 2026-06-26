@@ -1,7 +1,7 @@
 name: namaz_vakti
 description: "Application de prière islamique pour la Turquie — Horaires officiels Diyanet"
 publish_to: 'none'
-version: 1.2.0+1
+version: 2.0.0+1
 
 environment:
   sdk: ^3.12.2
@@ -55,3 +55,9 @@ flutter:
     - assets/lg.png
     - assets/villes_turquie.json
     - assets/animations/
+
+  fonts:
+    - family: ScheherazadeNew
+      fonts:
+        - asset: assets/fonts/ScheherazadeNew-Regular.ttf
+          weight: 400

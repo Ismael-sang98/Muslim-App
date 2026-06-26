@@ -38,6 +38,7 @@
 - **Aylık Takvim** — Hicri tarih dahil aylık namaz vakitleri görünümü
 - **Çevrimdışı Önbellek** — İnternet bağlantısı olmadan erişim için veriler önbelleğe alınır
 - **Veri Tazeliği Göstergesi** — Verilerin güncel, eski veya çevrimdışı olduğunu belirten rozet
+- **Kuran-ı Kerim** — Türkçe, İngilizce ve Fransızca meali ile ayet görüntüleme; Cüz navigasyonu; Favoriler; kaldığın yeri devam ettir; ayarlanabilir font boyutu
 
 ### Kurulum
 
@@ -61,6 +62,7 @@ lib/
 │   └── widgets/          # Paylaşılan widget'lar (GradientScaffold vb.)
 ├── features/
 │   ├── home/             # Ana ekran — sonraki namaz, geri sayım
+│   ├── quran/            # Kuran-ı Kerim — sureler, ayetler, favoriler
 │   ├── qibla/            # Kıble pusulası — GPS + manyetometre
 │   ├── calendar/         # Aylık takvim
 │   ├── settings/         # Ayarlar — şehir, tema, bildirimler
@@ -98,6 +100,7 @@ lib/
 - **Monthly Calendar** — Full month prayer times view with Hijri date
 - **Offline Cache** — Data is cached for access without an internet connection
 - **Freshness Indicator** — Badge indicating whether data is up-to-date, stale or offline
+- **Holy Quran** — Verse display with Turkish, English and French translations; Juz navigation; Favorites; resume reading; adjustable font size
 
 ### Installation
 
@@ -121,6 +124,7 @@ lib/
 │   └── widgets/          # Shared widgets (GradientScaffold, etc.)
 ├── features/
 │   ├── home/             # Main screen — next prayer, countdown
+│   ├── quran/            # Holy Quran — surahs, verses, favorites
 │   ├── qibla/            # Qibla compass — GPS + magnetometer
 │   ├── calendar/         # Monthly calendar
 │   ├── settings/         # Settings — city, theme, notifications
@@ -142,7 +146,8 @@ lib/
 | [timezone](https://pub.dev/packages/timezone) | Timezone handling (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | GPS position for Qibla calculation |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Magnetometer heading stream |
-| [Google Fonts](https://pub.dev/packages/google_fonts) | Typography (Poppins, Teko) |
+| [Google Fonts](https://pub.dev/packages/google_fonts) | Typography (Poppins) |
+| [Scheherazade New](https://software.sil.org/scheherazade/) | Arabic Quranic font (bundled) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | UI animations |
 
 ### Production Build (Android)
@@ -197,6 +202,7 @@ flutter build apk --release
 - **Calendrier mensuel** — vue calendrier avec les horaires du mois complet et date hijri
 - **Cache hors-ligne** — les données sont mises en cache pour un accès sans connexion
 - **Indicateur de fraîcheur** — badge indiquant si les données sont à jour, récentes ou hors-ligne
+- **Coran** — affichage des versets avec traductions turque, anglaise et française ; navigation par Juz ; favoris ; reprise de lecture ; taille de police réglable
 
 ### Installation
 
@@ -220,6 +226,7 @@ lib/
 │   └── widgets/          # Widgets partagés (GradientScaffold, etc.)
 ├── features/
 │   ├── home/             # Écran principal — prochaine prière, countdown
+│   ├── quran/            # Coran — sourates, versets, favoris
 │   ├── qibla/            # Boussole Qibla — GPS + magnétomètre
 │   ├── calendar/         # Calendrier mensuel
 │   ├── settings/         # Paramètres — ville, thème, notifications
@@ -241,7 +248,8 @@ lib/
 | [timezone](https://pub.dev/packages/timezone) | Gestion du fuseau horaire (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | Position GPS pour le calcul de la Qibla |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Flux de cap magnétomètre |
-| [Google Fonts](https://pub.dev/packages/google_fonts) | Typographies (Poppins, Teko) |
+| [Google Fonts](https://pub.dev/packages/google_fonts) | Typographies (Poppins) |
+| [Scheherazade New](https://software.sil.org/scheherazade/) | Police arabe coranique (bundlée) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | Animations d'interface |
 
 ### Build de production (Android)

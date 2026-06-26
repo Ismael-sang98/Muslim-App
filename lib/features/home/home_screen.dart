@@ -11,6 +11,7 @@ import '../../core/notifications/notification_service.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../core/services/update_service.dart';
 import '../qibla/qibla_screen.dart';
+import '../quran/quran_provider.dart';
 import '../settings/settings_provider.dart';
 import 'home_provider.dart';
 import 'widgets/next_prayer_card.dart';
@@ -111,9 +112,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           // ── Bannière permission alarme exacte (Android 12 uniquement) ──────
           if (exactAlarmGranted is AsyncData<bool> &&
               exactAlarmGranted.value == false)
-            _ExactAlarmBanner(onTap: () async {
-              await NotificationService.requestExactAlarmPermission();
-            }),
+            _ExactAlarmBanner(
+              onTap: () async {
+                await NotificationService.requestExactAlarmPermission();
+              },
+            ),
 
           // ── Dark green header ──────────────────────────────────────────────
           _HomeHeader(
@@ -178,6 +181,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
                       child: _QiblaButton(),
+                    ),
+
+                    // ── Daily verse card ───────────────────────────────────
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                      child: _DailyVerseCard(),
                     ),
 
                     // ── Dark green prayer panel ────────────────────────────
@@ -505,7 +514,11 @@ class _QiblaButton extends StatelessWidget {
                 color: AppTheme.primaryGreen.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.explore, color: AppTheme.primaryGreen, size: 20),
+              child: const Icon(
+                Icons.explore,
+                color: AppTheme.primaryGreen,
+                size: 20,
+              ),
             ),
             const SizedBox(width: 14),
             Column(
@@ -533,6 +546,130 @@ class _QiblaButton extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+// ── Daily verse card ──────────────────────────────────────────────────────────
+
+class _DailyVerseCard extends ConsumerWidget {
+  const _DailyVerseCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final verseAsync = ref.watch(dailyVerseProvider);
+
+    return verseAsync.when(
+      loading: () => const SizedBox.shrink(),
+      error: (_, _) => const SizedBox.shrink(),
+      data: (verse) {
+        if (verse == null) return const SizedBox.shrink();
+        final arabic = verse['text_uthmani'] as String? ?? '';
+        final translations = verse['translations'] as List? ?? [];
+        String trText = '';
+        for (final t in translations) {
+          final map = t as Map;
+          if (map['resource_id'] == 77) {
+            trText = (map['text'] as String? ?? '')
+                .replaceAll(RegExp(r'<[^>]*>'), '')
+                .trim();
+            break;
+          }
+        }
+        final verseKey = verse['verse_key'] as String? ?? '';
+
+        return GestureDetector(
+          onTap: () => ref.read(activeTabProvider.notifier).state = 2,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.07),
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                color: AppTheme.primaryGreen.withValues(alpha: 0.3),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Header
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.menu_book_rounded,
+                      color: AppTheme.primaryGreen,
+                      size: 16,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Günün Ayeti',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: AppTheme.lightGreen,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                    const Spacer(),
+                    if (verseKey.isNotEmpty)
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppTheme.primaryGreen.withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          verseKey,
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppTheme.lightGreen,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                // Arabic text
+                Text(
+                  arabic,
+                  textAlign: TextAlign.right,
+                  textDirection: TextDirection.rtl,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontFamily: 'ScheherazadeNew',
+                    fontSize: 23,
+                    color: Colors.white,
+                    height: 2,
+                  ),
+                ),
+                if (trText.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Container(
+                    height: 1,
+                    color: Colors.white.withValues(alpha: 0.08),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    trText,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      color: Colors.white60,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
