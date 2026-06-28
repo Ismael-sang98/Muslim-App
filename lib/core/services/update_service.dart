@@ -1,3 +1,5 @@
+import 'dart:developer' as dev;
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,19 +14,25 @@ class UpdateService {
     try {
       final info = await PackageInfo.fromPlatform();
       final current = info.version;
+      dev.log('UpdateService — version actuelle : $current', name: 'UpdateService');
 
       final res = await Dio().get(
         'https://api.github.com/repos/$_repoOwner/$_repoName/releases/latest',
         options: Options(
           headers: {'Accept': 'application/vnd.github+json'},
-          receiveTimeout: const Duration(seconds: 5),
-          sendTimeout: const Duration(seconds: 5),
+          receiveTimeout: const Duration(seconds: 8),
+          sendTimeout: const Duration(seconds: 8),
         ),
       );
 
       final tagName = res.data['tag_name'] as String? ?? '';
       final latest = tagName.replaceFirst(RegExp(r'^v'), '');
-      if (latest.isEmpty || !_isNewer(latest, current)) return;
+      dev.log('UpdateService — dernière version GitHub : $latest', name: 'UpdateService');
+
+      if (latest.isEmpty || !_isNewer(latest, current)) {
+        dev.log('UpdateService — pas de mise à jour (latest=$latest, current=$current)', name: 'UpdateService');
+        return;
+      }
 
       final assets = res.data['assets'] as List? ?? [];
       final apkAsset = assets.firstWhere(
@@ -76,7 +84,9 @@ class UpdateService {
           ],
         ),
       );
-    } catch (_) {}
+    } catch (e, st) {
+      dev.log('UpdateService — erreur : $e', name: 'UpdateService', error: e, stackTrace: st);
+    }
   }
 
   static bool _isNewer(String latest, String current) {
