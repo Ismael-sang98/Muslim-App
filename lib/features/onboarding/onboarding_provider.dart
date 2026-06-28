@@ -140,6 +140,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         );
 
     final granted = await NotificationService.requestPermission();
+    await NotificationService.requestBatteryOptimizationExemption();
     state = state.copyWith(notifPermissionGranted: granted);
   }
 }

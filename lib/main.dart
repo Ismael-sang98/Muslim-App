@@ -57,9 +57,14 @@ class NamazVaktiApp extends ConsumerWidget {
   }
 }
 
-class MainShell extends ConsumerWidget {
+class MainShell extends ConsumerStatefulWidget {
   const MainShell({super.key});
 
+  @override
+  ConsumerState<MainShell> createState() => _MainShellState();
+}
+
+class _MainShellState extends ConsumerState<MainShell> {
   static const _screens = [
     HomeScreen(),
     CalendarScreen(),
@@ -75,13 +80,18 @@ class MainShell extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final currentIndex = ref.watch(activeTabProvider);
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBody: true,
       body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, animation) => FadeTransition(
+          opacity: CurvedAnimation(parent: animation, curve: Curves.easeIn),
+          child: child,
+        ),
         child: IndexedStack(
           key: ValueKey(currentIndex),
           index: currentIndex,

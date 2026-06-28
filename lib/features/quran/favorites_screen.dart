@@ -180,8 +180,9 @@ class _FavoriteTile extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                fontFamily: 'ScheherazadeNew',
+                fontFamily: 'Lateef',
                 fontSize: 20,
+                fontWeight: FontWeight.w300,
                 color: Colors.white,
                 height: 1.8,
               ),

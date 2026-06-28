@@ -565,17 +565,8 @@ class _DailyVerseCard extends ConsumerWidget {
       data: (verse) {
         if (verse == null) return const SizedBox.shrink();
         final arabic = verse['text_uthmani'] as String? ?? '';
-        final translations = verse['translations'] as List? ?? [];
-        String trText = '';
-        for (final t in translations) {
-          final map = t as Map;
-          if (map['resource_id'] == 77) {
-            trText = (map['text'] as String? ?? '')
-                .replaceAll(RegExp(r'<[^>]*>'), '')
-                .trim();
-            break;
-          }
-        }
+        final lang = ref.watch(selectedQuranLanguageProvider);
+        final trText = translationText(verse, lang);
         final verseKey = verse['verse_key'] as String? ?? '';
 
         return GestureDetector(
@@ -604,7 +595,7 @@ class _DailyVerseCard extends ConsumerWidget {
                     Text(
                       'Günün Ayeti',
                       style: GoogleFonts.poppins(
-                        fontSize: 12,
+                        fontSize: 14,
                         color: AppTheme.lightGreen,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1,
@@ -624,7 +615,7 @@ class _DailyVerseCard extends ConsumerWidget {
                         child: Text(
                           verseKey,
                           style: GoogleFonts.poppins(
-                            fontSize: 12,
+                            fontSize: 14,
                             color: AppTheme.lightGreen,
                             fontWeight: FontWeight.w600,
                           ),
@@ -634,17 +625,25 @@ class _DailyVerseCard extends ConsumerWidget {
                 ),
                 const SizedBox(height: 10),
                 // Arabic text
-                Text(
-                  arabic,
+                RichText(
                   textAlign: TextAlign.right,
                   textDirection: TextDirection.rtl,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  strutStyle: const StrutStyle(
                     fontFamily: 'ScheherazadeNew',
                     fontSize: 23,
-                    color: Colors.white,
                     height: 2,
+                    forceStrutHeight: true,
+                  ),
+                  text: TextSpan(
+                    text: arabic,
+                    style: const TextStyle(
+                      fontFamily: 'ScheherazadeNew',
+                      fontSize: 23,
+                      color: Colors.white,
+                      height: 2,
+                    ),
                   ),
                 ),
                 if (trText.isNotEmpty) ...[

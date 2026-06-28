@@ -57,6 +57,10 @@ flutter:
     - assets/animations/
 
   fonts:
+    - family: Lateef
+      fonts:
+        - asset: assets/fonts/Lateef-Light.ttf
+          weight: 300
     - family: ScheherazadeNew
       fonts:
         - asset: assets/fonts/ScheherazadeNew-Regular.ttf

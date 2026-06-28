@@ -11,18 +11,23 @@
 -dontwarn com.google.android.play.core.tasks.OnSuccessListener
 -dontwarn com.google.android.play.core.tasks.Task
 
-# flutter_local_notifications — keep receivers and models
+# flutter_local_notifications — keep all classes, members and BroadcastReceivers
 -keep class com.dexterous.flutterlocalnotifications.** { *; }
-
-# Hive — keep generated TypeAdapters
--keep class * extends com.google.gson.TypeAdapter
--keep class * implements com.google.gson.TypeAdapterFactory
--keepclassmembers class * {
-    @com.google.gson.annotations.SerializedName <fields>;
+-keepclassmembers class com.dexterous.flutterlocalnotifications.** { *; }
+-keepclassmembers class * extends android.content.BroadcastReceiver {
+    public void onReceive(android.content.Context, android.intent.Intent);
 }
 
-# Timezone data
--keep class org.joda.time.** { *; }
+# Gson — used by flutter_local_notifications to persist pending notifications
+-keepattributes *Annotation*
+-keepattributes Signature
+-keepattributes Exceptions
+-keepattributes EnclosingMethod
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.** { *; }
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
 
 # Flutter engine (covered by flutter default rules, kept here as safety net)
 -keep class io.flutter.** { *; }

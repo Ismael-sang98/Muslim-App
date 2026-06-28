@@ -38,8 +38,16 @@ String translationText(Map<String, dynamic> verse, String lang) {
       : '';
 }
 
-String _stripHtml(String text) =>
-    text.replaceAll(RegExp(r'<[^>]*>'), '').trim();
+String _stripHtml(String text) => text
+    .replaceAll(RegExp(r'<[^>]*>'), '')
+    .replaceAll('&quot;', '"')
+    .replaceAll('&#39;', "'")
+    .replaceAll('&apos;', "'")
+    .replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&nbsp;', ' ')
+    .trim();
 
 // ── Providers ─────────────────────────────────────────────────────────────────
 
@@ -59,8 +67,7 @@ final chaptersProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async 
 final surahVersesProvider =
     FutureProvider.family<List<Map<String, dynamic>>, int>((ref, chapterId) async {
   final box = HiveService.quranCacheBox;
-  // v2 : invalide le cache précédent qui ne contenait pas la traduction anglaise
-  final key = 'surah_${chapterId}_v2';
+  final key = 'surah_${chapterId}_v3';
   final cached = box.get(key);
   if (cached != null) {
     return (jsonDecode(cached) as List)
@@ -202,3 +209,4 @@ class _FavoritesNotifier extends StateNotifier<List<Map<String, dynamic>>> {
 final favoritesProvider =
     StateNotifierProvider<_FavoritesNotifier, List<Map<String, dynamic>>>(
         (ref) => _FavoritesNotifier());
+

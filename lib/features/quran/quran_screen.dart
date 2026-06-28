@@ -21,9 +21,36 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
 
   // Surah de départ pour chaque Juz (index 0 = Juz 1)
   static const List<int> _juzStartSurah = [
-    1, 2, 2, 3, 4, 4, 5, 6, 7, 8,
-    9, 11, 12, 15, 17, 18, 21, 23, 25, 27,
-    29, 33, 36, 39, 41, 46, 51, 58, 67, 78,
+    1,
+    2,
+    2,
+    3,
+    4,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    15,
+    17,
+    18,
+    21,
+    23,
+    25,
+    27,
+    29,
+    33,
+    36,
+    39,
+    41,
+    46,
+    51,
+    58,
+    67,
+    78,
   ];
 
   @override
@@ -76,12 +103,14 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
                   color: Colors.white38,
                   fontSize: 13,
                 ),
-                prefixIcon:
-                    const Icon(Icons.search, color: Colors.white38),
+                prefixIcon: const Icon(Icons.search, color: Colors.white38),
                 suffixIcon: _query.isNotEmpty
                     ? IconButton(
-                        icon: const Icon(Icons.close,
-                            color: Colors.white38, size: 18),
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.white38,
+                          size: 18,
+                        ),
                         onPressed: () {
                           _searchController.clear();
                           setState(() => _query = '');
@@ -110,16 +139,15 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
             ),
 
           // Reprendre card (visible when not searching and lastRead exists)
-          if (!isSearching && lastRead != null)
-            _Reprendre(lastRead: lastRead),
+          if (!isSearching && lastRead != null) _Reprendre(lastRead: lastRead),
 
           // Content
           Expanded(
             child: isSearching
                 ? _SearchResults(query: _query.trim())
                 : _showJuz
-                    ? _JuzGrid(juzStartSurah: _juzStartSurah)
-                    : _ChapterList(),
+                ? _JuzGrid(juzStartSurah: _juzStartSurah)
+                : _ChapterList(),
           ),
         ],
       ),
@@ -179,8 +207,7 @@ class _ToggleChip extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
         decoration: BoxDecoration(
           color: selected ? AppTheme.primaryGreen : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
@@ -231,8 +258,7 @@ class _Reprendre extends ConsumerWidget {
           ),
           child: Container(
             margin: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
               color: AppTheme.primaryGreen.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(14),
@@ -242,8 +268,11 @@ class _Reprendre extends ConsumerWidget {
             ),
             child: Row(
               children: [
-                const Icon(Icons.play_circle_outline_rounded,
-                    color: AppTheme.lightGreen, size: 22),
+                const Icon(
+                  Icons.play_circle_outline_rounded,
+                  color: AppTheme.lightGreen,
+                  size: 22,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
@@ -268,8 +297,11 @@ class _Reprendre extends ConsumerWidget {
                     ],
                   ),
                 ),
-                const Icon(Icons.chevron_right,
-                    color: AppTheme.lightGreen, size: 20),
+                const Icon(
+                  Icons.chevron_right,
+                  color: AppTheme.lightGreen,
+                  size: 20,
+                ),
               ],
             ),
           ),
@@ -299,14 +331,10 @@ class _JuzGrid extends ConsumerWidget {
         onRetry: () => ref.invalidate(chaptersProvider),
       ),
       data: (chapters) {
-        final chapterMap = {
-          for (final c in chapters) c['id'] as int: c,
-        };
+        final chapterMap = {for (final c in chapters) c['id'] as int: c};
         return GridView.builder(
-          padding:
-              const EdgeInsets.fromLTRB(16, 4, 16, 120),
-          gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
+          padding: const EdgeInsets.fromLTRB(16, 4, 16, 120),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
@@ -317,18 +345,16 @@ class _JuzGrid extends ConsumerWidget {
             final juzNum = i + 1;
             final surahId = juzStartSurah[i];
             final chapter = chapterMap[surahId];
-            final surahName =
-                chapter?['name_simple'] as String? ?? '';
+            final surahName = chapter?['name_simple'] as String? ?? '';
 
             return GestureDetector(
               onTap: chapter != null
                   ? () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              SurahScreen(chapter: chapter),
-                        ),
-                      )
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => SurahScreen(chapter: chapter),
+                      ),
+                    )
                   : null,
               child: Container(
                 decoration: BoxDecoration(
@@ -345,8 +371,7 @@ class _JuzGrid extends ConsumerWidget {
                       width: 34,
                       height: 34,
                       decoration: BoxDecoration(
-                        color:
-                            AppTheme.primaryGreen.withValues(alpha: 0.25),
+                        color: AppTheme.primaryGreen.withValues(alpha: 0.25),
                         shape: BoxShape.circle,
                       ),
                       child: Center(
@@ -401,8 +426,7 @@ class _ChapterList extends ConsumerWidget {
         child: CircularProgressIndicator(color: AppTheme.primaryGreen),
       ),
       error: (e, _) => _ErrorView(
-        message:
-            'Bağlantı hatası.\nLütfen internet bağlantınızı kontrol edin.',
+        message: 'Bağlantı hatası.\nLütfen internet bağlantınızı kontrol edin.',
         onRetry: () => ref.invalidate(chaptersProvider),
       ),
       data: (chapters) => ListView.builder(
@@ -433,16 +457,13 @@ class _ChapterTile extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (_) => SurahScreen(chapter: chapter)),
+        MaterialPageRoute(builder: (_) => SurahScreen(chapter: chapter)),
       ),
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(
-                color: Colors.white.withValues(alpha: 0.06)),
+            bottom: BorderSide(color: Colors.white.withValues(alpha: 0.06)),
           ),
         ),
         child: Row(
@@ -498,9 +519,9 @@ class _ChapterTile extends StatelessWidget {
                 Text(
                   nameArabic,
                   style: const TextStyle(
-                    fontFamily: 'ScheherazadeNew',
-                    color: Colors.white70,
-                    fontSize: 16,
+                    fontFamily: 'Lateef',
+                    color: Colors.white,
+                    fontSize: 25,
                   ),
                 ),
                 Text(
@@ -531,8 +552,7 @@ class _SearchResults extends ConsumerWidget {
   ) {
     final lq = q.toLowerCase();
     return chapters.where((c) {
-      final nameSimple =
-          (c['name_simple'] as String? ?? '').toLowerCase();
+      final nameSimple = (c['name_simple'] as String? ?? '').toLowerCase();
       final nameArabic = c['name_arabic'] as String? ?? '';
       final translated =
           ((c['translated_name'] as Map?)?['name'] as String? ?? '')
@@ -549,8 +569,7 @@ class _SearchResults extends ConsumerWidget {
     final versesAsync = ref.watch(quranSearchProvider(query));
 
     // Detect direct verse navigation: "2:255"
-    final directMatch =
-        RegExp(r'^(\d+):(\d+)$').firstMatch(query.trim());
+    final directMatch = RegExp(r'^(\d+):(\d+)$').firstMatch(query.trim());
     Map<String, dynamic>? directChapter;
     int directVerseNumber = 1;
     if (directMatch != null) {
@@ -585,10 +604,7 @@ class _SearchResults extends ConsumerWidget {
       return Center(
         child: Text(
           '"$query" için sonuç bulunamadı.',
-          style: GoogleFonts.poppins(
-            color: Colors.white38,
-            fontSize: 14,
-          ),
+          style: GoogleFonts.poppins(color: Colors.white38, fontSize: 14),
         ),
       );
     }
@@ -605,10 +621,8 @@ class _SearchResults extends ConsumerWidget {
 
         // Surah matches
         if (matchingSurahs.isNotEmpty) ...[
-          _SectionHeader(
-              label: 'Sureler', count: matchingSurahs.length),
-          ...matchingSurahs
-              .map((c) => _ChapterTile(chapter: c)),
+          _SectionHeader(label: 'Sureler', count: matchingSurahs.length),
+          ...matchingSurahs.map((c) => _ChapterTile(chapter: c)),
           const SizedBox(height: 8),
         ],
 
@@ -622,18 +636,15 @@ class _SearchResults extends ConsumerWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 24),
               child: Center(
-                child: CircularProgressIndicator(
-                    color: AppTheme.primaryGreen),
+                child: CircularProgressIndicator(color: AppTheme.primaryGreen),
               ),
             )
           else if (verses.isEmpty && matchingSurahs.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Text(
                 'Ayet sonucu bulunamadı.',
-                style: GoogleFonts.poppins(
-                    color: Colors.white38, fontSize: 13),
+                style: GoogleFonts.poppins(color: Colors.white38, fontSize: 13),
               ),
             )
           else
@@ -650,10 +661,7 @@ class _DirectVerseCard extends StatelessWidget {
   final Map<String, dynamic> chapter;
   final int verseNumber;
 
-  const _DirectVerseCard({
-    required this.chapter,
-    required this.verseNumber,
-  });
+  const _DirectVerseCard({required this.chapter, required this.verseNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -665,16 +673,13 @@ class _DirectVerseCard extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => SurahScreen(
-            chapter: chapter,
-            targetVerseNumber: safeVerse,
-          ),
+          builder: (_) =>
+              SurahScreen(chapter: chapter, targetVerseNumber: safeVerse),
         ),
       ),
       child: Container(
         margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        padding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: AppTheme.accentOrange.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(14),
@@ -684,8 +689,11 @@ class _DirectVerseCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Icon(Icons.my_location_rounded,
-                color: AppTheme.accentOrange, size: 22),
+            const Icon(
+              Icons.my_location_rounded,
+              color: AppTheme.accentOrange,
+              size: 22,
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -710,8 +718,11 @@ class _DirectVerseCard extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right,
-                color: AppTheme.accentOrange, size: 20),
+            const Icon(
+              Icons.chevron_right,
+              color: AppTheme.accentOrange,
+              size: 20,
+            ),
           ],
         ),
       ),
@@ -744,11 +755,9 @@ class _SectionHeader extends StatelessWidget {
           if (count != null) ...[
             const SizedBox(width: 6),
             Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 6, vertical: 1),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
               decoration: BoxDecoration(
-                color:
-                    AppTheme.primaryGreen.withValues(alpha: 0.2),
+                color: AppTheme.primaryGreen.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
@@ -777,23 +786,19 @@ class _SearchResultTile extends ConsumerWidget {
     final text = translationText(result, lang);
 
     return Container(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(
-              color: Colors.white.withValues(alpha: 0.06)),
+          bottom: BorderSide(color: Colors.white.withValues(alpha: 0.06)),
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 8, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
             decoration: BoxDecoration(
-              color:
-                  AppTheme.primaryGreen.withValues(alpha: 0.2),
+              color: AppTheme.primaryGreen.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
@@ -862,8 +867,7 @@ class _ErrorView extends StatelessWidget {
                 ),
                 child: Text(
                   'Tekrar dene',
-                  style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
                 ),
               ),
             ],

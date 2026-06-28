@@ -1,4 +1,6 @@
+import 'dart:developer' as developer;
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import '../hive/models/horaires_jour_model.dart';
@@ -14,6 +16,8 @@ class NotificationService {
   static const String _persistentChannelName = 'Sonraki Namaz';
   static const int _persistentId = 999999;
 
+  static const _batteryChannel = MethodChannel('namaz_vakti/battery');
+
   static Future<void> init() async {
     const androidSettings = AndroidInitializationSettings(
       '@mipmap/ic_launcher',
@@ -26,6 +30,31 @@ class NotificationService {
     await _plugin.initialize(
       const InitializationSettings(android: androidSettings, iOS: iosSettings),
     );
+
+    // Crée les canaux Android explicitement dès le démarrage
+    // → visibles dans Paramètres > Notifications dès le premier lancement
+    if (Platform.isAndroid) {
+      final impl = _plugin.resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>();
+      await impl?.createNotificationChannel(
+        const AndroidNotificationChannel(
+          _channelId,
+          _channelName,
+          importance: Importance.high,
+          playSound: true,
+          enableVibration: true,
+        ),
+      );
+      await impl?.createNotificationChannel(
+        const AndroidNotificationChannel(
+          _persistentChannelId,
+          _persistentChannelName,
+          importance: Importance.low,
+          playSound: false,
+          enableVibration: false,
+        ),
+      );
+    }
   }
 
   static Future<bool> requestPermission() async {
@@ -51,6 +80,31 @@ class NotificationService {
     return false;
   }
 
+  static Future<bool> isIgnoringBatteryOptimizations() async {
+    if (!Platform.isAndroid) return true;
+    try {
+      return await _batteryChannel.invokeMethod<bool>(
+            'isIgnoringBatteryOptimizations',
+          ) ??
+          false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static Future<void> requestBatteryOptimizationExemption() async {
+    if (!Platform.isAndroid) return;
+    try {
+      await _batteryChannel.invokeMethod('requestIgnoreBatteryOptimizations');
+    } catch (e) {
+      developer.log(
+        'Battery optimization request failed',
+        error: e,
+        name: 'NotificationService',
+      );
+    }
+  }
+
   static Future<void> scheduleMonthlyPrayers({
     required List<HorairesJourModel> horaires,
     required Map<String, bool> notificationsActives,
@@ -66,6 +120,9 @@ class NotificationService {
     final scheduleMode = canExact
         ? AndroidScheduleMode.exactAllowWhileIdle
         : AndroidScheduleMode.inexactAllowWhileIdle;
+
+    int scheduled = 0;
+    int failed = 0;
 
     for (final jour in horaires) {
       final dateParts = jour.date.split('-');
@@ -134,7 +191,15 @@ class NotificationService {
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime,
             );
-          } catch (_) {}
+            scheduled++;
+          } catch (e) {
+            failed++;
+            developer.log(
+              'Reminder failed: $prayerKey ${jour.date}',
+              error: e,
+              name: 'NotificationService',
+            );
+          }
         }
 
         // At-time notification (exact prayer time)
@@ -150,10 +215,23 @@ class NotificationService {
               uiLocalNotificationDateInterpretation:
                   UILocalNotificationDateInterpretation.absoluteTime,
             );
-          } catch (_) {}
+            scheduled++;
+          } catch (e) {
+            failed++;
+            developer.log(
+              'At-time failed: $prayerKey ${jour.date}',
+              error: e,
+              name: 'NotificationService',
+            );
+          }
         }
       }
     }
+
+    developer.log(
+      'Scheduling done — ok: $scheduled, errors: $failed, exactAlarms: $canExact',
+      name: 'NotificationService',
+    );
 
     // Re-show persistent notification after cancelAll()
     await updatePersistentNotification(horaires);

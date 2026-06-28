@@ -122,20 +122,20 @@ class _SurahScreenState extends ConsumerState<SurahScreen>
           onPressed: () => Navigator.pop(context),
         ),
         title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               widget.chapter['name_arabic'] as String? ?? '',
               style: const TextStyle(
-                fontFamily: 'ScheherazadeNew',
+                fontFamily: 'Lateef',
                 color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
+                fontSize: 24,
+                fontWeight: FontWeight.w300,
               ),
             ),
             Text(
               widget.chapter['name_simple'] as String? ?? '',
-              style: GoogleFonts.poppins(color: Colors.white60, fontSize: 10),
+              style: GoogleFonts.poppins(color: Colors.white60, fontSize: 15),
             ),
           ],
         ),
@@ -242,7 +242,6 @@ class _SurahScreenState extends ConsumerState<SurahScreen>
               );
             },
           ),
-          // Floating font size buttons
           Positioned(
             right: 16,
             bottom: 40,
@@ -315,15 +314,23 @@ class _BismillahHeader extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppTheme.primaryGreen.withValues(alpha: 0.3)),
       ),
-      child: Text(
-        'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ',
+      child: RichText(
         textAlign: TextAlign.center,
         textDirection: TextDirection.rtl,
-        style: TextStyle(
+        strutStyle: StrutStyle(
           fontFamily: 'ScheherazadeNew',
           fontSize: fontSize + 2,
-          color: AppTheme.lightGreen,
           height: 2.0,
+          forceStrutHeight: true,
+        ),
+        text: TextSpan(
+          text: 'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ',
+          style: TextStyle(
+            fontFamily: 'ScheherazadeNew',
+            fontSize: fontSize + 2,
+            color: AppTheme.lightGreen,
+            height: 2.0,
+          ),
         ),
       ),
     );
@@ -654,15 +661,23 @@ class _VerseItem extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 12),
-            Text(
-              arabic,
+            RichText(
               textAlign: TextAlign.right,
               textDirection: TextDirection.rtl,
-              style: TextStyle(
+              strutStyle: StrutStyle(
                 fontFamily: 'ScheherazadeNew',
                 fontSize: fontSize,
-                color: Colors.white,
                 height: 2.0,
+                forceStrutHeight: true,
+              ),
+              text: TextSpan(
+                text: arabic,
+                style: TextStyle(
+                  fontFamily: 'ScheherazadeNew',
+                  fontSize: fontSize,
+                  color: Colors.white,
+                  height: 2.0,
+                ),
               ),
             ),
             if (translation.isNotEmpty) ...[
