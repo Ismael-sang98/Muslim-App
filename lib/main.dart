@@ -18,14 +18,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 1. Timezone — synchronous, before NotificationService.init()
+  // 1. Timezone
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.getLocation('Europe/Istanbul'));
 
-  // 2. Hive — register adapters and open boxes
+  // 2. Hive
   await HiveService.init();
 
-  // 3. Notifications plugin
+  // 3. Notifications
   await NotificationService.init();
 
   runApp(const ProviderScope(child: NamazVaktiApp()));

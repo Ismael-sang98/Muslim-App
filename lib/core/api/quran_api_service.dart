@@ -63,6 +63,48 @@ class QuranApiService {
     }
   }
 
+  Future<String?> fetchSurahAudioUrl(int chapterId, {int recitationId = 7}) async {
+    try {
+      final response = await _dio.get(
+        '/chapter_recitations/$recitationId',
+        queryParameters: {'chapter_number': chapterId},
+      );
+      final files = response.data['audio_files'] as List? ?? [];
+      if (files.isEmpty) return null;
+      return files.first['audio_url'] as String?;
+    } on DioException catch (e) {
+      _handleDioError(e);
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> fetchReciters() async {
+    try {
+      final response = await _dio.get('/resources/recitations');
+      return (response.data['recitations'] as List? ?? [])
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+    } on DioException catch (e) {
+      _handleDioError(e);
+    }
+  }
+
+  Future<Map<String, String>> fetchChapterAudio(int chapterId, {int recitationId = 7}) async {
+    try {
+      const cdnBase = 'https://verses.quran.com/';
+      final response = await _dio.get(
+        '/recitations/$recitationId/by_chapter/$chapterId',
+        queryParameters: {'per_page': 300},
+      );
+      final files = response.data['audio_files'] as List? ?? [];
+      return {
+        for (final f in files)
+          f['verse_key'] as String: '$cdnBase${f['url'] as String}',
+      };
+    } on DioException catch (e) {
+      _handleDioError(e);
+    }
+  }
+
   Future<List<Map<String, dynamic>>> search(String query, int translationId) async {
     try {
       final response = await _dio.get(

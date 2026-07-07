@@ -18,236 +18,101 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
+    final cityName = settings.villeProvinceNom?.isNotEmpty == true
+        ? settings.villeProvinceNom!
+        : settings.villeNom;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
-          _SettingsHeader(),
+          _SettingsHeader(cityName: cityName),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 20, 16, 100),
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 100),
               children: [
-                // ── GÖRÜNÜM ─────────────────────────────────────────────────
-                _SectionLabel('GÖRÜNÜM'),
-                _WhiteCard(
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _IconCircle(
-                                icon: Icons.wb_sunny_outlined,
-                                color: AppTheme.accentOrange,
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Uygulama teması',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color:
-                                            Theme.of(
-                                              context,
-                                            ).textTheme.bodyLarge?.color ??
-                                            AppTheme.textDark,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Görüntüleme modunuzu seçin',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w300,
-                                        color: const Color.fromARGB(
-                                          255,
-                                          38,
-                                          129,
-                                          74,
-                                        ).withValues(alpha: 0.55),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                // ── GÖRÜNÜM ──────────────────────────────────────────────────
+                _SettingsGroup(
+                  label: 'GÖRÜNÜM',
+                  icon: Icons.palette_outlined,
+                  color: AppTheme.accentOrange,
+                  delay: 0,
+                  child: _ThemeRow(
+                    current: settings.themeMode,
+                    onSelect: (v) =>
+                        ref.read(settingsProvider.notifier).updateTheme(v),
+                  ),
+                ),
 
-                          const SizedBox(height: 12),
-                          _ThemeSelector(
-                            current: settings.themeMode,
-                            onSelect: (v) => ref
-                                .read(settingsProvider.notifier)
-                                .updateTheme(v),
-                          ),
-                        ],
-                      ),
-                    )
-                    .animate(delay: 0.ms)
-                    .fadeIn(duration: 300.ms)
-                    .slideY(begin: 0.15),
+                const SizedBox(height: 14),
 
-                // ── KONUM ───────────────────────────────────────────────────
-                _SectionLabel('KONUM'),
-                _WhiteCard(child: _LocationSection(settings: settings))
-                    .animate(delay: 100.ms)
-                    .fadeIn(duration: 300.ms)
-                    .slideY(begin: 0.15),
+                // ── KONUM ────────────────────────────────────────────────────
+                _SettingsGroup(
+                  label: 'KONUM',
+                  icon: Icons.location_on_outlined,
+                  color: AppTheme.primaryGreen,
+                  delay: 80,
+                  child: _LocationSection(settings: settings),
+                ),
+
+                const SizedBox(height: 14),
 
                 // ── HATIRLATMA ───────────────────────────────────────────────
-                _SectionLabel('HATIRLATMA'),
-                _WhiteCard(
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _IconCircle(
-                                icon: Icons.notifications_active_outlined,
-                                color: const Color(0xFF0077FF),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Bildirim süresi',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        color:
-                                            Theme.of(
-                                              context,
-                                            ).textTheme.bodyLarge?.color ??
-                                            AppTheme.textDark,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Her namazdan önce',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w300,
-                                        color:
-                                            Theme.of(context).brightness ==
-                                                Brightness.dark
-                                            ? Colors.white.withValues(
-                                                alpha: 0.5,
-                                              )
-                                            : AppTheme.darkGreen.withValues(
-                                                alpha: 0.55,
-                                              ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Text(
-                                '${settings.minutesAvantRappel} dakika',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color:
-                                      Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white.withValues(alpha: 0.85)
-                                      : AppTheme.darkGreen,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          _ReminderSelector(
-                            current: settings.minutesAvantRappel,
-                            onSelect: (minutes) async {
-                              ref
-                                  .read(settingsProvider.notifier)
-                                  .updateReminderMinutes(minutes);
-                              final updated = ref.read(settingsProvider);
-                              final villeId = updated.villeId;
-                              final ps = ref.read(prayerDataProvider(villeId));
-                              if (ps is PrayerDataLoaded) {
-                                await NotificationService.scheduleMonthlyPrayers(
-                                  horaires: ps.horaires,
-                                  notificationsActives:
-                                      updated.notificationsActives,
-                                  minutesAvantRappel:
-                                      updated.minutesAvantRappel,
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                    .animate(delay: 200.ms)
-                    .fadeIn(duration: 300.ms)
-                    .slideY(begin: 0.15),
+                _SettingsGroup(
+                  label: 'HATIRLATMA',
+                  icon: Icons.notifications_outlined,
+                  color: const Color(0xFF0077FF),
+                  delay: 160,
+                  child: _ReminderRow(
+                    current: settings.minutesAvantRappel,
+                    onSelect: (minutes) async {
+                      ref
+                          .read(settingsProvider.notifier)
+                          .updateReminderMinutes(minutes);
+                      final updated = ref.read(settingsProvider);
+                      final ps =
+                          ref.read(prayerDataProvider(updated.villeId));
+                      if (ps is PrayerDataLoaded) {
+                        await NotificationService.scheduleMonthlyPrayers(
+                          horaires: ps.horaires,
+                          notificationsActives: updated.notificationsActives,
+                          minutesAvantRappel: updated.minutesAvantRappel,
+                        );
+                      }
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 14),
 
                 // ── BİLDİRİMLER ──────────────────────────────────────────────
-                _SectionLabel('BİLDİRİMLER'),
-                _WhiteCard(
-                      child: Column(
-                        children: [
-                          ...HorairesJourModel.prayerKeys.map(
-                            (key) => NotificationToggleTile(
-                              prayerKey: key,
-                              todayTime: _getTodayTime(ref, key),
-                            ),
+                _SettingsGroup(
+                  label: 'BİLDİRİMLER',
+                  icon: Icons.access_alarm_outlined,
+                  color: const Color(0xFF9C27B0),
+                  delay: 240,
+                  child: Column(
+                    children: HorairesJourModel.prayerKeys
+                        .map(
+                          (key) => NotificationToggleTile(
+                            prayerKey: key,
+                            todayTime: _getTodayTime(ref, key),
                           ),
-                        ],
-                      ),
-                    )
-                    .animate(delay: 300.ms)
-                    .fadeIn(duration: 300.ms)
-                    .slideY(begin: 0.15),
+                        )
+                        .toList(),
+                  ),
+                ),
+
+                const SizedBox(height: 14),
 
                 // ── HAKKINDA ─────────────────────────────────────────────────
-                _SectionLabel('HAKKINDA'),
-                _WhiteCard(
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const AboutScreen(),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 14,
-                          ),
-                          child: Row(
-                            children: [
-                              _IconCircle(
-                                icon: Icons.info_outline,
-                                color: AppTheme.primaryGreen,
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                'Uygulama hakkında',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const Spacer(),
-                              const Icon(
-                                Icons.chevron_right,
-                                color: Colors.grey,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                    .animate(delay: 400.ms)
-                    .fadeIn(duration: 300.ms)
-                    .slideY(begin: 0.15),
+                _SettingsGroup(
+                  label: 'HAKKINDA',
+                  icon: Icons.info_outline_rounded,
+                  color: AppTheme.lightGreen,
+                  delay: 320,
+                  child: const _AboutRow(),
+                ),
               ],
             ),
           ),
@@ -272,113 +137,159 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
-// ── Header ────────────────────────────────────────────────────────────────────
+// ── Header ─────────────────────────────────────────────────────────────────────
 
 class _SettingsHeader extends StatelessWidget {
+  final String cityName;
+  const _SettingsHeader({required this.cityName});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(gradient: AppTheme.mainGradient),
       padding: EdgeInsets.fromLTRB(
-        20,
-        MediaQuery.of(context).padding.top + 16,
-        20,
         24,
+        MediaQuery.of(context).padding.top + 20,
+        24,
+        28,
       ),
-      child: Text(
-        'Ayarlar',
-        style: GoogleFonts.poppins(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-        ),
-        textAlign: TextAlign.center,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Ayarlar',
+            style: GoogleFonts.poppins(
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              height: 1.1,
+            ),
+          ),
+          if (cityName.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Row(
+              children: [
+                const Icon(
+                  Icons.location_on_rounded,
+                  color: Colors.white70,
+                  size: 14,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  cityName,
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white.withValues(alpha: 0.75),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ],
       ),
     );
   }
 }
 
-// ── Section label ─────────────────────────────────────────────────────────────
+// ── Settings group card ────────────────────────────────────────────────────────
 
-class _SectionLabel extends StatelessWidget {
+class _SettingsGroup extends StatelessWidget {
   final String label;
-  const _SectionLabel(this.label);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8, left: 2),
-      child: Text(
-        label,
-        style: GoogleFonts.poppins(
-          fontSize: 12,
-          fontWeight: FontWeight.w300,
-          color: Theme.of(context).brightness == Brightness.dark
-              ? Colors.white.withValues(alpha: 0.5)
-              : AppTheme.darkGreen.withValues(alpha: 0.55),
-          letterSpacing: 0.8,
-        ),
-      ),
-    );
-  }
-}
-
-// ── White card ────────────────────────────────────────────────────────────────
-
-class _WhiteCard extends StatelessWidget {
-  final Widget child;
-  const _WhiteCard({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardTheme.color ?? Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: child,
-    );
-  }
-}
-
-// ── Icon circle ───────────────────────────────────────────────────────────────
-
-class _IconCircle extends StatelessWidget {
   final IconData icon;
   final Color color;
-  const _IconCircle({required this.icon, required this.color});
+  final int delay;
+  final Widget child;
+
+  const _SettingsGroup({
+    required this.label,
+    required this.icon,
+    required this.color,
+    required this.delay,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardColor = Theme.of(context).cardTheme.color ?? Colors.white;
+
     return Container(
-      width: 40,
-      height: 40,
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(10),
+        color: cardColor,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.06),
+                  blurRadius: 14,
+                  offset: const Offset(0, 4),
+                ),
+              ],
       ),
-      child: Icon(icon, color: color, size: 22),
-    );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
+            child: Row(
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(icon, color: color, size: 16),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  label,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                    letterSpacing: 1.1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Divider(
+            height: 1,
+            thickness: 1,
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.07)
+                : Colors.black.withValues(alpha: 0.06),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: child,
+          ),
+        ],
+      ),
+    ).animate(delay: delay.ms).fadeIn(duration: 300.ms).slideY(begin: 0.12);
   }
 }
 
-// ── Theme selector ────────────────────────────────────────────────────────────
+// ── Theme selector ─────────────────────────────────────────────────────────────
 
-class _ThemeSelector extends StatelessWidget {
+class _ThemeRow extends StatelessWidget {
   final String current;
   final void Function(String) onSelect;
 
-  const _ThemeSelector({required this.current, required this.onSelect});
+  const _ThemeRow({required this.current, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     const options = [
-      ('light', '☀ Açık'),
-      ('dark', '🌙 Koyu'),
-      ('system', '⚙ Sistem'),
+      ('light', Icons.wb_sunny_rounded, 'Açık'),
+      ('dark', Icons.nightlight_rounded, 'Koyu'),
+      ('system', Icons.phone_iphone_rounded, 'Sistem'),
     ];
 
     return Row(
@@ -389,38 +300,47 @@ class _ThemeSelector extends StatelessWidget {
             onTap: () => onSelect(opt.$1),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: 34,
-              margin: const EdgeInsets.symmetric(horizontal: 3),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
                 color: isSelected
-                    ? const Color.fromARGB(
-                        255,
-                        14,
-                        60,
-                        31,
-                      ).withValues(alpha: 0.25)
-                    : AppTheme.settingsBg.withValues(alpha: 0.4),
-                borderRadius: BorderRadius.circular(8),
+                    ? AppTheme.primaryGreen
+                        .withValues(alpha: isDark ? 0.20 : 0.13)
+                    : isDark
+                        ? Colors.white.withValues(alpha: 0.06)
+                        : const Color(0xFFF4F4F4),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: isSelected
-                      ? AppTheme.primaryGreen
-                      : const Color(0xFFD9D9D9),
+                  color: isSelected ? AppTheme.primaryGreen : Colors.transparent,
                   width: 1.5,
                 ),
               ),
-              child: Center(
-                child: Text(
-                  opt.$2,
-                  style: GoogleFonts.poppins(
-                    fontSize: 11,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w300,
+              child: Column(
+                children: [
+                  Icon(
+                    opt.$2,
+                    size: 22,
                     color: isSelected
-                        ? AppTheme.darkGreen
-                        : Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white.withValues(alpha: 0.5)
-                        : AppTheme.darkGreen.withValues(alpha: 0.5),
+                        ? AppTheme.primaryGreen
+                        : isDark
+                            ? Colors.white54
+                            : Colors.black38,
                   ),
-                ),
+                  const SizedBox(height: 6),
+                  Text(
+                    opt.$3,
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      fontWeight:
+                          isSelected ? FontWeight.w600 : FontWeight.w400,
+                      color: isSelected
+                          ? AppTheme.primaryGreen
+                          : isDark
+                              ? Colors.white54
+                              : Colors.black45,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -430,7 +350,7 @@ class _ThemeSelector extends StatelessWidget {
   }
 }
 
-// ── Location section ──────────────────────────────────────────────────────────
+// ── Location section ───────────────────────────────────────────────────────────
 
 class _LocationSection extends ConsumerStatefulWidget {
   final dynamic settings;
@@ -441,12 +361,12 @@ class _LocationSection extends ConsumerStatefulWidget {
 }
 
 class _LocationSectionState extends ConsumerState<_LocationSection> {
-  // Province sélectionnée en attente (le district n'est pas encore confirmé)
   Province? _pendingProvince;
 
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final provinceNom =
         _pendingProvince?.nom ??
         (settings.villeProvinceNom?.isNotEmpty == true
@@ -460,14 +380,20 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
     return Column(
       children: [
         _LocationRow(
-          icon: Icons.public,
+          icon: Icons.public_rounded,
           label: 'Şehir',
           value: provinceNom.isNotEmpty ? provinceNom : 'Seçilmedi',
           onTap: _openProvincePicker,
         ),
-        Divider(height: 1, color: AppTheme.settingsBg.withValues(alpha: 0.6)),
+        Divider(
+          height: 16,
+          thickness: 1,
+          color: isDark
+              ? Colors.white.withValues(alpha: 0.07)
+              : Colors.black.withValues(alpha: 0.06),
+        ),
         _LocationRow(
-          icon: Icons.location_on_outlined,
+          icon: Icons.location_on_rounded,
           label: 'İlçe',
           value: districtNom.isNotEmpty ? districtNom : 'Seçilmedi',
           onTap: hasProvince ? _openDistrictPicker : _openProvincePicker,
@@ -476,7 +402,6 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
     );
   }
 
-  // Accède à this.context directement — jamais passé en paramètre async
   void _openProvincePicker() {
     ref.read(villesTourquieProvider).whenData((villes) {
       _showPicker(
@@ -486,7 +411,6 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
           final province = villes.provinces.firstWhere((p) => p.id == id);
           setState(() => _pendingProvince = province);
           Navigator.pop(context);
-          // Cascade → ouvre directement les districts après fermeture du sheet
           Future.delayed(const Duration(milliseconds: 350), () {
             if (mounted) _openDistrictPicker();
           });
@@ -498,7 +422,6 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
   void _openDistrictPicker() {
     ref.read(villesTourquieProvider).whenData((villes) {
       Province? province = _pendingProvince;
-
       if (province == null) {
         final savedNom = ref.read(settingsProvider).villeProvinceNom ?? '';
         if (savedNom.isNotEmpty) {
@@ -506,12 +429,10 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
           province = matches.isEmpty ? null : matches.first;
         }
       }
-
       if (province == null) {
         _openProvincePicker();
         return;
       }
-
       final prov = province;
       _showPicker(
         title: 'İlçe Seçin — ${prov.nom}',
@@ -584,120 +505,187 @@ class _LocationRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Row(
-          children: [
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: AppTheme.primaryGreen.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: AppTheme.primaryGreen, size: 20),
+      child: Row(
+        children: [
+          Container(
+            width: 42,
+            height: 42,
+            decoration: BoxDecoration(
+              color: AppTheme.primaryGreen
+                  .withValues(alpha: isDark ? 0.20 : 0.12),
+              borderRadius: BorderRadius.circular(12),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    label,
-                    style: GoogleFonts.poppins(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w300,
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.white.withValues(alpha: 0.45)
-                          : AppTheme.darkGreen.withValues(alpha: 0.5),
-                    ),
+            child: Icon(icon, color: AppTheme.primaryGreen, size: 20),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: isDark
+                        ? Colors.white.withValues(alpha: 0.4)
+                        : AppTheme.darkGreen.withValues(alpha: 0.5),
                   ),
-                  Text(
-                    value,
-                    style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color:
-                          Theme.of(context).textTheme.bodyLarge?.color ??
-                          AppTheme.textDark,
-                    ),
+                ),
+                Text(
+                  value,
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).textTheme.bodyLarge?.color,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Icon(
-              Icons.chevron_right,
-              color: AppTheme.darkGreen.withValues(alpha: 0.35),
-              size: 22,
-            ),
-          ],
-        ),
+          ),
+          Icon(
+            Icons.chevron_right_rounded,
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.28)
+                : AppTheme.darkGreen.withValues(alpha: 0.3),
+            size: 22,
+          ),
+        ],
       ),
     );
   }
 }
 
-// ── Reminder selector ─────────────────────────────────────────────────────────
+// ── Reminder row ───────────────────────────────────────────────────────────────
 
-class _ReminderSelector extends StatelessWidget {
+class _ReminderRow extends StatelessWidget {
   final int current;
   final void Function(int) onSelect;
 
-  const _ReminderSelector({required this.current, required this.onSelect});
+  const _ReminderRow({required this.current, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     const options = [10, 20, 30];
 
-    return Row(
-      children: options.map((min) {
-        final isSelected = current == min;
-        return Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: GestureDetector(
-            onTap: () => onSelect(min),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              width: 66,
-              height: 34,
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? AppTheme.primaryGreen.withValues(alpha: 0.25)
-                    : AppTheme.settingsBg.withValues(alpha: 0.4),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: isSelected
-                      ? AppTheme.primaryGreen
-                      : const Color(0xFFD9D9D9),
-                  width: 1.5,
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  '$min dk',
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w300,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Her namazdan $current dakika önce bildirim alın',
+          style: GoogleFonts.poppins(
+            fontSize: 13,
+            color: isDark
+                ? Colors.white60
+                : AppTheme.darkGreen.withValues(alpha: 0.65),
+          ),
+        ),
+        const SizedBox(height: 14),
+        Row(
+          children: options.map((min) {
+            final isSelected = current == min;
+            return Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: GestureDetector(
+                onTap: () => onSelect(min),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 22,
+                    vertical: 9,
+                  ),
+                  decoration: BoxDecoration(
                     color: isSelected
-                        ? const Color.fromARGB(255, 6, 34, 17)
-                        : Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white.withValues(alpha: 0.5)
-                        : AppTheme.darkGreen.withValues(alpha: 0.5),
+                        ? const Color(0xFF0077FF)
+                        : isDark
+                            ? Colors.white.withValues(alpha: 0.08)
+                            : const Color(0xFFF0F0F0),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Text(
+                    '$min dk',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight:
+                          isSelected ? FontWeight.w600 : FontWeight.w400,
+                      color: isSelected
+                          ? Colors.white
+                          : isDark
+                              ? Colors.white54
+                              : Colors.black54,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        );
-      }).toList(),
+            );
+          }).toList(),
+        ),
+      ],
     );
   }
 }
 
-// ── Simple picker sheet (one level: province OR district) ─────────────────────
+// ── About row ──────────────────────────────────────────────────────────────────
+
+class _AboutRow extends StatelessWidget {
+  const _AboutRow();
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const AboutScreen()),
+      ),
+      borderRadius: BorderRadius.circular(12),
+      child: Row(
+        children: [
+          Container(
+            width: 42,
+            height: 42,
+            decoration: BoxDecoration(
+              color: AppTheme.lightGreen
+                  .withValues(alpha: isDark ? 0.20 : 0.12),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.info_outline_rounded,
+              color: AppTheme.lightGreen,
+              size: 20,
+            ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Text(
+              'Uygulama hakkında',
+              style: GoogleFonts.poppins(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
+            ),
+          ),
+          Icon(
+            Icons.chevron_right_rounded,
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.28)
+                : AppTheme.darkGreen.withValues(alpha: 0.3),
+            size: 22,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ── Simple picker sheet ────────────────────────────────────────────────────────
 
 class _SimplePickerSheet extends StatefulWidget {
   final String title;
@@ -720,7 +708,9 @@ class _SimplePickerSheetState extends State<_SimplePickerSheet> {
   @override
   Widget build(BuildContext context) {
     final filtered = widget.items
-        .where((item) => item.$2.toLowerCase().contains(_query.toLowerCase()))
+        .where(
+          (item) => item.$2.toLowerCase().contains(_query.toLowerCase()),
+        )
         .toList();
 
     return DraggableScrollableSheet(

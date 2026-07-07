@@ -1,7 +1,7 @@
 <div align="center">
 
 <table><tr><td bgcolor="#0A1F14" align="center" width="160">
-<img src="assets/Logo.png" alt="Namaz Vakti Logo" width="120"/>
+<img src="assets/Logo.png" alt="Muslim App Logo" width="120"/>
 </td></tr></table>
 
 # Muslim App
@@ -26,19 +26,41 @@
 
 ### Genel Bakış
 
-**Namaz Vakti**, Türkiye'de yaşayan Müslümanların Diyanet İşleri Başkanlığı tarafından yayımlanan resmi namaz vakitlerini takip etmelerini ve her namaz için bildirim almalarını sağlayan bir Android uygulamasıdır.
+**Muslim App**, Türkiye'de yaşayan Müslümanlar için geliştirilmiş kapsamlı bir Android uygulamasıdır. Diyanet İşleri Başkanlığı'nın resmi namaz vakitlerini takip etmenizi, Kuran-ı Kerim'i okumanızı ve kıble yönünü bulmanızı sağlar.
 
 ### Özellikler
 
+#### 🕌 Namaz Vakitleri
 - **Resmi Diyanet Vakitleri** — Türkiye'nin tüm il ve ilçeleri için API üzerinden alınan veriler
 - **Akıllı Bildirimler** — Her namaz için 10, 20 veya 30 dakika önce hatırlatma + tam vakitte bildirim
+- **Geri Sayım** — Sonraki namaza kalan süreyi gerçek zamanlı gösteren sayaç
 - **Şehir Seçimi** — Türkiye'nin tüm il ve ilçeleri mevcut
-- **Kıble Pusulası** — GPS konumundan Kabe yönünü gösteren canlı manyetik pusula
-- **Karanlık / Aydınlık Tema** — İslami gradyan ile uyarlanabilir tema
-- **Aylık Takvim** — Hicri tarih dahil aylık namaz vakitleri görünümü
 - **Çevrimdışı Önbellek** — İnternet bağlantısı olmadan erişim için veriler önbelleğe alınır
-- **Veri Tazeliği Göstergesi** — Verilerin güncel, eski veya çevrimdışı olduğunu belirten rozet
-- **Kuran-ı Kerim** — Türkçe, İngilizce ve Fransızca meali ile ayet görüntüleme; Cüz navigasyonu; Favoriler; kaldığın yeri devam ettir; ayarlanabilir font boyutu
+
+#### 📖 Kuran-ı Kerim
+- **114 Sure** — Tam Kuran metni Arapça (Scheherazade New) ile
+- **Çok Dilli Mealler** — Türkçe, İngilizce ve Fransızca meal desteği
+- **Ayet Sesli Okuma** — Seçilen sure ve ayetleri kari sesiyle dinleme
+- **Tam Ayet Navigasyonu** — Arama, favoriler ve günün ayeti doğrudan hedef ayete yönlendirir
+- **Kaldığın Yere Devam** — Kapattığın sure ve ayetten okumaya devam et
+- **Favoriler** — Beğenilen ayetleri kaydet, tek tıkla geri dön
+- **Günün Ayeti** — Her gün ana ekranda farklı bir ayet
+- **Cüz Navigasyonu** — 30 cüz üzerinden gezinme
+- **Ayarlanabilir Font** — Arapça metin boyutunu isteğine göre ayarla
+
+#### 🧭 Kıble Pusulası
+- **Canlı Manyetik Pusula** — GPS konumundan Kabe yönünü gösteren animasyonlu pusula
+- **Hizalama Geri Bildirimi** — Kıbleye döndüğünde titreşim ve yeşil parlama efekti
+- **Paysage / Dikey Mod** — Her ekran boyutuna uyumlu duyarlı tasarım
+
+#### 📅 Takvim
+- **Aylık Görünüm** — Tüm ay namaz vakitlerini tek ekranda göster
+- **Hicri Tarih** — Miladi tarihin yanında Hicri tarih bilgisi
+
+#### ⚙️ Ayarlar
+- **Karanlık / Aydınlık / Sistem Teması** — İkon tabanlı tema seçici
+- **Namaza Özel Bildirimler** — Her namaz için ayrı açma/kapama; her birinin rengi farklı
+- **Şehir Güncelleme** — İl ve ilçeyi istediğin zaman değiştir
 
 ### Kurulum
 
@@ -50,21 +72,24 @@ dart run build_runner build --delete-conflicting-outputs
 flutter run
 ```
 
+> ℹ️ Kuran API anahtarı için `lib/core/config/quran_config.dart` dosyasını oluşturun (`.gitignore` kapsamında).
+
 ### Mimari
 
 ```
 lib/
 ├── core/
-│   ├── api/              # HTTP servisi (Dio) — Diyanet API
+│   ├── api/              # HTTP servisi (Dio) — Diyanet + Kuran API
+│   ├── config/           # API anahtarları (gitignore'da)
 │   ├── hive/             # Veri modelleri ve yerel depolama (Hive)
 │   ├── notifications/    # Bildirim servisi (flutter_local_notifications)
 │   ├── theme/            # Açık/koyu temalar (AppTheme)
-│   └── widgets/          # Paylaşılan widget'lar (GradientScaffold vb.)
+│   └── widgets/          # Paylaşılan widget'lar
 ├── features/
-│   ├── home/             # Ana ekran — sonraki namaz, geri sayım
-│   ├── quran/            # Kuran-ı Kerim — sureler, ayetler, favoriler
-│   ├── qibla/            # Kıble pusulası — GPS + manyetometre
-│   ├── calendar/         # Aylık takvim
+│   ├── home/             # Ana ekran — sonraki namaz, geri sayım, günün ayeti
+│   ├── quran/            # Kuran-ı Kerim — sureler, ayetler, arama, favoriler, ses
+│   ├── qibla/            # Kıble pusulası — GPS + manyetometre + titreşim
+│   ├── calendar/         # Aylık takvim (Hicri + Miladi)
 │   ├── settings/         # Ayarlar — şehir, tema, bildirimler
 │   └── onboarding/       # İlk başlatma — şehir seçimi + izinler
 └── main.dart
@@ -76,10 +101,12 @@ lib/
 
 | İzin | Neden |
 |---|---|
-| `INTERNET` | API üzerinden vakitleri almak için |
+| `INTERNET` | API üzerinden vakitleri ve Kuran verilerini almak için |
+| `ACCESS_FINE_LOCATION` | Kıble yönü hesabı için GPS konumu |
+| `VIBRATE` | Kıble hizalandığında titreşim |
 | `RECEIVE_BOOT_COMPLETED` | Yeniden başlatma sonrası bildirimleri yeniden planlamak için |
 | `POST_NOTIFICATIONS` | Bildirimleri göstermek için (Android 13+) |
-| `USE_EXACT_ALARM` | Bildirimler için kesin alarmlar |
+| `SCHEDULE_EXACT_ALARM` | Bildirimler için kesin alarmlar |
 | `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` | Arka planda bildirim güvenilirliği |
 
 ---
@@ -88,19 +115,41 @@ lib/
 
 ### Overview
 
-**Namaz Vakti** is an Android application built with Flutter that allows Muslims living in Turkey to check official prayer times published by the Diyanet İşleri Başkanlığı (Presidency of Religious Affairs), and receive notifications before each prayer.
+**Muslim App** is a comprehensive Android application built with Flutter for Muslims living in Turkey. It provides official Diyanet prayer times, Quran reading with audio playback, and a live Qibla compass.
 
 ### Features
 
+#### 🕌 Prayer Times
 - **Official Diyanet Prayer Times** — Data fetched via API for all provinces and districts in Turkey
-- **Smart Notifications** — Configurable reminder 10, 20 or 30 minutes before each prayer + notification at the exact prayer time
+- **Smart Notifications** — Configurable reminder 10, 20 or 30 minutes before each prayer + notification at the exact time
+- **Live Countdown** — Real-time timer to the next prayer
 - **City Selection** — All provinces and districts in Turkey available
-- **Qibla Compass** — Live magnetic compass showing the direction of the Kaaba based on GPS location
-- **Dark / Light Theme** — Adaptive theme with Islamic gradient
-- **Monthly Calendar** — Full month prayer times view with Hijri date
-- **Offline Cache** — Data is cached for access without an internet connection
-- **Freshness Indicator** — Badge indicating whether data is up-to-date, stale or offline
-- **Holy Quran** — Verse display with Turkish, English and French translations; Juz navigation; Favorites; resume reading; adjustable font size
+- **Offline Cache** — Data cached for access without an internet connection
+
+#### 📖 Holy Quran
+- **114 Surahs** — Full Quran in Arabic (Scheherazade New font)
+- **Multi-language Translations** — Turkish, English and French
+- **Verse Audio Playback** — Listen to individual verses with reciter audio
+- **Precise Verse Navigation** — Search (e.g. "2:255"), favorites and daily verse all scroll directly to the target verse
+- **Resume Reading** — Continues from the exact surah and verse where you left off
+- **Favorites** — Save verses and return to them with one tap
+- **Verse of the Day** — A different verse displayed on the home screen each day
+- **Juz Navigation** — Browse all 30 Juz
+- **Adjustable Font** — Resize Arabic text to your preference
+
+#### 🧭 Qibla Compass
+- **Live Magnetic Compass** — Animated compass pointing to the Kaaba from your GPS position
+- **Alignment Feedback** — Haptic vibration + green glow when facing the Qibla
+- **Responsive Layout** — Adapts to portrait and landscape orientations
+
+#### 📅 Calendar
+- **Monthly View** — Full month of prayer times at a glance
+- **Hijri Date** — Displayed alongside the Gregorian date
+
+#### ⚙️ Settings
+- **Dark / Light / System Theme** — Icon-based segmented theme selector
+- **Per-prayer Notifications** — Individual toggle per prayer, each with its own accent color
+- **City Update** — Change province and district at any time
 
 ### Installation
 
@@ -112,21 +161,24 @@ dart run build_runner build --delete-conflicting-outputs
 flutter run
 ```
 
+> ℹ️ Create `lib/core/config/quran_config.dart` with your Quran API key (excluded from version control via `.gitignore`).
+
 ### Architecture
 
 ```
 lib/
 ├── core/
-│   ├── api/              # HTTP service (Dio) — Diyanet API
+│   ├── api/              # HTTP service (Dio) — Diyanet + Quran API
+│   ├── config/           # API keys (gitignored)
 │   ├── hive/             # Data models and local storage (Hive)
 │   ├── notifications/    # Notification service (flutter_local_notifications)
 │   ├── theme/            # Light/dark themes (AppTheme)
-│   └── widgets/          # Shared widgets (GradientScaffold, etc.)
+│   └── widgets/          # Shared widgets
 ├── features/
-│   ├── home/             # Main screen — next prayer, countdown
-│   ├── quran/            # Holy Quran — surahs, verses, favorites
-│   ├── qibla/            # Qibla compass — GPS + magnetometer
-│   ├── calendar/         # Monthly calendar
+│   ├── home/             # Main screen — next prayer, countdown, verse of the day
+│   ├── quran/            # Holy Quran — surahs, verses, search, favorites, audio
+│   ├── qibla/            # Qibla compass — GPS + magnetometer + haptics
+│   ├── calendar/         # Monthly calendar (Hijri + Gregorian)
 │   ├── settings/         # Settings — city, theme, notifications
 │   └── onboarding/       # First launch — city selection + permissions
 └── main.dart
@@ -142,6 +194,7 @@ lib/
 | [Riverpod](https://riverpod.dev) | State management |
 | [Hive](https://pub.dev/packages/hive) | Local database |
 | [Dio](https://pub.dev/packages/dio) | HTTP client |
+| [just_audio](https://pub.dev/packages/just_audio) | Verse-by-verse audio playback |
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Scheduled notifications |
 | [timezone](https://pub.dev/packages/timezone) | Timezone handling (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | GPS position for Qibla calculation |
@@ -178,10 +231,12 @@ flutter build apk --release
 
 | Permission | Reason |
 |---|---|
-| `INTERNET` | Fetching prayer times via API |
+| `INTERNET` | Fetching prayer times and Quran data via API |
+| `ACCESS_FINE_LOCATION` | GPS location for Qibla direction |
+| `VIBRATE` | Haptic feedback when aligned with Qibla |
 | `RECEIVE_BOOT_COMPLETED` | Reschedule notifications after device reboot |
 | `POST_NOTIFICATIONS` | Display notifications (Android 13+) |
-| `USE_EXACT_ALARM` | Precise alarms for notifications |
+| `SCHEDULE_EXACT_ALARM` | Precise alarms for notifications |
 | `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` | Background notification reliability |
 
 ---
@@ -190,19 +245,41 @@ flutter build apk --release
 
 ### Aperçu
 
-**Namaz Vakti** est une application mobile Android développée en Flutter permettant aux musulmans résidant en Turquie de consulter les horaires de prière officiels publiés par la Diyanet İşleri Başkanlığı (Présidence des Affaires Religieuses), et de recevoir des notifications avant chaque prière.
+**Muslim App** est une application Android complète développée en Flutter pour les musulmans résidant en Turquie. Elle regroupe les horaires de prière officiels Diyanet, la lecture du Coran avec audio, et une boussole Qibla en temps réel.
 
 ### Fonctionnalités
 
+#### 🕌 Horaires de prière
 - **Horaires officiels Diyanet** — données récupérées via API pour toutes les provinces et districts de Turquie
 - **Notifications intelligentes** — rappel configurable 10, 20 ou 30 minutes avant chaque prière + notification à l'heure exacte
+- **Compte à rebours en direct** — minuterie en temps réel jusqu'à la prochaine prière
 - **Sélection de la ville** — toutes les provinces et districts de Turquie disponibles
-- **Boussole Qibla** — boussole magnétique en temps réel indiquant la direction de la Kaaba depuis la position GPS
-- **Mode sombre / clair** — thème adaptatif avec gradient islamique
-- **Calendrier mensuel** — vue calendrier avec les horaires du mois complet et date hijri
 - **Cache hors-ligne** — les données sont mises en cache pour un accès sans connexion
-- **Indicateur de fraîcheur** — badge indiquant si les données sont à jour, récentes ou hors-ligne
-- **Coran** — affichage des versets avec traductions turque, anglaise et française ; navigation par Juz ; favoris ; reprise de lecture ; taille de police réglable
+
+#### 📖 Coran
+- **114 sourates** — texte arabe intégral (police Scheherazade New)
+- **Traductions multilingues** — turc, anglais et français
+- **Lecture audio des versets** — écoutez les versets avec la voix d'un récitant
+- **Navigation précise vers un verset** — la recherche (ex. « 2:255 »), les favoris et le verset du jour défilent directement jusqu'au verset cible
+- **Reprendre la lecture** — continue exactement depuis la sourate et le verset où vous vous étiez arrêté
+- **Favoris** — sauvegardez des versets et revenez-y en un tap
+- **Verset du jour** — un verset différent affiché chaque jour sur l'écran d'accueil
+- **Navigation par Juz** — parcourez les 30 Juz
+- **Police ajustable** — redimensionnez le texte arabe à votre convenance
+
+#### 🧭 Boussole Qibla
+- **Boussole magnétique en direct** — boussole animée pointant vers la Kaaba depuis votre position GPS
+- **Retour haptique** — vibration + halo vert lorsque vous êtes orienté vers la Qibla
+- **Layout adaptatif** — fonctionne en portrait et paysage
+
+#### 📅 Calendrier
+- **Vue mensuelle** — tous les horaires du mois en un seul écran
+- **Date hijri** — affichée aux côtés de la date grégorienne
+
+#### ⚙️ Paramètres
+- **Thème sombre / clair / système** — sélecteur de thème avec icônes
+- **Notifications par prière** — bascule individuelle par prière, chacune avec sa propre couleur
+- **Mise à jour de la ville** — changez province et district à tout moment
 
 ### Installation
 
@@ -214,21 +291,24 @@ dart run build_runner build --delete-conflicting-outputs
 flutter run
 ```
 
+> ℹ️ Créez `lib/core/config/quran_config.dart` avec votre clé API Coran (exclu du versionnement via `.gitignore`).
+
 ### Architecture
 
 ```
 lib/
 ├── core/
-│   ├── api/              # Service HTTP (Dio) — API Diyanet
+│   ├── api/              # Service HTTP (Dio) — API Diyanet + Coran
+│   ├── config/           # Clés API (gitignored)
 │   ├── hive/             # Modèles de données et persistance locale (Hive)
 │   ├── notifications/    # Service de notifications (flutter_local_notifications)
 │   ├── theme/            # Thèmes clair/sombre (AppTheme)
-│   └── widgets/          # Widgets partagés (GradientScaffold, etc.)
+│   └── widgets/          # Widgets partagés
 ├── features/
-│   ├── home/             # Écran principal — prochaine prière, countdown
-│   ├── quran/            # Coran — sourates, versets, favoris
-│   ├── qibla/            # Boussole Qibla — GPS + magnétomètre
-│   ├── calendar/         # Calendrier mensuel
+│   ├── home/             # Écran principal — prochaine prière, countdown, verset du jour
+│   ├── quran/            # Coran — sourates, versets, recherche, favoris, audio
+│   ├── qibla/            # Boussole Qibla — GPS + magnétomètre + haptique
+│   ├── calendar/         # Calendrier mensuel (Hijri + Grégorien)
 │   ├── settings/         # Paramètres — ville, thème, notifications
 │   └── onboarding/       # Premier lancement — sélection ville + permissions
 └── main.dart
@@ -244,6 +324,7 @@ lib/
 | [Riverpod](https://riverpod.dev) | State management |
 | [Hive](https://pub.dev/packages/hive) | Base de données locale |
 | [Dio](https://pub.dev/packages/dio) | Client HTTP |
+| [just_audio](https://pub.dev/packages/just_audio) | Lecture audio verset par verset |
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Notifications planifiées |
 | [timezone](https://pub.dev/packages/timezone) | Gestion du fuseau horaire (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | Position GPS pour le calcul de la Qibla |
@@ -280,10 +361,12 @@ flutter build apk --release
 
 | Permission | Raison |
 |---|---|
-| `INTERNET` | Récupération des horaires via API |
+| `INTERNET` | Récupération des horaires et des données Coran via API |
+| `ACCESS_FINE_LOCATION` | Position GPS pour la direction Qibla |
+| `VIBRATE` | Retour haptique quand la Qibla est alignée |
 | `RECEIVE_BOOT_COMPLETED` | Replanification des notifications après redémarrage |
 | `POST_NOTIFICATIONS` | Affichage des notifications (Android 13+) |
-| `USE_EXACT_ALARM` | Alarmes précises pour les notifications |
+| `SCHEDULE_EXACT_ALARM` | Alarmes précises pour les notifications |
 | `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` | Fiabilité des notifications en arrière-plan |
 
 ---

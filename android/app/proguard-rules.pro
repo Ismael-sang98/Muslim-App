@@ -32,3 +32,13 @@
 # Flutter engine (covered by flutter default rules, kept here as safety net)
 -keep class io.flutter.** { *; }
 -keep class io.flutter.plugins.** { *; }
+
+# audio_service — MediaBrowserService + MediaSession wiring
+-keep class com.ryanheise.audioservice.** { *; }
+-keepclassmembers class com.ryanheise.audioservice.** { *; }
+
+# just_audio — ExoPlayer + media3 internals
+-keep class com.google.android.exoplayer2.** { *; }
+-keep class androidx.media3.** { *; }
+-keep class androidx.media.** { *; }
+-dontwarn androidx.media.**

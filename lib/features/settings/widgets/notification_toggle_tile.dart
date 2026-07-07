@@ -16,91 +16,134 @@ class NotificationToggleTile extends ConsumerWidget {
     this.todayTime,
   });
 
+  // Couleur unique par prière
+  static const _colors = {
+    'imsak': Color(0xFF5E81F4),
+    'gunes': Color(0xFFFF9000),
+    'ogle': Color(0xFF00BCD4),
+    'ikindi': Color(0xFF4CAF50),
+    'aksam': Color(0xFFE91E63),
+    'yatsi': Color(0xFF9C27B0),
+  };
+
+  // Icône Material par prière
+  static const _icons = {
+    'imsak': Icons.brightness_3_rounded,
+    'gunes': Icons.wb_sunny_rounded,
+    'ogle': Icons.light_mode_rounded,
+    'ikindi': Icons.wb_cloudy_outlined,
+    'aksam': Icons.wb_twilight_rounded,
+    'yatsi': Icons.nights_stay_rounded,
+  };
+
+  static const _names = {
+    'imsak': 'İmsak',
+    'gunes': 'Güneş',
+    'ogle': 'Öğle',
+    'ikindi': 'İkindi',
+    'aksam': 'Akşam',
+    'yatsi': 'Yatsı',
+  };
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
     final isEnabled = settings.notificationsActives[prayerKey] ?? false;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final color = _colors[prayerKey] ?? AppTheme.primaryGreen;
+    final iconData = _icons[prayerKey] ?? Icons.notifications_outlined;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Row(
-            children: [
-              // Colored dot indicator
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: isEnabled ? AppTheme.primaryGreen : Colors.grey,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              const SizedBox(width: 14),
-              // Prayer name
-              Text(
-                _name(prayerKey),
-                style: GoogleFonts.poppins(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).textTheme.bodyMedium?.color ?? AppTheme.textDark,
-                ),
-              ),
-              const Spacer(),
-              // Time
-              if (todayTime != null)
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          // Icon bubble
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 250),
+            width: 42,
+            height: 42,
+            decoration: BoxDecoration(
+              color: isEnabled
+                  ? color.withValues(alpha: isDark ? 0.22 : 0.13)
+                  : isDark
+                      ? Colors.white.withValues(alpha: 0.05)
+                      : Colors.grey.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              iconData,
+              color: isEnabled
+                  ? color
+                  : isDark
+                      ? Colors.white30
+                      : Colors.grey.shade400,
+              size: 20,
+            ),
+          ),
+
+          const SizedBox(width: 12),
+
+          // Name + time
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  todayTime!,
+                  _names[prayerKey] ?? prayerKey,
                   style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w300,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white.withValues(alpha: 0.45)
-                        : AppTheme.darkGreen.withValues(alpha: 0.55),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
-              const SizedBox(width: 10),
-              // Toggle
-              Switch(
-                value: isEnabled,
-                activeThumbColor: AppTheme.primaryGreen,
-                onChanged: (value) async {
-                  ref
-                      .read(settingsProvider.notifier)
-                      .toggleNotification(prayerKey, value);
-                  final updated = ref.read(settingsProvider);
-                  final villeId = updated.villeId;
-                  final ps = ref.read(prayerDataProvider(villeId));
-                  if (ps is PrayerDataLoaded) {
-                    await NotificationService.scheduleMonthlyPrayers(
-                      horaires: ps.horaires,
-                      notificationsActives: updated.notificationsActives,
-                      minutesAvantRappel: updated.minutesAvantRappel,
-                    );
-                  }
-                },
-              ),
-            ],
+                if (todayTime != null)
+                  Text(
+                    todayTime!,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: isDark
+                          ? Colors.white38
+                          : AppTheme.darkGreen.withValues(alpha: 0.45),
+                    ),
+                  ),
+              ],
+            ),
           ),
-        ),
-        if (prayerKey != 'yatsi')
-          Divider(
-            height: 1,
-            color: AppTheme.settingsBg.withValues(alpha: 0.5),
-          ),
-      ],
-    );
-  }
 
-  String _name(String key) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return names[key] ?? key;
+          // Switch avec couleur par prière
+          Theme(
+            data: Theme.of(context).copyWith(
+              switchTheme: SwitchThemeData(
+                thumbColor: WidgetStateProperty.resolveWith(
+                  (s) => s.contains(WidgetState.selected) ? color : null,
+                ),
+                trackColor: WidgetStateProperty.resolveWith(
+                  (s) => s.contains(WidgetState.selected)
+                      ? color.withValues(alpha: 0.35)
+                      : null,
+                ),
+              ),
+            ),
+            child: Switch(
+              value: isEnabled,
+              onChanged: (value) async {
+                ref
+                    .read(settingsProvider.notifier)
+                    .toggleNotification(prayerKey, value);
+                final updated = ref.read(settingsProvider);
+                final ps = ref.read(prayerDataProvider(updated.villeId));
+                if (ps is PrayerDataLoaded) {
+                  await NotificationService.scheduleMonthlyPrayers(
+                    horaires: ps.horaires,
+                    notificationsActives: updated.notificationsActives,
+                    minutesAvantRappel: updated.minutesAvantRappel,
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

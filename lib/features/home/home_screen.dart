@@ -12,6 +12,7 @@ import '../../core/widgets/gradient_scaffold.dart';
 import '../../core/services/update_service.dart';
 import '../qibla/qibla_screen.dart';
 import '../quran/quran_provider.dart';
+import '../quran/surah_screen.dart';
 import '../settings/settings_provider.dart';
 import 'home_provider.dart';
 import 'widgets/next_prayer_card.dart';
@@ -570,7 +571,30 @@ class _DailyVerseCard extends ConsumerWidget {
         final verseKey = verse['verse_key'] as String? ?? '';
 
         return GestureDetector(
-          onTap: () => ref.read(activeTabProvider.notifier).state = 2,
+          onTap: () {
+              final parts = verseKey.split(':');
+              if (parts.length != 2) return;
+              final surahId = int.tryParse(parts[0]);
+              final verseNumber = int.tryParse(parts[1]);
+              if (surahId == null || verseNumber == null) return;
+              ref.read(chaptersProvider.future).then((chapters) {
+                final chapter = chapters.firstWhere(
+                  (c) => (c['id'] as int) == surahId,
+                  orElse: () => <String, dynamic>{},
+                );
+                if (chapter.isNotEmpty && context.mounted) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => SurahScreen(
+                        chapter: chapter,
+                        targetVerseNumber: verseNumber,
+                      ),
+                    ),
+                  );
+                }
+              });
+            },
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(

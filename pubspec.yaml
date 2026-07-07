@@ -1,7 +1,7 @@
 name: namaz_vakti
 description: "Application de prière islamique pour la Turquie — Horaires officiels Diyanet"
 publish_to: 'none'
-version: 2.0.2+1
+version: 2.5.0+1
 
 environment:
   sdk: ^3.12.2
@@ -29,6 +29,7 @@ dependencies:
   url_launcher: ^6.3.1
   geolocator: ^13.0.0
   flutter_compass: ^0.8.0
+  just_audio: ^0.9.40
 
 dev_dependencies:
   flutter_test:
