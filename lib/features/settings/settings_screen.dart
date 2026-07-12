@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/hive/models/horaires_jour_model.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/theme/app_theme.dart';
+import '../../l10n/app_localizations.dart';
 import '../onboarding/onboarding_provider.dart';
 import '../home/home_provider.dart';
 import '../settings/settings_provider.dart';
@@ -18,6 +19,7 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
+    final l10n = AppLocalizations.of(context);
     final cityName = settings.villeProvinceNom?.isNotEmpty == true
         ? settings.villeProvinceNom!
         : settings.villeNom;
@@ -31,9 +33,9 @@ class SettingsScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 100),
               children: [
-                // ── GÖRÜNÜM ──────────────────────────────────────────────────
+                // ── APPEARANCE ───────────────────────────────────────────────
                 _SettingsGroup(
-                  label: 'GÖRÜNÜM',
+                  label: l10n.sectionAppearance,
                   icon: Icons.palette_outlined,
                   color: AppTheme.accentOrange,
                   delay: 0,
@@ -46,9 +48,37 @@ class SettingsScreen extends ConsumerWidget {
 
                 const SizedBox(height: 14),
 
-                // ── KONUM ────────────────────────────────────────────────────
+                // ── LANGUAGE ─────────────────────────────────────────────────
                 _SettingsGroup(
-                  label: 'KONUM',
+                  label: l10n.sectionLanguage,
+                  icon: Icons.translate_rounded,
+                  color: const Color(0xFF00BCD4),
+                  delay: 60,
+                  child: _LanguageRow(
+                    current: settings.langue,
+                    onSelect: (v) async {
+                      await ref
+                          .read(settingsProvider.notifier)
+                          .updateLanguage(v);
+                      // Reschedule so queued notifications adopt the new language.
+                      final updated = ref.read(settingsProvider);
+                      final ps = ref.read(prayerDataProvider(updated.villeId));
+                      if (ps is PrayerDataLoaded) {
+                        await NotificationService.scheduleMonthlyPrayers(
+                          horaires: ps.horaires,
+                          notificationsActives: updated.notificationsActives,
+                          minutesAvantRappel: updated.minutesAvantRappel,
+                        );
+                      }
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 14),
+
+                // ── LOCATION ─────────────────────────────────────────────────
+                _SettingsGroup(
+                  label: l10n.sectionLocation,
                   icon: Icons.location_on_outlined,
                   color: AppTheme.primaryGreen,
                   delay: 80,
@@ -57,9 +87,9 @@ class SettingsScreen extends ConsumerWidget {
 
                 const SizedBox(height: 14),
 
-                // ── HATIRLATMA ───────────────────────────────────────────────
+                // ── REMINDER ─────────────────────────────────────────────────
                 _SettingsGroup(
-                  label: 'HATIRLATMA',
+                  label: l10n.sectionReminder,
                   icon: Icons.notifications_outlined,
                   color: const Color(0xFF0077FF),
                   delay: 160,
@@ -85,9 +115,9 @@ class SettingsScreen extends ConsumerWidget {
 
                 const SizedBox(height: 14),
 
-                // ── BİLDİRİMLER ──────────────────────────────────────────────
+                // ── NOTIFICATIONS ────────────────────────────────────────────
                 _SettingsGroup(
-                  label: 'BİLDİRİMLER',
+                  label: l10n.sectionNotifications,
                   icon: Icons.access_alarm_outlined,
                   color: const Color(0xFF9C27B0),
                   delay: 240,
@@ -105,9 +135,9 @@ class SettingsScreen extends ConsumerWidget {
 
                 const SizedBox(height: 14),
 
-                // ── HAKKINDA ─────────────────────────────────────────────────
+                // ── ABOUT ────────────────────────────────────────────────────
                 _SettingsGroup(
-                  label: 'HAKKINDA',
+                  label: l10n.sectionAbout,
                   icon: Icons.info_outline_rounded,
                   color: AppTheme.lightGreen,
                   delay: 320,
@@ -158,7 +188,7 @@ class _SettingsHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Ayarlar',
+            AppLocalizations.of(context).settings,
             style: GoogleFonts.poppins(
               fontSize: 28,
               fontWeight: FontWeight.w700,
@@ -286,10 +316,11 @@ class _ThemeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    const options = [
-      ('light', Icons.wb_sunny_rounded, 'Açık'),
-      ('dark', Icons.nightlight_rounded, 'Koyu'),
-      ('system', Icons.phone_iphone_rounded, 'Sistem'),
+    final l10n = AppLocalizations.of(context);
+    final options = [
+      ('light', Icons.wb_sunny_rounded, l10n.themeLight),
+      ('dark', Icons.nightlight_rounded, l10n.themeDark),
+      ('system', Icons.phone_iphone_rounded, l10n.themeSystem),
     ];
 
     return Row(
@@ -350,6 +381,74 @@ class _ThemeRow extends StatelessWidget {
   }
 }
 
+// ── Language selector ──────────────────────────────────────────────────────────
+
+class _LanguageRow extends StatelessWidget {
+  final String current;
+  final void Function(String) onSelect;
+
+  const _LanguageRow({required this.current, required this.onSelect});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
+    final options = [
+      ('tr', '🇹🇷', l10n.langTurkish),
+      ('en', '🇬🇧', l10n.langEnglish),
+      ('fr', '🇫🇷', l10n.langFrench),
+    ];
+
+    return Row(
+      children: options.map((opt) {
+        final isSelected = current == opt.$1;
+        return Expanded(
+          child: GestureDetector(
+            onTap: () => onSelect(opt.$1),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? AppTheme.primaryGreen
+                        .withValues(alpha: isDark ? 0.20 : 0.13)
+                    : isDark
+                        ? Colors.white.withValues(alpha: 0.06)
+                        : const Color(0xFFF4F4F4),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: isSelected ? AppTheme.primaryGreen : Colors.transparent,
+                  width: 1.5,
+                ),
+              ),
+              child: Column(
+                children: [
+                  Text(opt.$2, style: const TextStyle(fontSize: 20)),
+                  const SizedBox(height: 6),
+                  Text(
+                    opt.$3,
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      fontWeight:
+                          isSelected ? FontWeight.w600 : FontWeight.w400,
+                      color: isSelected
+                          ? AppTheme.primaryGreen
+                          : isDark
+                              ? Colors.white54
+                              : Colors.black45,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
 // ── Location section ───────────────────────────────────────────────────────────
 
 class _LocationSection extends ConsumerStatefulWidget {
@@ -367,6 +466,7 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context);
     final provinceNom =
         _pendingProvince?.nom ??
         (settings.villeProvinceNom?.isNotEmpty == true
@@ -381,8 +481,8 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
       children: [
         _LocationRow(
           icon: Icons.public_rounded,
-          label: 'Şehir',
-          value: provinceNom.isNotEmpty ? provinceNom : 'Seçilmedi',
+          label: l10n.city,
+          value: provinceNom.isNotEmpty ? provinceNom : l10n.notSelected,
           onTap: _openProvincePicker,
         ),
         Divider(
@@ -394,8 +494,8 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
         ),
         _LocationRow(
           icon: Icons.location_on_rounded,
-          label: 'İlçe',
-          value: districtNom.isNotEmpty ? districtNom : 'Seçilmedi',
+          label: l10n.district,
+          value: districtNom.isNotEmpty ? districtNom : l10n.notSelected,
           onTap: hasProvince ? _openDistrictPicker : _openProvincePicker,
         ),
       ],
@@ -405,7 +505,7 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
   void _openProvincePicker() {
     ref.read(villesTourquieProvider).whenData((villes) {
       _showPicker(
-        title: 'İl Seçin',
+        title: AppLocalizations.of(context).selectProvince,
         items: villes.provinces.map((p) => (p.id, p.nom)).toList(),
         onSelect: (id, nom) {
           final province = villes.provinces.firstWhere((p) => p.id == id);
@@ -435,7 +535,7 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
       }
       final prov = province;
       _showPicker(
-        title: 'İlçe Seçin — ${prov.nom}',
+        title: '${AppLocalizations.of(context).selectDistrict} — ${prov.nom}',
         items: prov.districts.map((d) => (d.id, d.nom)).toList(),
         onSelect: (id, nom) {
           Navigator.of(context).pop();
@@ -577,7 +677,7 @@ class _ReminderRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Her namazdan $current dakika önce bildirim alın',
+          AppLocalizations.of(context).reminderDescription(current),
           style: GoogleFonts.poppins(
             fontSize: 13,
             color: isDark
@@ -608,7 +708,7 @@ class _ReminderRow extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Text(
-                    '$min dk',
+                    AppLocalizations.of(context).minutesShort(min),
                     style: GoogleFonts.poppins(
                       fontSize: 13,
                       fontWeight:
@@ -664,7 +764,7 @@ class _AboutRow extends StatelessWidget {
           const SizedBox(width: 14),
           Expanded(
             child: Text(
-              'Uygulama hakkında',
+              AppLocalizations.of(context).aboutApp,
               style: GoogleFonts.poppins(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -745,9 +845,10 @@ class _SimplePickerSheetState extends State<_SimplePickerSheet> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: 'Ara...',
-                  prefixIcon: Icon(Icons.search, color: Colors.white70),
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context).searchHint,
+                  prefixIcon:
+                      const Icon(Icons.search, color: Colors.white70),
                 ),
                 onChanged: (v) => setState(() => _query = v),
               ),
@@ -782,3 +883,4 @@ class _SimplePickerSheetState extends State<_SimplePickerSheet> {
     );
   }
 }
+

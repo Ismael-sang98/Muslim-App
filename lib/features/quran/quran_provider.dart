@@ -5,12 +5,15 @@ import 'package:just_audio/just_audio.dart';
 import '../../core/api/quran_api_service.dart';
 import '../../core/config/quran_config.dart';
 import '../../core/hive/hive_service.dart';
+import '../settings/settings_provider.dart';
 
 // Global bottom-nav index — lets any screen switch tabs
 final activeTabProvider = StateProvider<int>((ref) => 0);
 
-// Selected translation language inside the Quran feature
-final selectedQuranLanguageProvider = StateProvider<String>((ref) => 'tr');
+// Quran translation language — unified with the app language (settings.langue).
+final selectedQuranLanguageProvider = Provider<String>(
+  (ref) => ref.watch(settingsProvider).langue,
+);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 

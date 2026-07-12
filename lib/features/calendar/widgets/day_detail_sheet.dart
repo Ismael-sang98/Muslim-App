@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/hive/models/horaires_jour_model.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/localized_names.dart';
+import '../../../l10n/app_localizations.dart';
 
 class DayDetailSheet extends StatelessWidget {
   final HorairesJourModel horaires;
@@ -108,7 +110,7 @@ class _PrayerPillRow extends StatelessWidget {
           const SizedBox(width: 14),
           Expanded(
             child: Text(
-              _name(prayerKey),
+              prayerName(AppLocalizations.of(context), prayerKey),
               style: GoogleFonts.poppins(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
@@ -128,18 +130,6 @@ class _PrayerPillRow extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _name(String key) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return names[key] ?? key;
   }
 
   String _icon(String key) {

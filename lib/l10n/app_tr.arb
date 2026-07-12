@@ -86,5 +86,150 @@
   "minutesBefore5": "5 dakika önce",
   "minutesBefore10": "10 dakika önce",
   "minutesBefore15": "15 dakika önce",
-  "minutesBefore30": "30 dakika önce"
+  "minutesBefore30": "30 dakika önce",
+  "sectionAppearance": "GÖRÜNÜM",
+  "sectionLanguage": "DİL",
+  "sectionLocation": "KONUM",
+  "sectionReminder": "HATIRLATMA",
+  "sectionNotifications": "BİLDİRİMLER",
+  "sectionAbout": "HAKKINDA",
+  "themeLight": "Açık",
+  "themeDark": "Koyu",
+  "themeSystem": "Sistem",
+  "notSelected": "Seçilmedi",
+  "aboutApp": "Uygulama hakkında",
+  "reminderDescription": "Her namazdan {count} dakika önce bildirim alın",
+  "@reminderDescription": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "minutesShort": "{count} dk",
+  "@minutesShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "langTurkish": "Türkçe",
+  "langEnglish": "English",
+  "langFrench": "Français",
+  "searchHint": "Ara...",
+  "continueButton": "Devam",
+  "otherPrayers": "Diğer vakitler",
+  "badgeStale": "Eski",
+  "badgeOffline": "Çevrimdışı",
+  "exactAlarmsDisabled": "Tam zamanlı bildirimler kapalı — Etkinleştirmek için dokunun",
+  "qiblaDirection": "Kıble Yönü",
+  "qiblaSubtitle": "Kabe'nin yönünü bul",
+  "verseOfTheDay": "Günün Ayeti",
+  "cityNotSelected": "Şehir seçilmedi",
+  "explore": "Keşfet",
+  "calendarSubtitle": "Aylık namaz vakitleri",
+  "hadith": "Hadis",
+  "hadithSubtitle": "Sahih koleksiyonları oku",
+  "hadithOfTheDay": "GÜNÜN HADİSİ",
+  "readMore": "Devamını oku",
+  "qibla": "Kıble",
+  "locationPermissionNeeded": "Konum iznine ihtiyaç var.\nKıble yönünü hesaplamak için izin verin.",
+  "grantPermission": "İzin Ver",
+  "noMagnetometer": "Bu cihazda manyetometre sensörü bulunamadı.",
+  "kaabaMecca": "Kâbe • Mekke",
+  "kaabaDirection": "KÂBE YÖNÜ",
+  "facingQibla": "Kıbleye dönüyorsunuz",
+  "rotatePhone": "Telefonu döndürün",
+  "quran": "Kuran",
+  "quranSearchHint": "Ara veya 2:255 yaz",
+  "surahs": "Sureler",
+  "verses": "Ayetler",
+  "juz": "Cüz",
+  "continueReading": "Kaldığın yerden devam et",
+  "connectionError": "Bağlantı hatası.",
+  "connectionErrorCheckInternet": "Bağlantı hatası.\nLütfen internet bağlantınızı kontrol edin.",
+  "connectionErrorRetry": "Bağlantı hatası. Lütfen tekrar deneyin.",
+  "noVerseResults": "Ayet sonucu bulunamadı.",
+  "goDirectly": "Doğrudan git",
+  "copyArabic": "Arapça metni kopyala",
+  "copyTranslation": "Tercümeyi kopyala",
+  "copied": "Kopyalandı!",
+  "removeFromFavorites": "Favorilerden çıkar",
+  "addToFavorites": "Favorilere ekle",
+  "loadingError": "Yükleme hatası",
+  "favorites": "Favoriler",
+  "noFavoritesYet": "Henüz favori eklemediniz.",
+  "favoritesHint": "Bir ayete uzun basarak favorilere ekleyebilirsiniz.",
+  "reciter": "Okuyucu",
+  "hadithSearchHint": "Ara (metin veya no)...",
+  "chapters": "Bölümler",
+  "hadithsLabel": "hadis",
+  "collectionUnavailableInLang": "Bu koleksiyon seçilen dilde mevcut değil — İngilizce gösteriliyor",
+  "noResults": "Sonuç bulunamadı",
+  "noFavoriteHadith": "Henüz favori hadis yok",
+  "favoriteHadithHint": "Bir hadisi favorilere eklemek için ⭐ simgesine dokunun",
+  "errorTimeout": "İstek zaman aşımına uğradı. Lütfen tekrar deneyin.",
+  "errorNoInternet": "İnternet bağlantısı yok. Çevrimdışı modda çalışıyorsunuz.",
+  "errorServer": "Sunucu hatası ({code}).",
+  "@errorServer": {
+    "placeholders": {
+      "code": {
+        "type": "int"
+      }
+    }
+  },
+  "fontSize": "Yazı Boyutu",
+  "resumeReadingAt": "Kaldığınız yerden devam edin · #{number}",
+  "@resumeReadingAt": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "favorite": "Favori",
+  "favorited": "Favoride",
+  "copy": "Kopyala",
+  "share": "Paylaş",
+  "previous": "Önceki",
+  "next": "Sonraki",
+  "dataSource": "Veri kaynağı",
+  "developer": "Geliştirici",
+  "contact": "İletişim",
+  "notifReminderTitle": "🕌 {prayer} Vakti",
+  "@notifReminderTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifReminderBody": "{prayer} namazına {minutes} dakika kaldı",
+  "@notifReminderBody": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "notifAtTimeTitle": "🕌 {prayer} Vakti Girdi",
+  "@notifAtTimeTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "notifAtTimeBody": "{prayer} namazının vakti geldi",
+  "@notifAtTimeBody": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  }
 }

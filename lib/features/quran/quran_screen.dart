@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/quran_colors.dart';
+import '../../l10n/app_localizations.dart';
 import 'quran_provider.dart';
 import 'surah_screen.dart';
 import 'favorites_screen.dart';
@@ -71,7 +72,7 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
-          'Kuran',
+          AppLocalizations.of(context).quran,
           style: GoogleFonts.poppins(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -98,7 +99,7 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
               onChanged: (v) => setState(() => _query = v),
               style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),
               decoration: InputDecoration(
-                hintText: 'Ara veya 2:255 yaz',
+                hintText: AppLocalizations.of(context).quranSearchHint,
                 hintStyle: GoogleFonts.poppins(
                   color: Colors.white38,
                   fontSize: 13,
@@ -175,12 +176,12 @@ class _ViewToggle extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _ToggleChip(
-            label: 'Sureler',
+            label: AppLocalizations.of(context).surahs,
             selected: !showJuz,
             onTap: () => onToggle(false),
           ),
           _ToggleChip(
-            label: 'Cüz',
+            label: AppLocalizations.of(context).juz,
             selected: showJuz,
             onTap: () => onToggle(true),
           ),
@@ -279,7 +280,7 @@ class _Reprendre extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Kaldığın yerden devam et',
+                        AppLocalizations.of(context).continueReading,
                         style: GoogleFonts.poppins(
                           color: AppTheme.lightGreen,
                           fontSize: 11,
@@ -327,7 +328,7 @@ class _JuzGrid extends ConsumerWidget {
         child: CircularProgressIndicator(color: AppTheme.primaryGreen),
       ),
       error: (_, _) => _ErrorView(
-        message: 'Bağlantı hatası.',
+        message: AppLocalizations.of(context).connectionError,
         onRetry: () => ref.invalidate(chaptersProvider),
       ),
       data: (chapters) {
@@ -387,7 +388,7 @@ class _JuzGrid extends ConsumerWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Cüz $juzNum',
+                      '${AppLocalizations.of(context).juz} $juzNum',
                       style: GoogleFonts.poppins(
                         fontSize: 10,
                         color: Colors.white38,
@@ -426,7 +427,7 @@ class _ChapterList extends ConsumerWidget {
         child: CircularProgressIndicator(color: AppTheme.primaryGreen),
       ),
       error: (e, _) => _ErrorView(
-        message: 'Bağlantı hatası.\nLütfen internet bağlantınızı kontrol edin.',
+        message: AppLocalizations.of(context).connectionErrorCheckInternet,
         onRetry: () => ref.invalidate(chaptersProvider),
       ),
       data: (chapters) => ListView.builder(
@@ -621,7 +622,10 @@ class _SearchResults extends ConsumerWidget {
 
         // Surah matches
         if (matchingSurahs.isNotEmpty) ...[
-          _SectionHeader(label: 'Sureler', count: matchingSurahs.length),
+          _SectionHeader(
+            label: AppLocalizations.of(context).surahs,
+            count: matchingSurahs.length,
+          ),
           ...matchingSurahs.map((c) => _ChapterTile(chapter: c)),
           const SizedBox(height: 8),
         ],
@@ -629,7 +633,7 @@ class _SearchResults extends ConsumerWidget {
         // Verse matches
         if (directChapter == null) ...[
           _SectionHeader(
-            label: 'Ayetler',
+            label: AppLocalizations.of(context).verses,
             count: versesLoading ? null : verses.length,
           ),
           if (versesLoading)
@@ -643,7 +647,7 @@ class _SearchResults extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Text(
-                'Ayet sonucu bulunamadı.',
+                AppLocalizations.of(context).noVerseResults,
                 style: GoogleFonts.poppins(color: Colors.white38, fontSize: 13),
               ),
             )
@@ -700,7 +704,7 @@ class _DirectVerseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Doğrudan git',
+                    AppLocalizations.of(context).goDirectly,
                     style: GoogleFonts.poppins(
                       color: AppTheme.accentOrange,
                       fontSize: 11,
@@ -866,7 +870,7 @@ class _ErrorView extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Tekrar dene',
+                  AppLocalizations.of(context).retry,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
                 ),
               ),

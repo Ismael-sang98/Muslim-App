@@ -4,17 +4,18 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   // ── Palette ──────────────────────────────────────────────────────────────────
   static const Color primaryGreen = Color(0xFF2EA85D);
-  static const Color darkGreen    = Color(0xFF124225);
+  static const Color darkGreen = Color(0xFF124225);
   static const Color accentOrange = Color(0xFFFF9000);
-  static const Color settingsBg   = Color(0xFFD9D9D9);
-  static const Color textDark     = Color(0xFF1E1E1E);
-  static const Color lightGreen   = Color(0xFF56BC7C);
+  static const Color settingsBg = Color(0xFFD9D9D9);
+  static const Color textDark = Color(0xFF1E1E1E);
+  static const Color lightGreen = Color(0xFF56BC7C);
+  static const Color lightWhite = Color(0xFFFFFFFF);
 
   // Legacy aliases used in a few widgets — kept for compatibility
-  static const Color lightPrimary  = primaryGreen;
-  static const Color lightAccent   = accentOrange;
-  static const Color darkPrimary   = primaryGreen;
-  static const Color darkAccent    = accentOrange;
+  static const Color lightPrimary = primaryGreen;
+  static const Color lightAccent = accentOrange;
+  static const Color darkPrimary = primaryGreen;
+  static const Color darkAccent = accentOrange;
   static const Color lightBackground = Color(0xFFD9D9D9);
 
   // ── Gradient ─────────────────────────────────────────────────────────────────
@@ -99,7 +100,8 @@ class AppTheme {
           backgroundColor: Colors.white,
           foregroundColor: darkGreen,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14)),
+            borderRadius: BorderRadius.circular(14),
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           textStyle: GoogleFonts.poppins(
             fontSize: 20,
@@ -114,12 +116,14 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith((s) =>
-            s.contains(WidgetState.selected) ? primaryGreen : Colors.grey),
-        trackColor: WidgetStateProperty.resolveWith((s) =>
-            s.contains(WidgetState.selected)
-                ? primaryGreen.withValues(alpha: 0.4)
-                : Colors.grey.withValues(alpha: 0.3)),
+        thumbColor: WidgetStateProperty.resolveWith(
+          (s) => s.contains(WidgetState.selected) ? primaryGreen : Colors.grey,
+        ),
+        trackColor: WidgetStateProperty.resolveWith(
+          (s) => s.contains(WidgetState.selected)
+              ? primaryGreen.withValues(alpha: 0.4)
+              : Colors.grey.withValues(alpha: 0.3),
+        ),
       ),
     );
   }
@@ -175,8 +179,7 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide:
-              const BorderSide(color: Color(0xFF30363D)),
+          borderSide: const BorderSide(color: Color(0xFF30363D)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -188,7 +191,8 @@ class AppTheme {
           backgroundColor: primaryGreen,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14)),
+            borderRadius: BorderRadius.circular(14),
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           textStyle: GoogleFonts.poppins(
             fontSize: 16,
@@ -197,12 +201,14 @@ class AppTheme {
         ),
       ),
       switchTheme: SwitchThemeData(
-        thumbColor: WidgetStateProperty.resolveWith((s) =>
-            s.contains(WidgetState.selected) ? primaryGreen : Colors.grey),
-        trackColor: WidgetStateProperty.resolveWith((s) =>
-            s.contains(WidgetState.selected)
-                ? primaryGreen.withValues(alpha: 0.4)
-                : Colors.grey.withValues(alpha: 0.3)),
+        thumbColor: WidgetStateProperty.resolveWith(
+          (s) => s.contains(WidgetState.selected) ? primaryGreen : Colors.grey,
+        ),
+        trackColor: WidgetStateProperty.resolveWith(
+          (s) => s.contains(WidgetState.selected)
+              ? primaryGreen.withValues(alpha: 0.4)
+              : Colors.grey.withValues(alpha: 0.3),
+        ),
       ),
     );
   }
@@ -211,22 +217,43 @@ class AppTheme {
   static TextTheme _buildTextTheme(Color primary, Color secondary) {
     return TextTheme(
       displayLarge: GoogleFonts.poppins(
-          fontSize: 32, fontWeight: FontWeight.w800, color: primary),
+        fontSize: 32,
+        fontWeight: FontWeight.w800,
+        color: primary,
+      ),
       displayMedium: GoogleFonts.poppins(
-          fontSize: 26, fontWeight: FontWeight.w700, color: primary),
+        fontSize: 26,
+        fontWeight: FontWeight.w700,
+        color: primary,
+      ),
       headlineLarge: GoogleFonts.poppins(
-          fontSize: 24, fontWeight: FontWeight.w700, color: primary),
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+        color: primary,
+      ),
       headlineMedium: GoogleFonts.poppins(
-          fontSize: 20, fontWeight: FontWeight.w600, color: primary),
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: primary,
+      ),
       titleLarge: GoogleFonts.poppins(
-          fontSize: 18, fontWeight: FontWeight.w600, color: primary),
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: primary,
+      ),
       titleMedium: GoogleFonts.poppins(
-          fontSize: 16, fontWeight: FontWeight.w500, color: primary),
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: primary,
+      ),
       bodyLarge: GoogleFonts.poppins(fontSize: 16, color: primary),
       bodyMedium: GoogleFonts.poppins(fontSize: 14, color: primary),
       bodySmall: GoogleFonts.poppins(fontSize: 12, color: secondary),
       labelLarge: GoogleFonts.poppins(
-          fontSize: 14, fontWeight: FontWeight.w600, color: primary),
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: primary,
+      ),
       labelSmall: GoogleFonts.poppins(fontSize: 11, color: secondary),
     );
   }

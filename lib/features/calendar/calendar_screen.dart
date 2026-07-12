@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/hive/models/horaires_jour_model.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/localized_names.dart';
 import '../../core/widgets/gradient_scaffold.dart';
+import '../../l10n/app_localizations.dart';
 import 'calendar_provider.dart';
 import 'widgets/day_detail_sheet.dart';
 
@@ -43,6 +45,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     final selectedMonth = _pageToMonth(_currentPage);
+    final canPop = ModalRoute.of(context)?.canPop ?? false;
 
     return GradientScaffold(
       body: SafeArea(
@@ -51,6 +54,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
           children: [
             _CalendarHeader(
               selectedMonth: selectedMonth,
+              onBack: canPop ? () => Navigator.pop(context) : null,
               onPrev: () {
                 _pageController.previousPage(
                   duration: const Duration(milliseconds: 350),
@@ -71,7 +75,6 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
                 controller: _pageController,
                 onPageChanged: (page) {
                   setState(() => _currentPage = page);
-                  // Keep provider in sync for cache fetches
                   ref.read(selectedMonthProvider.notifier).state = _pageToMonth(
                     page,
                   );
@@ -94,6 +97,7 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
 
 class _CalendarHeader extends StatelessWidget {
   final DateTime selectedMonth;
+  final VoidCallback? onBack;
   final VoidCallback onPrev;
   final VoidCallback onNext;
 
@@ -101,71 +105,113 @@ class _CalendarHeader extends StatelessWidget {
     required this.selectedMonth,
     required this.onPrev,
     required this.onNext,
+    this.onBack,
   });
 
   @override
   Widget build(BuildContext context) {
-    final monthName = _monthName(selectedMonth.month);
+    final lang = Localizations.localeOf(context).languageCode;
+    final monthName = localizedMonth(lang, selectedMonth.month);
 
-    return Container(
-      padding: const EdgeInsets.fromLTRB(8, 12, 8, 20),
-      decoration: const BoxDecoration(
-        color: AppTheme.darkGreen,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x40000000),
-            offset: Offset(0, 4),
-            blurRadius: 4,
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 18),
+          decoration: const BoxDecoration(
+            color: AppTheme.darkGreen,
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+            /*boxShadow: [
+              BoxShadow(
+                color: Color(0x40000000),
+                offset: Offset(0, 4),
+                blurRadius: 4,
+              ),
+            ],*/
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            icon: const Icon(Icons.chevron_left, color: Colors.white, size: 28),
-            onPressed: onPrev,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (onBack != null)
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton.icon(
+                    onPressed: onBack,
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                    ),
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 16,
+                    ),
+                    label: Text(
+                      '',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              Text(
+                AppLocalizations.of(context).calendar.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              const SizedBox(width: 48), // Placeholder for back button space
+            ],
           ),
-          Text(
-            '$monthName ${selectedMonth.year}',
-            style: GoogleFonts.poppins(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
+        ).animate().slideY(
+          begin: -0.3,
+          duration: 400.ms,
+          curve: Curves.easeOut,
+        ),
+        const SizedBox(height: 8),
+        const Divider(color: Colors.white24, height: 1, thickness: 1),
+        Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                  onPressed: onPrev,
+                ),
+                Text(
+                  '$monthName ${selectedMonth.year}',
+                  style: GoogleFonts.poppins(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.chevron_right,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                  onPressed: onNext,
+                ),
+              ],
             ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.chevron_right,
-              color: Colors.white,
-              size: 28,
-            ),
-            onPressed: onNext,
-          ),
-        ],
-      ),
-    ).animate().slideY(begin: -0.3, duration: 400.ms, curve: Curves.easeOut);
+          ],
+        ).animate().fadeIn(duration: 400.ms, delay: 200.ms),
+        const Divider(color: Colors.white24, height: 1, thickness: 1),
+        const SizedBox(height: 4),
+      ],
+    );
   }
 
-  String _monthName(int month) {
-    const names = [
-      '',
-      'Ocak',
-      'Şubat',
-      'Mart',
-      'Nisan',
-      'Mayıs',
-      'Haziran',
-      'Temmuz',
-      'Ağustos',
-      'Eylül',
-      'Ekim',
-      'Kasım',
-      'Aralık',
-    ];
-    return names[month];
-  }
 }
 
 // ── Weekday headers ────────────────────────────────────────────────────────────
@@ -173,21 +219,23 @@ class _CalendarHeader extends StatelessWidget {
 class _WeekdayHeaders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const days = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+    final lang = Localizations.localeOf(context).languageCode;
+    // 1 = Monday … 7 = Sunday (5 = Friday, highlighted)
+    final weekdays = [1, 2, 3, 4, 5, 6, 7];
     return Container(
       color: Colors.black.withValues(alpha: 0.15),
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        children: days
+        children: weekdays
             .map(
-              (d) => Expanded(
+              (wd) => Expanded(
                 child: Center(
                   child: Text(
-                    d,
+                    localizedWeekdayShort(lang, wd),
                     style: GoogleFonts.poppins(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: d == 'Cum'
+                      color: wd == 5
                           ? AppTheme.accentOrange
                           : Colors.white.withValues(alpha: 0.7),
                     ),

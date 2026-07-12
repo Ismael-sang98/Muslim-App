@@ -7,9 +7,11 @@ import 'package:shimmer/shimmer.dart';
 import '../../core/hive/models/horaires_jour_model.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/hijri_converter.dart';
+import '../../core/utils/localized_names.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../core/services/update_service.dart';
+import '../../l10n/app_localizations.dart';
 import '../qibla/qibla_screen.dart';
 import '../quran/quran_provider.dart';
 import '../quran/surah_screen.dart';
@@ -232,6 +234,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   }
 
   Widget _buildError(BuildContext context, String message, String villeId) {
+    final l10n = AppLocalizations.of(context);
+    final localized = switch (message) {
+      'no_city' => l10n.cityNotSelected,
+      'no_data' => l10n.noDataOffline,
+      _ => message,
+    };
     return SafeArea(
       child: Center(
         child: Padding(
@@ -246,7 +254,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
               ),
               const SizedBox(height: 16),
               Text(
-                message,
+                localized,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(color: Colors.white70),
               ),
@@ -255,7 +263,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                 onPressed: () =>
                     ref.read(prayerDataProvider(villeId).notifier).refresh(),
                 icon: const Icon(Icons.refresh),
-                label: const Text('Tekrar Dene'),
+                label: Text(l10n.retry),
               ),
             ],
           ),
@@ -283,8 +291,9 @@ class _HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
+    final lang = Localizations.localeOf(context).languageCode;
     final dateStr =
-        '${now.day.toString().padLeft(2, '0')} ${_monthName(now.month)} ${now.year}';
+        '${now.day.toString().padLeft(2, '0')} ${localizedMonth(lang, now.month)} ${now.year}';
     final hijriStr = today?.dateHijri.isNotEmpty == true
         ? today!.dateHijri
         : HijriConverter.toHijriString(now);
@@ -294,7 +303,7 @@ class _HomeHeader extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 16, 16, 24),
       decoration: const BoxDecoration(
         color: AppTheme.darkGreen,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
         boxShadow: [
           BoxShadow(
             color: Color(0x40000000),
@@ -304,16 +313,16 @@ class _HomeHeader extends StatelessWidget {
         ],
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  dateStr.toLowerCase(),
+                  dateStr,
                   style: GoogleFonts.poppins(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.w300,
                     color: AppTheme.lightGreen,
                   ),
@@ -327,7 +336,7 @@ class _HomeHeader extends StatelessWidget {
           Text(
             hijriStr,
             style: GoogleFonts.poppins(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.w400,
               color: Colors.white.withValues(alpha: 0.7),
             ),
@@ -335,25 +344,6 @@ class _HomeHeader extends StatelessWidget {
         ],
       ),
     ).animate().slideY(begin: -0.3, duration: 400.ms, curve: Curves.easeOut);
-  }
-
-  String _monthName(int month) {
-    const names = [
-      '',
-      'ocak',
-      'şubat',
-      'mart',
-      'nisan',
-      'mayıs',
-      'haziran',
-      'temmuz',
-      'ağustos',
-      'eylül',
-      'ekim',
-      'kasım',
-      'aralık',
-    ];
-    return names[month];
   }
 }
 
@@ -382,7 +372,7 @@ class _PrayerListPanel extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           Text(
-            'Diğer vaktiler',
+            AppLocalizations.of(context).otherPrayers,
             style: GoogleFonts.poppins(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -441,7 +431,9 @@ class _FreshnessBadge extends StatelessWidget {
           ),
           const SizedBox(width: 3),
           Text(
-            isStale ? 'Eski' : 'Çevrimdışı',
+            isStale
+                ? AppLocalizations.of(context).badgeStale
+                : AppLocalizations.of(context).badgeOffline,
             style: GoogleFonts.poppins(fontSize: 10, color: Colors.white),
           ),
         ],
@@ -472,7 +464,7 @@ class _ExactAlarmBanner extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
-                  'Notifications exactes désactivées — Appuyer pour activer',
+                  AppLocalizations.of(context).exactAlarmsDisabled,
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: Colors.white,
@@ -526,7 +518,7 @@ class _QiblaButton extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Kıble Yönü',
+                  AppLocalizations.of(context).qiblaDirection,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -534,7 +526,7 @@ class _QiblaButton extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Kabe\'nin yönünü bul',
+                  AppLocalizations.of(context).qiblaSubtitle,
                   style: GoogleFonts.poppins(
                     fontSize: 11,
                     color: Colors.white54,
@@ -572,29 +564,29 @@ class _DailyVerseCard extends ConsumerWidget {
 
         return GestureDetector(
           onTap: () {
-              final parts = verseKey.split(':');
-              if (parts.length != 2) return;
-              final surahId = int.tryParse(parts[0]);
-              final verseNumber = int.tryParse(parts[1]);
-              if (surahId == null || verseNumber == null) return;
-              ref.read(chaptersProvider.future).then((chapters) {
-                final chapter = chapters.firstWhere(
-                  (c) => (c['id'] as int) == surahId,
-                  orElse: () => <String, dynamic>{},
-                );
-                if (chapter.isNotEmpty && context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => SurahScreen(
-                        chapter: chapter,
-                        targetVerseNumber: verseNumber,
-                      ),
+            final parts = verseKey.split(':');
+            if (parts.length != 2) return;
+            final surahId = int.tryParse(parts[0]);
+            final verseNumber = int.tryParse(parts[1]);
+            if (surahId == null || verseNumber == null) return;
+            ref.read(chaptersProvider.future).then((chapters) {
+              final chapter = chapters.firstWhere(
+                (c) => (c['id'] as int) == surahId,
+                orElse: () => <String, dynamic>{},
+              );
+              if (chapter.isNotEmpty && context.mounted) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => SurahScreen(
+                      chapter: chapter,
+                      targetVerseNumber: verseNumber,
                     ),
-                  );
-                }
-              });
-            },
+                  ),
+                );
+              }
+            });
+          },
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -617,7 +609,7 @@ class _DailyVerseCard extends ConsumerWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Günün Ayeti',
+                      AppLocalizations.of(context).verseOfTheDay,
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         color: AppTheme.lightGreen,

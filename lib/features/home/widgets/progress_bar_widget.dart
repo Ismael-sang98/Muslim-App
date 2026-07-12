@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/hive/models/horaires_jour_model.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/localized_names.dart';
+import '../../../l10n/app_localizations.dart';
 
 class ProgressBarWidget extends StatefulWidget {
   final HorairesJourModel horaires;
@@ -90,7 +92,10 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _PrayerLabel(
-                  name: _name(widget.currentPrayerKey!),
+                  name: prayerName(
+                    AppLocalizations.of(context),
+                    widget.currentPrayerKey!,
+                  ),
                   time: widget.horaires.timeForPrayer(widget.currentPrayerKey!),
                   align: CrossAxisAlignment.start,
                   color: AppTheme.primaryGreen,
@@ -104,7 +109,10 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget>
                   ),
                 ),
                 _PrayerLabel(
-                  name: _name(widget.nextPrayerKey!),
+                  name: prayerName(
+                    AppLocalizations.of(context),
+                    widget.nextPrayerKey!,
+                  ),
                   time: widget.horaires.timeForPrayer(widget.nextPrayerKey!),
                   align: CrossAxisAlignment.end,
                   color: AppTheme.accentOrange,
@@ -210,17 +218,6 @@ class _ProgressBarWidgetState extends State<ProgressBarWidget>
     );
   }
 
-  String _name(String key) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return names[key] ?? key;
-  }
 }
 
 class _PrayerLabel extends StatelessWidget {

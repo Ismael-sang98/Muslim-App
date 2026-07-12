@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/localized_names.dart';
+import '../../../l10n/app_localizations.dart';
 import '../home_provider.dart';
 
 class NextPrayerCard extends StatefulWidget {
@@ -38,7 +40,7 @@ class _NextPrayerCardState extends State<NextPrayerCard>
       children: [
         // Label
         Text(
-          'SONRAKI VAKİT',
+          AppLocalizations.of(context).nextPrayer.toUpperCase(),
           style: GoogleFonts.poppins(
             fontSize: 12,
             fontWeight: FontWeight.w300,
@@ -49,7 +51,7 @@ class _NextPrayerCardState extends State<NextPrayerCard>
         const SizedBox(height: 4),
         // Prayer name
         Text(
-          _name(widget.nextPrayer.prayerKey),
+          prayerName(AppLocalizations.of(context), widget.nextPrayer.prayerKey),
           style: GoogleFonts.poppins(
             fontSize: 25,
             fontWeight: FontWeight.w500,
@@ -91,15 +93,4 @@ class _NextPrayerCardState extends State<NextPrayerCard>
     );
   }
 
-  String _name(String key) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return names[key] ?? key;
-  }
 }

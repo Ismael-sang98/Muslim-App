@@ -477,6 +477,522 @@ abstract class AppLocalizations {
   /// In tr, this message translates to:
   /// **'30 dakika önce'**
   String get minutesBefore30;
+
+  /// No description provided for @sectionAppearance.
+  ///
+  /// In tr, this message translates to:
+  /// **'GÖRÜNÜM'**
+  String get sectionAppearance;
+
+  /// No description provided for @sectionLanguage.
+  ///
+  /// In tr, this message translates to:
+  /// **'DİL'**
+  String get sectionLanguage;
+
+  /// No description provided for @sectionLocation.
+  ///
+  /// In tr, this message translates to:
+  /// **'KONUM'**
+  String get sectionLocation;
+
+  /// No description provided for @sectionReminder.
+  ///
+  /// In tr, this message translates to:
+  /// **'HATIRLATMA'**
+  String get sectionReminder;
+
+  /// No description provided for @sectionNotifications.
+  ///
+  /// In tr, this message translates to:
+  /// **'BİLDİRİMLER'**
+  String get sectionNotifications;
+
+  /// No description provided for @sectionAbout.
+  ///
+  /// In tr, this message translates to:
+  /// **'HAKKINDA'**
+  String get sectionAbout;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In tr, this message translates to:
+  /// **'Açık'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In tr, this message translates to:
+  /// **'Koyu'**
+  String get themeDark;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sistem'**
+  String get themeSystem;
+
+  /// No description provided for @notSelected.
+  ///
+  /// In tr, this message translates to:
+  /// **'Seçilmedi'**
+  String get notSelected;
+
+  /// No description provided for @aboutApp.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uygulama hakkında'**
+  String get aboutApp;
+
+  /// No description provided for @reminderDescription.
+  ///
+  /// In tr, this message translates to:
+  /// **'Her namazdan {count} dakika önce bildirim alın'**
+  String reminderDescription(int count);
+
+  /// No description provided for @minutesShort.
+  ///
+  /// In tr, this message translates to:
+  /// **'{count} dk'**
+  String minutesShort(int count);
+
+  /// No description provided for @langTurkish.
+  ///
+  /// In tr, this message translates to:
+  /// **'Türkçe'**
+  String get langTurkish;
+
+  /// No description provided for @langEnglish.
+  ///
+  /// In tr, this message translates to:
+  /// **'English'**
+  String get langEnglish;
+
+  /// No description provided for @langFrench.
+  ///
+  /// In tr, this message translates to:
+  /// **'Français'**
+  String get langFrench;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ara...'**
+  String get searchHint;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devam'**
+  String get continueButton;
+
+  /// No description provided for @otherPrayers.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diğer vakitler'**
+  String get otherPrayers;
+
+  /// No description provided for @badgeStale.
+  ///
+  /// In tr, this message translates to:
+  /// **'Eski'**
+  String get badgeStale;
+
+  /// No description provided for @badgeOffline.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çevrimdışı'**
+  String get badgeOffline;
+
+  /// No description provided for @exactAlarmsDisabled.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tam zamanlı bildirimler kapalı — Etkinleştirmek için dokunun'**
+  String get exactAlarmsDisabled;
+
+  /// No description provided for @qiblaDirection.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kıble Yönü'**
+  String get qiblaDirection;
+
+  /// No description provided for @qiblaSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kabe\'nin yönünü bul'**
+  String get qiblaSubtitle;
+
+  /// No description provided for @verseOfTheDay.
+  ///
+  /// In tr, this message translates to:
+  /// **'Günün Ayeti'**
+  String get verseOfTheDay;
+
+  /// No description provided for @cityNotSelected.
+  ///
+  /// In tr, this message translates to:
+  /// **'Şehir seçilmedi'**
+  String get cityNotSelected;
+
+  /// No description provided for @explore.
+  ///
+  /// In tr, this message translates to:
+  /// **'Keşfet'**
+  String get explore;
+
+  /// No description provided for @calendarSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aylık namaz vakitleri'**
+  String get calendarSubtitle;
+
+  /// No description provided for @hadith.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hadis'**
+  String get hadith;
+
+  /// No description provided for @hadithSubtitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sahih koleksiyonları oku'**
+  String get hadithSubtitle;
+
+  /// No description provided for @hadithOfTheDay.
+  ///
+  /// In tr, this message translates to:
+  /// **'GÜNÜN HADİSİ'**
+  String get hadithOfTheDay;
+
+  /// No description provided for @readMore.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devamını oku'**
+  String get readMore;
+
+  /// No description provided for @qibla.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kıble'**
+  String get qibla;
+
+  /// No description provided for @locationPermissionNeeded.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konum iznine ihtiyaç var.\nKıble yönünü hesaplamak için izin verin.'**
+  String get locationPermissionNeeded;
+
+  /// No description provided for @grantPermission.
+  ///
+  /// In tr, this message translates to:
+  /// **'İzin Ver'**
+  String get grantPermission;
+
+  /// No description provided for @noMagnetometer.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu cihazda manyetometre sensörü bulunamadı.'**
+  String get noMagnetometer;
+
+  /// No description provided for @kaabaMecca.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kâbe • Mekke'**
+  String get kaabaMecca;
+
+  /// No description provided for @kaabaDirection.
+  ///
+  /// In tr, this message translates to:
+  /// **'KÂBE YÖNÜ'**
+  String get kaabaDirection;
+
+  /// No description provided for @facingQibla.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kıbleye dönüyorsunuz'**
+  String get facingQibla;
+
+  /// No description provided for @rotatePhone.
+  ///
+  /// In tr, this message translates to:
+  /// **'Telefonu döndürün'**
+  String get rotatePhone;
+
+  /// No description provided for @quran.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kuran'**
+  String get quran;
+
+  /// No description provided for @quranSearchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ara veya 2:255 yaz'**
+  String get quranSearchHint;
+
+  /// No description provided for @surahs.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sureler'**
+  String get surahs;
+
+  /// No description provided for @verses.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ayetler'**
+  String get verses;
+
+  /// No description provided for @juz.
+  ///
+  /// In tr, this message translates to:
+  /// **'Cüz'**
+  String get juz;
+
+  /// No description provided for @continueReading.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kaldığın yerden devam et'**
+  String get continueReading;
+
+  /// No description provided for @connectionError.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bağlantı hatası.'**
+  String get connectionError;
+
+  /// No description provided for @connectionErrorCheckInternet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bağlantı hatası.\nLütfen internet bağlantınızı kontrol edin.'**
+  String get connectionErrorCheckInternet;
+
+  /// No description provided for @connectionErrorRetry.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bağlantı hatası. Lütfen tekrar deneyin.'**
+  String get connectionErrorRetry;
+
+  /// No description provided for @noVerseResults.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ayet sonucu bulunamadı.'**
+  String get noVerseResults;
+
+  /// No description provided for @goDirectly.
+  ///
+  /// In tr, this message translates to:
+  /// **'Doğrudan git'**
+  String get goDirectly;
+
+  /// No description provided for @copyArabic.
+  ///
+  /// In tr, this message translates to:
+  /// **'Arapça metni kopyala'**
+  String get copyArabic;
+
+  /// No description provided for @copyTranslation.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tercümeyi kopyala'**
+  String get copyTranslation;
+
+  /// No description provided for @copied.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kopyalandı!'**
+  String get copied;
+
+  /// No description provided for @removeFromFavorites.
+  ///
+  /// In tr, this message translates to:
+  /// **'Favorilerden çıkar'**
+  String get removeFromFavorites;
+
+  /// No description provided for @addToFavorites.
+  ///
+  /// In tr, this message translates to:
+  /// **'Favorilere ekle'**
+  String get addToFavorites;
+
+  /// No description provided for @loadingError.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yükleme hatası'**
+  String get loadingError;
+
+  /// No description provided for @favorites.
+  ///
+  /// In tr, this message translates to:
+  /// **'Favoriler'**
+  String get favorites;
+
+  /// No description provided for @noFavoritesYet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz favori eklemediniz.'**
+  String get noFavoritesYet;
+
+  /// No description provided for @favoritesHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir ayete uzun basarak favorilere ekleyebilirsiniz.'**
+  String get favoritesHint;
+
+  /// No description provided for @reciter.
+  ///
+  /// In tr, this message translates to:
+  /// **'Okuyucu'**
+  String get reciter;
+
+  /// No description provided for @hadithSearchHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ara (metin veya no)...'**
+  String get hadithSearchHint;
+
+  /// No description provided for @chapters.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bölümler'**
+  String get chapters;
+
+  /// No description provided for @hadithsLabel.
+  ///
+  /// In tr, this message translates to:
+  /// **'hadis'**
+  String get hadithsLabel;
+
+  /// No description provided for @collectionUnavailableInLang.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu koleksiyon seçilen dilde mevcut değil — İngilizce gösteriliyor'**
+  String get collectionUnavailableInLang;
+
+  /// No description provided for @noResults.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonuç bulunamadı'**
+  String get noResults;
+
+  /// No description provided for @noFavoriteHadith.
+  ///
+  /// In tr, this message translates to:
+  /// **'Henüz favori hadis yok'**
+  String get noFavoriteHadith;
+
+  /// No description provided for @favoriteHadithHint.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bir hadisi favorilere eklemek için ⭐ simgesine dokunun'**
+  String get favoriteHadithHint;
+
+  /// No description provided for @errorTimeout.
+  ///
+  /// In tr, this message translates to:
+  /// **'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.'**
+  String get errorTimeout;
+
+  /// No description provided for @errorNoInternet.
+  ///
+  /// In tr, this message translates to:
+  /// **'İnternet bağlantısı yok. Çevrimdışı modda çalışıyorsunuz.'**
+  String get errorNoInternet;
+
+  /// No description provided for @errorServer.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sunucu hatası ({code}).'**
+  String errorServer(int code);
+
+  /// No description provided for @fontSize.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yazı Boyutu'**
+  String get fontSize;
+
+  /// No description provided for @resumeReadingAt.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kaldığınız yerden devam edin · #{number}'**
+  String resumeReadingAt(int number);
+
+  /// No description provided for @favorite.
+  ///
+  /// In tr, this message translates to:
+  /// **'Favori'**
+  String get favorite;
+
+  /// No description provided for @favorited.
+  ///
+  /// In tr, this message translates to:
+  /// **'Favoride'**
+  String get favorited;
+
+  /// No description provided for @copy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kopyala'**
+  String get copy;
+
+  /// No description provided for @share.
+  ///
+  /// In tr, this message translates to:
+  /// **'Paylaş'**
+  String get share;
+
+  /// No description provided for @previous.
+  ///
+  /// In tr, this message translates to:
+  /// **'Önceki'**
+  String get previous;
+
+  /// No description provided for @next.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sonraki'**
+  String get next;
+
+  /// No description provided for @dataSource.
+  ///
+  /// In tr, this message translates to:
+  /// **'Veri kaynağı'**
+  String get dataSource;
+
+  /// No description provided for @developer.
+  ///
+  /// In tr, this message translates to:
+  /// **'Geliştirici'**
+  String get developer;
+
+  /// No description provided for @contact.
+  ///
+  /// In tr, this message translates to:
+  /// **'İletişim'**
+  String get contact;
+
+  /// No description provided for @notifReminderTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'🕌 {prayer} Vakti'**
+  String notifReminderTitle(String prayer);
+
+  /// No description provided for @notifReminderBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'{prayer} namazına {minutes} dakika kaldı'**
+  String notifReminderBody(String prayer, int minutes);
+
+  /// No description provided for @notifAtTimeTitle.
+  ///
+  /// In tr, this message translates to:
+  /// **'🕌 {prayer} Vakti Girdi'**
+  String notifAtTimeTitle(String prayer);
+
+  /// No description provided for @notifAtTimeBody.
+  ///
+  /// In tr, this message translates to:
+  /// **'{prayer} namazının vakti geldi'**
+  String notifAtTimeBody(String prayer);
 }
 
 class _AppLocalizationsDelegate

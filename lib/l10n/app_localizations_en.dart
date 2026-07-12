@@ -203,4 +203,282 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get minutesBefore30 => '30 minutes before';
+
+  @override
+  String get sectionAppearance => 'APPEARANCE';
+
+  @override
+  String get sectionLanguage => 'LANGUAGE';
+
+  @override
+  String get sectionLocation => 'LOCATION';
+
+  @override
+  String get sectionReminder => 'REMINDER';
+
+  @override
+  String get sectionNotifications => 'NOTIFICATIONS';
+
+  @override
+  String get sectionAbout => 'ABOUT';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeSystem => 'System';
+
+  @override
+  String get notSelected => 'Not selected';
+
+  @override
+  String get aboutApp => 'About the app';
+
+  @override
+  String reminderDescription(int count) {
+    return 'Get notified $count minutes before each prayer';
+  }
+
+  @override
+  String minutesShort(int count) {
+    return '$count min';
+  }
+
+  @override
+  String get langTurkish => 'Türkçe';
+
+  @override
+  String get langEnglish => 'English';
+
+  @override
+  String get langFrench => 'Français';
+
+  @override
+  String get searchHint => 'Search...';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get otherPrayers => 'Other prayers';
+
+  @override
+  String get badgeStale => 'Old';
+
+  @override
+  String get badgeOffline => 'Offline';
+
+  @override
+  String get exactAlarmsDisabled =>
+      'Exact notifications disabled — Tap to enable';
+
+  @override
+  String get qiblaDirection => 'Qibla Direction';
+
+  @override
+  String get qiblaSubtitle => 'Find the direction of the Kaaba';
+
+  @override
+  String get verseOfTheDay => 'Verse of the Day';
+
+  @override
+  String get cityNotSelected => 'No city selected';
+
+  @override
+  String get explore => 'Explore';
+
+  @override
+  String get calendarSubtitle => 'Monthly prayer times';
+
+  @override
+  String get hadith => 'Hadith';
+
+  @override
+  String get hadithSubtitle => 'Read authentic collections';
+
+  @override
+  String get hadithOfTheDay => 'HADITH OF THE DAY';
+
+  @override
+  String get readMore => 'Read more';
+
+  @override
+  String get qibla => 'Qibla';
+
+  @override
+  String get locationPermissionNeeded =>
+      'Location permission is required.\nGrant access to calculate the Qibla direction.';
+
+  @override
+  String get grantPermission => 'Grant Permission';
+
+  @override
+  String get noMagnetometer => 'No magnetometer sensor found on this device.';
+
+  @override
+  String get kaabaMecca => 'Kaaba • Mecca';
+
+  @override
+  String get kaabaDirection => 'KAABA DIRECTION';
+
+  @override
+  String get facingQibla => 'You are facing the Qibla';
+
+  @override
+  String get rotatePhone => 'Rotate your phone';
+
+  @override
+  String get quran => 'Quran';
+
+  @override
+  String get quranSearchHint => 'Search or type 2:255';
+
+  @override
+  String get surahs => 'Surahs';
+
+  @override
+  String get verses => 'Verses';
+
+  @override
+  String get juz => 'Juz';
+
+  @override
+  String get continueReading => 'Continue reading';
+
+  @override
+  String get connectionError => 'Connection error.';
+
+  @override
+  String get connectionErrorCheckInternet =>
+      'Connection error.\nPlease check your internet connection.';
+
+  @override
+  String get connectionErrorRetry => 'Connection error. Please try again.';
+
+  @override
+  String get noVerseResults => 'No verses found.';
+
+  @override
+  String get goDirectly => 'Go directly';
+
+  @override
+  String get copyArabic => 'Copy Arabic text';
+
+  @override
+  String get copyTranslation => 'Copy translation';
+
+  @override
+  String get copied => 'Copied!';
+
+  @override
+  String get removeFromFavorites => 'Remove from favorites';
+
+  @override
+  String get addToFavorites => 'Add to favorites';
+
+  @override
+  String get loadingError => 'Loading error';
+
+  @override
+  String get favorites => 'Favorites';
+
+  @override
+  String get noFavoritesYet => 'You haven\'t added any favorites yet.';
+
+  @override
+  String get favoritesHint => 'Long-press a verse to add it to favorites.';
+
+  @override
+  String get reciter => 'Reciter';
+
+  @override
+  String get hadithSearchHint => 'Search (text or no.)...';
+
+  @override
+  String get chapters => 'Chapters';
+
+  @override
+  String get hadithsLabel => 'hadiths';
+
+  @override
+  String get collectionUnavailableInLang =>
+      'This collection is not available in the selected language — showing English';
+
+  @override
+  String get noResults => 'No results found';
+
+  @override
+  String get noFavoriteHadith => 'No favorite hadiths yet';
+
+  @override
+  String get favoriteHadithHint => 'Tap ⭐ to add a hadith to your favorites';
+
+  @override
+  String get errorTimeout => 'The request timed out. Please try again.';
+
+  @override
+  String get errorNoInternet => 'No internet connection. You are offline.';
+
+  @override
+  String errorServer(int code) {
+    return 'Server error ($code).';
+  }
+
+  @override
+  String get fontSize => 'Font Size';
+
+  @override
+  String resumeReadingAt(int number) {
+    return 'Continue where you left off · #$number';
+  }
+
+  @override
+  String get favorite => 'Favorite';
+
+  @override
+  String get favorited => 'Favorited';
+
+  @override
+  String get copy => 'Copy';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get previous => 'Previous';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get dataSource => 'Data source';
+
+  @override
+  String get developer => 'Developer';
+
+  @override
+  String get contact => 'Contact';
+
+  @override
+  String notifReminderTitle(String prayer) {
+    return '🕌 $prayer Time';
+  }
+
+  @override
+  String notifReminderBody(String prayer, int minutes) {
+    return '$minutes minutes until $prayer prayer';
+  }
+
+  @override
+  String notifAtTimeTitle(String prayer) {
+    return '🕌 $prayer Time Has Come';
+  }
+
+  @override
+  String notifAtTimeBody(String prayer) {
+    return 'It\'s time for $prayer prayer';
+  }
 }

@@ -23,13 +23,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..themeMode = fields[3] as String
       ..notificationsRaw = (fields[4] as Map).cast<dynamic, dynamic>()
       ..minutesAvantRappel = fields[5] as int
-      ..villeProvinceNom = fields[6] as String?;
+      ..villeProvinceNom = fields[6] as String?
+      ..hadithLangue = fields[7] as String;
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.villeId)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(5)
       ..write(obj.minutesAvantRappel)
       ..writeByte(6)
-      ..write(obj.villeProvinceNom);
+      ..write(obj.villeProvinceNom)
+      ..writeByte(7)
+      ..write(obj.hadithLangue);
   }
 
   @override

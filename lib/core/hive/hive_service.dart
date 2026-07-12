@@ -7,7 +7,15 @@ class HiveService {
   static const String _settingsBoxName = 'settings';
   static const String _cacheBoxName = 'prayer_cache';
 
-  static const String _quranCacheBoxName = 'quran_cache';
+  static const String _quranCacheBoxName  = 'quran_cache';
+  static const String _hadithCacheBoxName = 'hadith_cache';
+  static const String _hadithFavoritesBoxName = 'hadith_favorites';
+  static const String _hadithProgressBoxName = 'hadith_progress';
+
+  // Bump when the cached hadith JSON shape changes (e.g. adding sections),
+  // so stale entries are cleared automatically on the next launch.
+  static const String _hadithSchemaKey = '__schema__';
+  static const String _hadithSchemaVersion = '2';
 
   static Future<void> init() async {
     await Hive.initFlutter();
@@ -18,6 +26,15 @@ class HiveService {
     await Hive.openBox<SettingsModel>(_settingsBoxName);
     await Hive.openBox<PrayerCacheModel>(_cacheBoxName);
     await Hive.openBox<String>(_quranCacheBoxName);
+    final hadithBox = await Hive.openBox<String>(_hadithCacheBoxName);
+    await Hive.openBox<String>(_hadithFavoritesBoxName);
+    await Hive.openBox<String>(_hadithProgressBoxName);
+
+    // Drop stale hadith cache when the stored schema is outdated.
+    if (hadithBox.get(_hadithSchemaKey) != _hadithSchemaVersion) {
+      await hadithBox.clear();
+      await hadithBox.put(_hadithSchemaKey, _hadithSchemaVersion);
+    }
   }
 
   static Box<SettingsModel> get settingsBox =>
@@ -52,4 +69,13 @@ class HiveService {
 
   static Box<String> get quranCacheBox =>
       Hive.box<String>(_quranCacheBoxName);
+
+  static Box<String> get hadithCacheBox =>
+      Hive.box<String>(_hadithCacheBoxName);
+
+  static Box<String> get hadithFavoritesBox =>
+      Hive.box<String>(_hadithFavoritesBoxName);
+
+  static Box<String> get hadithProgressBox =>
+      Hive.box<String>(_hadithProgressBoxName);
 }

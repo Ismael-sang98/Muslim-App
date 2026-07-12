@@ -36,6 +36,20 @@ class SettingsNotifier extends StateNotifier<SettingsModel> {
     await state.save();
     state = state;
   }
+
+  Future<void> updateHadithLanguage(String lang) async {
+    state.hadithLangue = lang;
+    await state.save();
+    state = state;
+  }
+
+  /// App-wide language (drives UI + hadith content, kept in sync).
+  Future<void> updateLanguage(String lang) async {
+    state.langue = lang;
+    state.hadithLangue = lang;
+    await state.save();
+    state = state;
+  }
 }
 
 final settingsProvider =
@@ -49,6 +63,16 @@ final themeModeProvider = Provider<ThemeMode>((ref) {
     'light' => ThemeMode.light,
     'dark' => ThemeMode.dark,
     _ => ThemeMode.system,
+  };
+});
+
+/// App locale derived from the persisted language setting.
+final appLocaleProvider = Provider<Locale>((ref) {
+  final lang = ref.watch(settingsProvider).langue;
+  return switch (lang) {
+    'en' => const Locale('en'),
+    'fr' => const Locale('fr'),
+    _ => const Locale('tr'),
   };
 });
 

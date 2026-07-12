@@ -26,7 +26,7 @@
 
 ### Genel Bakış
 
-**Muslim App**, Türkiye'de yaşayan Müslümanlar için geliştirilmiş kapsamlı bir Android uygulamasıdır. Diyanet İşleri Başkanlığı'nın resmi namaz vakitlerini takip etmenizi, Kuran-ı Kerim'i okumanızı ve kıble yönünü bulmanızı sağlar.
+**Muslim App**, Türkiye'de yaşayan Müslümanlar için geliştirilmiş kapsamlı bir Android uygulamasıdır. Diyanet İşleri Başkanlığı'nın resmi namaz vakitlerini takip etmenizi, Kuran-ı Kerim ve hadis okumanızı ve kıble yönünü bulmanızı sağlar. Arayüz tamamen **Türkçe, İngilizce ve Fransızca** olarak sunulur.
 
 ### Özellikler
 
@@ -48,6 +48,23 @@
 - **Cüz Navigasyonu** — 30 cüz üzerinden gezinme
 - **Ayarlanabilir Font** — Arapça metin boyutunu isteğine göre ayarla
 
+#### 📚 Hadis
+- **Sahih Koleksiyonlar** — Buhari, Müslim, Ebu Davud, İbn Mace, Nesai, Tirmizi, Kudsi, Nevevi (fawazahmed0/hadith-api)
+- **Çok Dilli** — Türkçe, İngilizce, Fransızca; bir koleksiyon o dilde yoksa otomatik İngilizce'ye geçiş
+- **Arama** — metne veya hadis numarasına göre
+- **Bölüm (Kitâb) Navigasyonu** — bölüm başlıkları, bölüm seçici ve her hadiste kitâb adı
+- **Sıhhat Derecesi** — mevcutsa Sahih/Hasen rozeti
+- **Favoriler, Kopyala, Paylaş**
+- **Tam Ekran Okuma** — tek hadis görünümü, sağa/sola kaydırarak gezinme
+- **Kaldığın Yere Devam** — her koleksiyon için son okunan hadis
+- **Günün Hadisi** — Keşfet ekranında her gün farklı bir hadis
+- **Ayarlanabilir Font + Çevrimdışı Önbellek**
+
+#### 🌍 Çok Dilli Arayüz
+- **Tam Türkçe / İngilizce / Fransızca** — tüm arayüz, Kuran mealleri, hadisler ve bildirimler
+- **İlk açılışta cihaz diline uyum** + Ayarlar'dan istediğin zaman değiştir
+- **Keşfet Sekmesi** — Takvim ve Hadis'i tek bir merkezden aç
+
 #### 🧭 Kıble Pusulası
 - **Canlı Manyetik Pusula** — GPS konumundan Kabe yönünü gösteren animasyonlu pusula
 - **Hizalama Geri Bildirimi** — Kıbleye döndüğünde titreşim ve yeşil parlama efekti
@@ -58,6 +75,7 @@
 - **Hicri Tarih** — Miladi tarihin yanında Hicri tarih bilgisi
 
 #### ⚙️ Ayarlar
+- **Dil Seçimi** — Türkçe / İngilizce / Fransızca (arayüz + içerik)
 - **Karanlık / Aydınlık / Sistem Teması** — İkon tabanlı tema seçici
 - **Namaza Özel Bildirimler** — Her namaz için ayrı açma/kapama; her birinin rengi farklı
 - **Şehir Güncelleme** — İl ve ilçeyi istediğin zaman değiştir
@@ -79,23 +97,36 @@ flutter run
 ```
 lib/
 ├── core/
-│   ├── api/              # HTTP servisi (Dio) — Diyanet + Kuran API
+│   ├── api/              # HTTP servisi (Dio) — Diyanet + Kuran + Hadis API
 │   ├── config/           # API anahtarları (gitignore'da)
 │   ├── hive/             # Veri modelleri ve yerel depolama (Hive)
-│   ├── notifications/    # Bildirim servisi (flutter_local_notifications)
+│   ├── notifications/    # Bildirim servisi (çok dilli)
 │   ├── theme/            # Açık/koyu temalar (AppTheme)
+│   ├── utils/            # Hicri dönüştürücü, yerelleştirilmiş adlar
 │   └── widgets/          # Paylaşılan widget'lar
 ├── features/
 │   ├── home/             # Ana ekran — sonraki namaz, geri sayım, günün ayeti
+│   ├── hub/              # Keşfet merkezi — Takvim + Hadis
 │   ├── quran/            # Kuran-ı Kerim — sureler, ayetler, arama, favoriler, ses
+│   ├── hadith/           # Hadis — koleksiyonlar, bölümler, arama, favoriler, detay
 │   ├── qibla/            # Kıble pusulası — GPS + manyetometre + titreşim
 │   ├── calendar/         # Aylık takvim (Hicri + Miladi)
-│   ├── settings/         # Ayarlar — şehir, tema, bildirimler
+│   ├── settings/         # Ayarlar — dil, şehir, tema, bildirimler
 │   └── onboarding/       # İlk başlatma — şehir seçimi + izinler
+├── l10n/                 # Yerelleştirme (TR/EN/FR .arb)
 └── main.dart
 ```
 
-**State yönetimi:** Riverpod · **Yerel depolama:** Hive · **Navigasyon:** Özel alt gezinme çubuğu
+**State yönetimi:** Riverpod · **Yerel depolama:** Hive · **Yerelleştirme:** flutter_localizations · **Navigasyon:** Özel alt gezinme çubuğu
+
+### Testler
+
+```bash
+flutter test
+```
+
+- **Hadis API servisi** — `.min.json → .json` fallback, timeout, hata yönetimi, dil repli, dereceler ve bölümlerin ayrıştırılması (mocktail)
+- **Güvenilirlik** — Hicri dönüşümü, namaz vakti ayrıştırma, yerelleştirme yardımcıları
 
 ### Android İzinleri
 
@@ -115,7 +146,7 @@ lib/
 
 ### Overview
 
-**Muslim App** is a comprehensive Android application built with Flutter for Muslims living in Turkey. It provides official Diyanet prayer times, Quran reading with audio playback, and a live Qibla compass.
+**Muslim App** is a comprehensive Android application built with Flutter for Muslims living in Turkey. It provides official Diyanet prayer times, Quran and hadith reading with audio playback, and a live Qibla compass. The entire interface is available in **Turkish, English and French**.
 
 ### Features
 
@@ -137,6 +168,23 @@ lib/
 - **Juz Navigation** — Browse all 30 Juz
 - **Adjustable Font** — Resize Arabic text to your preference
 
+#### 📚 Hadith
+- **Authentic Collections** — Bukhari, Muslim, Abu Dawud, Ibn Majah, Nasa'i, Tirmidhi, Qudsi, Nawawi (fawazahmed0/hadith-api)
+- **Multilingual** — Turkish, English, French; automatic English fallback when a collection is unavailable in a language
+- **Search** — by text or hadith number
+- **Chapter (Kitāb) Navigation** — chapter headers, a chapter picker, and the chapter name on each hadith
+- **Authenticity Grade** — Sahih/Hasan badge when available
+- **Favorites, Copy, Share**
+- **Full-screen Reading** — single-hadith view with swipe navigation
+- **Resume Reading** — last read hadith per collection
+- **Hadith of the Day** — a different hadith each day on the Explore screen
+- **Adjustable Font + Offline Cache**
+
+#### 🌍 Multilingual Interface
+- **Full Turkish / English / French** — the entire UI, Quran translations, hadiths and notifications
+- **Follows the device language on first launch** + change anytime in Settings
+- **Explore Tab** — open Calendar and Hadith from a single hub
+
 #### 🧭 Qibla Compass
 - **Live Magnetic Compass** — Animated compass pointing to the Kaaba from your GPS position
 - **Alignment Feedback** — Haptic vibration + green glow when facing the Qibla
@@ -147,6 +195,7 @@ lib/
 - **Hijri Date** — Displayed alongside the Gregorian date
 
 #### ⚙️ Settings
+- **Language Selection** — Turkish / English / French (interface + content)
 - **Dark / Light / System Theme** — Icon-based segmented theme selector
 - **Per-prayer Notifications** — Individual toggle per prayer, each with its own accent color
 - **City Update** — Change province and district at any time
@@ -168,23 +217,36 @@ flutter run
 ```
 lib/
 ├── core/
-│   ├── api/              # HTTP service (Dio) — Diyanet + Quran API
+│   ├── api/              # HTTP service (Dio) — Diyanet + Quran + Hadith API
 │   ├── config/           # API keys (gitignored)
 │   ├── hive/             # Data models and local storage (Hive)
-│   ├── notifications/    # Notification service (flutter_local_notifications)
+│   ├── notifications/    # Notification service (localized)
 │   ├── theme/            # Light/dark themes (AppTheme)
+│   ├── utils/            # Hijri converter, localized names
 │   └── widgets/          # Shared widgets
 ├── features/
 │   ├── home/             # Main screen — next prayer, countdown, verse of the day
+│   ├── hub/              # Explore hub — Calendar + Hadith
 │   ├── quran/            # Holy Quran — surahs, verses, search, favorites, audio
+│   ├── hadith/           # Hadith — collections, chapters, search, favorites, detail
 │   ├── qibla/            # Qibla compass — GPS + magnetometer + haptics
 │   ├── calendar/         # Monthly calendar (Hijri + Gregorian)
-│   ├── settings/         # Settings — city, theme, notifications
+│   ├── settings/         # Settings — language, city, theme, notifications
 │   └── onboarding/       # First launch — city selection + permissions
+├── l10n/                 # Localizations (TR/EN/FR .arb)
 └── main.dart
 ```
 
-**State management:** Riverpod · **Local storage:** Hive · **Navigation:** Custom bottom navigation bar
+**State management:** Riverpod · **Local storage:** Hive · **Localization:** flutter_localizations · **Navigation:** Custom bottom navigation bar
+
+### Testing
+
+```bash
+flutter test
+```
+
+- **Hadith API service** — `.min.json → .json` fallback, timeout, error handling, language fallback, grade & chapter parsing (mocktail)
+- **Reliability** — Hijri conversion, prayer-time parsing, localization utilities
 
 ### Tech Stack
 
@@ -194,14 +256,18 @@ lib/
 | [Riverpod](https://riverpod.dev) | State management |
 | [Hive](https://pub.dev/packages/hive) | Local database |
 | [Dio](https://pub.dev/packages/dio) | HTTP client |
+| [flutter_localizations + intl](https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization) | Internationalization (TR/EN/FR) |
 | [just_audio](https://pub.dev/packages/just_audio) | Verse-by-verse audio playback |
-| [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Scheduled notifications |
+| [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Scheduled (localized) notifications |
 | [timezone](https://pub.dev/packages/timezone) | Timezone handling (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | GPS position for Qibla calculation |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Magnetometer heading stream |
+| [share_plus](https://pub.dev/packages/share_plus) | Sharing hadiths and verses |
+| [shimmer](https://pub.dev/packages/shimmer) | Skeleton loading placeholders |
 | [Google Fonts](https://pub.dev/packages/google_fonts) | Typography (Poppins) |
 | [Scheherazade New](https://software.sil.org/scheherazade/) | Arabic Quranic font (bundled) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | UI animations |
+| [mocktail](https://pub.dev/packages/mocktail) | Unit test mocking (dev) |
 
 ### Production Build (Android)
 
@@ -245,7 +311,7 @@ flutter build apk --release
 
 ### Aperçu
 
-**Muslim App** est une application Android complète développée en Flutter pour les musulmans résidant en Turquie. Elle regroupe les horaires de prière officiels Diyanet, la lecture du Coran avec audio, et une boussole Qibla en temps réel.
+**Muslim App** est une application Android complète développée en Flutter pour les musulmans résidant en Turquie. Elle regroupe les horaires de prière officiels Diyanet, la lecture du Coran et des hadiths avec audio, et une boussole Qibla en temps réel. L'interface est entièrement disponible en **turc, anglais et français**.
 
 ### Fonctionnalités
 
@@ -267,6 +333,23 @@ flutter build apk --release
 - **Navigation par Juz** — parcourez les 30 Juz
 - **Police ajustable** — redimensionnez le texte arabe à votre convenance
 
+#### 📚 Hadith
+- **Recueils authentiques** — Bukhari, Muslim, Abu Dawud, Ibn Majah, Nasa'i, Tirmidhi, Qudsi, Nawawi (fawazahmed0/hadith-api)
+- **Multilingue** — turc, anglais, français ; repli automatique vers l'anglais si un recueil est indisponible dans une langue
+- **Recherche** — par texte ou numéro de hadith
+- **Navigation par chapitre (Kitāb)** — en-têtes de chapitre, sélecteur de chapitre, et nom du chapitre sur chaque hadith
+- **Grade d'authenticité** — badge Sahih/Hasan si disponible
+- **Favoris, copier, partager**
+- **Lecture plein écran** — vue d'un seul hadith avec navigation par swipe
+- **Reprendre la lecture** — dernier hadith lu par recueil
+- **Hadith du jour** — un hadith différent chaque jour sur l'écran Découvrir
+- **Police ajustable + cache hors-ligne**
+
+#### 🌍 Interface multilingue
+- **Turc / anglais / français complet** — toute l'UI, les traductions du Coran, les hadiths et les notifications
+- **Suit la langue de l'appareil au premier lancement** + modifiable à tout moment dans les Paramètres
+- **Onglet Découvrir** — ouvrez le Calendrier et les Hadiths depuis un hub unique
+
 #### 🧭 Boussole Qibla
 - **Boussole magnétique en direct** — boussole animée pointant vers la Kaaba depuis votre position GPS
 - **Retour haptique** — vibration + halo vert lorsque vous êtes orienté vers la Qibla
@@ -277,6 +360,7 @@ flutter build apk --release
 - **Date hijri** — affichée aux côtés de la date grégorienne
 
 #### ⚙️ Paramètres
+- **Choix de la langue** — turc / anglais / français (interface + contenu)
 - **Thème sombre / clair / système** — sélecteur de thème avec icônes
 - **Notifications par prière** — bascule individuelle par prière, chacune avec sa propre couleur
 - **Mise à jour de la ville** — changez province et district à tout moment
@@ -298,23 +382,36 @@ flutter run
 ```
 lib/
 ├── core/
-│   ├── api/              # Service HTTP (Dio) — API Diyanet + Coran
+│   ├── api/              # Service HTTP (Dio) — API Diyanet + Coran + Hadith
 │   ├── config/           # Clés API (gitignored)
 │   ├── hive/             # Modèles de données et persistance locale (Hive)
-│   ├── notifications/    # Service de notifications (flutter_local_notifications)
+│   ├── notifications/    # Service de notifications (localisé)
 │   ├── theme/            # Thèmes clair/sombre (AppTheme)
+│   ├── utils/            # Convertisseur hijri, noms localisés
 │   └── widgets/          # Widgets partagés
 ├── features/
 │   ├── home/             # Écran principal — prochaine prière, countdown, verset du jour
+│   ├── hub/              # Hub Découvrir — Calendrier + Hadith
 │   ├── quran/            # Coran — sourates, versets, recherche, favoris, audio
+│   ├── hadith/           # Hadith — recueils, chapitres, recherche, favoris, détail
 │   ├── qibla/            # Boussole Qibla — GPS + magnétomètre + haptique
 │   ├── calendar/         # Calendrier mensuel (Hijri + Grégorien)
-│   ├── settings/         # Paramètres — ville, thème, notifications
+│   ├── settings/         # Paramètres — langue, ville, thème, notifications
 │   └── onboarding/       # Premier lancement — sélection ville + permissions
+├── l10n/                 # Localisation (TR/EN/FR .arb)
 └── main.dart
 ```
 
-**State management :** Riverpod · **Persistance :** Hive · **Navigation :** Bottom navigation bar custom
+**State management :** Riverpod · **Persistance :** Hive · **Localisation :** flutter_localizations · **Navigation :** Bottom navigation bar custom
+
+### Tests
+
+```bash
+flutter test
+```
+
+- **Service API Hadith** — repli `.min.json → .json`, timeout, gestion d'erreurs, repli de langue, parsing des grades et chapitres (mocktail)
+- **Fiabilité** — conversion hijri, parsing des horaires de prière, utilitaires de localisation
 
 ### Stack technique
 
@@ -324,14 +421,18 @@ lib/
 | [Riverpod](https://riverpod.dev) | State management |
 | [Hive](https://pub.dev/packages/hive) | Base de données locale |
 | [Dio](https://pub.dev/packages/dio) | Client HTTP |
+| [flutter_localizations + intl](https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization) | Internationalisation (TR/EN/FR) |
 | [just_audio](https://pub.dev/packages/just_audio) | Lecture audio verset par verset |
-| [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Notifications planifiées |
+| [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Notifications planifiées (localisées) |
 | [timezone](https://pub.dev/packages/timezone) | Gestion du fuseau horaire (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | Position GPS pour le calcul de la Qibla |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Flux de cap magnétomètre |
+| [share_plus](https://pub.dev/packages/share_plus) | Partage des hadiths et versets |
+| [shimmer](https://pub.dev/packages/shimmer) | Squelettes de chargement |
 | [Google Fonts](https://pub.dev/packages/google_fonts) | Typographies (Poppins) |
 | [Scheherazade New](https://software.sil.org/scheherazade/) | Police arabe coranique (bundlée) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | Animations d'interface |
+| [mocktail](https://pub.dev/packages/mocktail) | Mocking pour les tests (dev) |
 
 ### Build de production (Android)
 

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/quran_colors.dart';
+import '../../l10n/app_localizations.dart';
 import 'quran_provider.dart';
 
 class SurahScreen extends ConsumerStatefulWidget {
@@ -233,13 +234,8 @@ class _SurahScreenState extends ConsumerState<SurahScreen>
         actions: [
           IconButton(
             icon: const Icon(Icons.mic_none_rounded, color: Colors.white70),
-            tooltip: 'Récitateur',
+            tooltip: AppLocalizations.of(context).reciter,
             onPressed: () => _showReciterSheet(context),
-          ),
-          _LangSelector(
-            currentLang: lang,
-            onChanged: (l) =>
-                ref.read(selectedQuranLanguageProvider.notifier).state = l,
           ),
           const SizedBox(width: 6),
         ],
@@ -259,7 +255,7 @@ class _SurahScreenState extends ConsumerState<SurahScreen>
                     const Icon(Icons.wifi_off, color: Colors.white38, size: 48),
                     const SizedBox(height: 16),
                     Text(
-                      'Bağlantı hatası. Lütfen tekrar deneyin.',
+                      AppLocalizations.of(context).connectionErrorRetry,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         color: Colors.white54,
@@ -530,79 +526,6 @@ class _NavFooter extends StatelessWidget {
 
 // ── Language selector ─────────────────────────────────────────────────────────
 
-class _LangSelector extends StatelessWidget {
-  final String currentLang;
-  final ValueChanged<String> onChanged;
-
-  const _LangSelector({required this.currentLang, required this.onChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _LangChip(
-            label: 'TR',
-            selected: currentLang == 'tr',
-            onTap: () => onChanged('tr'),
-          ),
-          _LangChip(
-            label: 'EN',
-            selected: currentLang == 'en',
-            onTap: () => onChanged('en'),
-          ),
-          _LangChip(
-            label: 'FR',
-            selected: currentLang == 'fr',
-            onTap: () => onChanged('fr'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _LangChip extends StatelessWidget {
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _LangChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-        decoration: BoxDecoration(
-          color: selected ? AppTheme.primaryGreen : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Text(
-          label,
-          style: GoogleFonts.poppins(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: selected ? Colors.white : Colors.white60,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 // ── Verse item ────────────────────────────────────────────────────────────────
 
 class _VerseItem extends ConsumerWidget {
@@ -661,7 +584,7 @@ class _VerseItem extends ConsumerWidget {
             ListTile(
               leading: const Icon(Icons.copy_outlined, color: Colors.white70),
               title: Text(
-                'Arapça metni kopyala',
+                AppLocalizations.of(context).copyArabic,
                 style: GoogleFonts.poppins(color: Colors.white),
               ),
               onTap: () async {
@@ -671,7 +594,7 @@ class _VerseItem extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Kopyalandı!',
+                        AppLocalizations.of(context).copied,
                         style: GoogleFonts.poppins(fontSize: 13),
                       ),
                       duration: const Duration(seconds: 1),
@@ -684,7 +607,7 @@ class _VerseItem extends ConsumerWidget {
             ListTile(
               leading: const Icon(Icons.translate, color: Colors.white70),
               title: Text(
-                'Tercümeyi kopyala',
+                AppLocalizations.of(context).copyTranslation,
                 style: GoogleFonts.poppins(color: Colors.white),
               ),
               onTap: () async {
@@ -694,7 +617,7 @@ class _VerseItem extends ConsumerWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Kopyalandı!',
+                        AppLocalizations.of(context).copied,
                         style: GoogleFonts.poppins(fontSize: 13),
                       ),
                       duration: const Duration(seconds: 1),
@@ -710,7 +633,9 @@ class _VerseItem extends ConsumerWidget {
                 color: isFav ? Colors.amber : Colors.white70,
               ),
               title: Text(
-                isFav ? 'Favorilerden çıkar' : 'Favorilere ekle',
+                isFav
+                    ? AppLocalizations.of(context).removeFromFavorites
+                    : AppLocalizations.of(context).addToFavorites,
                 style: GoogleFonts.poppins(color: Colors.white),
               ),
               onTap: () {
@@ -1007,7 +932,7 @@ class _ReciterSheet extends ConsumerWidget {
             ),
             error: (_, s) => Center(
               child: Text(
-                'Erreur de chargement',
+                AppLocalizations.of(context).loadingError,
                 style: GoogleFonts.poppins(color: Colors.white54),
               ),
             ),

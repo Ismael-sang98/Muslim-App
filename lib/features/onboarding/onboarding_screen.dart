@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/gradient_scaffold.dart';
+import '../../l10n/app_localizations.dart';
 import 'onboarding_provider.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -87,7 +88,7 @@ class _SplashPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 28),
                 child: _OnboardingButton(
-                  label: 'BAŞLA',
+                  label: AppLocalizations.of(context).startApp.toUpperCase(),
                   onPressed: onNext,
                 ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.2),
               ),
@@ -110,6 +111,7 @@ class _CityPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(onboardingProvider);
+    final l10n = AppLocalizations.of(context);
 
     return SafeArea(
       bottom: false,
@@ -140,7 +142,7 @@ class _CityPage extends ConsumerWidget {
                 const Spacer(),
                 // Province
                 Text(
-                  'İl',
+                  l10n.province,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -150,14 +152,14 @@ class _CityPage extends ConsumerWidget {
                 const SizedBox(height: 8),
                 _GreenInputTile(
                   icon: Icons.public,
-                  placeholder: 'İl Seç...',
+                  placeholder: l10n.selectProvince,
                   value: state.selectedProvinceName,
                   onTap: () => _openProvincePicker(context, ref),
                 ),
                 const SizedBox(height: 20),
                 // District
                 Text(
-                  'İlçe',
+                  l10n.district,
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -167,7 +169,7 @@ class _CityPage extends ConsumerWidget {
                 const SizedBox(height: 8),
                 _GreenInputTile(
                   icon: Icons.location_on_outlined,
-                  placeholder: 'İlçe Seç...',
+                  placeholder: l10n.selectDistrict,
                   value: state.selectedDistrictName,
                   onTap: state.selectedProvinceId != null
                       ? () => _openDistrictPicker(context, ref, state)
@@ -175,7 +177,7 @@ class _CityPage extends ConsumerWidget {
                 ),
                 const Spacer(),
                 _OnboardingButton(
-                  label: 'Devan',
+                  label: l10n.continueButton,
                   onPressed: state.canComplete ? onNext : null,
                 ).animate().fadeIn(delay: 300.ms),
                 const Spacer(),
@@ -192,7 +194,7 @@ class _CityPage extends ConsumerWidget {
     villesTourquie.whenData((villes) {
       _showPickerSheet(
         context,
-        title: 'İl Seçin',
+        title: AppLocalizations.of(context).selectProvince,
         items: villes.provinces.map((p) => (p.id, p.nom)).toList(),
         onSelect: (id, nom) {
           ref.read(onboardingProvider.notifier).selectProvince(id, nom);
@@ -215,7 +217,8 @@ class _CityPage extends ConsumerWidget {
       if (province == null) return;
       _showPickerSheet(
         context,
-        title: 'İlçe Seçin — ${province.nom}',
+        title:
+            '${AppLocalizations.of(context).selectDistrict} — ${province.nom}',
         items: province.districts.map((d) => (d.id, d.nom)).toList(),
         onSelect: (id, nom) {
           ref.read(onboardingProvider.notifier).selectDistrict(id, nom);
@@ -260,7 +263,7 @@ class _LoadingPage extends StatelessWidget {
             children: [
               const Spacer(),
               Text(
-                'Hoş Geldiniz',
+                AppLocalizations.of(context).welcome,
                 style: GoogleFonts.poppins(
                   fontSize: 36,
                   fontWeight: FontWeight.w600,
@@ -423,9 +426,10 @@ class _PickerSheetState extends State<_PickerSheet> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
                 style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: 'Ara...',
-                  prefixIcon: Icon(Icons.search, color: Colors.white70),
+                decoration: InputDecoration(
+                  hintText: AppLocalizations.of(context).searchHint,
+                  prefixIcon:
+                      const Icon(Icons.search, color: Colors.white70),
                 ),
                 onChanged: (v) => setState(() => _query = v),
               ),

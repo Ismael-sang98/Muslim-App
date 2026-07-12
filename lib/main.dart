@@ -3,17 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'core/hive/hive_service.dart';
+import 'core/hive/models/settings_model.dart';
 import 'core/notifications/notification_service.dart';
 import 'core/theme/app_theme.dart';
 import 'features/onboarding/onboarding_provider.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'features/settings/settings_provider.dart';
 import 'features/home/home_screen.dart';
-import 'features/calendar/calendar_screen.dart';
+import 'features/hub/hub_screen.dart';
 import 'features/settings/settings_screen.dart';
 import 'features/quran/quran_screen.dart';
 import 'features/quran/quran_provider.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +26,30 @@ Future<void> main() async {
   // 2. Hive
   await HiveService.init();
 
+  // 2b. First launch → follow the device language (if supported).
+  await _applyDeviceLanguageOnFirstLaunch();
+
   // 3. Notifications
   await NotificationService.init();
 
   runApp(const ProviderScope(child: NamazVaktiApp()));
+}
+
+/// On the very first launch (no settings yet), pick the app language from the
+/// device locale when it's one we support (tr/en/fr); otherwise default to tr.
+Future<void> _applyDeviceLanguageOnFirstLaunch() async {
+  final box = HiveService.settingsBox;
+  if (box.isNotEmpty) return; // returning user — keep their choice
+
+  const supported = {'tr', 'en', 'fr'};
+  final deviceLang =
+      WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+  final lang = supported.contains(deviceLang) ? deviceLang : 'tr';
+
+  final defaults = SettingsModel.defaults()
+    ..langue = lang
+    ..hadithLangue = lang;
+  await box.put(0, defaults);
 }
 
 class NamazVaktiApp extends ConsumerWidget {
@@ -38,6 +59,7 @@ class NamazVaktiApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final onboardingDone = ref.watch(onboardingCompleteProvider);
+    final locale = ref.watch(appLocaleProvider);
 
     return MaterialApp(
       title: 'Namaz Vakti',
@@ -45,13 +67,9 @@ class NamazVaktiApp extends ConsumerWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
-      locale: const Locale('tr'),
-      supportedLocales: const [Locale('tr')],
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+      locale: locale,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       home: onboardingDone ? const MainShell() : const OnboardingScreen(),
     );
   }
@@ -67,15 +85,15 @@ class MainShell extends ConsumerStatefulWidget {
 class _MainShellState extends ConsumerState<MainShell> {
   static const _screens = [
     HomeScreen(),
-    CalendarScreen(),
     QuranScreen(),
+    HubScreen(),
     SettingsScreen(),
   ];
 
   static const _icons = [
     Icons.home_rounded,
-    Icons.calendar_month_rounded,
-    Icons.menu_book_rounded,
+    Icons.auto_stories,
+    Icons.menu_open,
     Icons.settings_rounded,
   ];
 
@@ -152,7 +170,7 @@ class _CustomBottomNav extends StatelessWidget {
                     duration: const Duration(milliseconds: 200),
                     child: Icon(
                       icons[i],
-                      size: 28,
+                      size: 25,
                       color: isActive
                           ? AppTheme.accentOrange
                           : Colors.white.withValues(alpha: 0.6),

@@ -25,6 +25,9 @@ class SettingsModel extends HiveObject {
   @HiveField(6)
   String? villeProvinceNom;
 
+  @HiveField(7)
+  late String hadithLangue;
+
   Map<String, bool> get notificationsActives =>
       notificationsRaw.cast<String, bool>();
 
@@ -46,7 +49,8 @@ class SettingsModel extends HiveObject {
         'aksam': true,
         'yatsi': true,
       }
-      ..minutesAvantRappel = 10;
+      ..minutesAvantRappel = 10
+      ..hadithLangue = 'tr';
     return model;
   }
 }

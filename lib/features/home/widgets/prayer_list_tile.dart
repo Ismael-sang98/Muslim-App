@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/localized_names.dart';
+import '../../../l10n/app_localizations.dart';
 
 class PrayerListTile extends StatelessWidget {
   final String prayerKey;
@@ -36,7 +38,7 @@ class PrayerListTile extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              _displayName(prayerKey),
+              prayerName(AppLocalizations.of(context), prayerKey),
               style: GoogleFonts.poppins(
                 fontSize: 15,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
@@ -68,15 +70,4 @@ class PrayerListTile extends StatelessWidget {
     return t;
   }
 
-  String _displayName(String key) {
-    const names = {
-      'imsak': 'Imsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return names[key] ?? key;
-  }
 }

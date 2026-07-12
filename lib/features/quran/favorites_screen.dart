@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/quran_colors.dart';
+import '../../l10n/app_localizations.dart';
 import 'quran_provider.dart';
 import 'surah_screen.dart';
 
@@ -23,7 +24,7 @@ class FavoritesScreen extends ConsumerWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Favoriler',
+          AppLocalizations.of(context).favorites,
           style: GoogleFonts.poppins(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -43,7 +44,7 @@ class FavoritesScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Henüz favori eklemediniz.',
+                    AppLocalizations.of(context).noFavoritesYet,
                     style: GoogleFonts.poppins(
                       color: Colors.white38,
                       fontSize: 15,
@@ -51,7 +52,7 @@ class FavoritesScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Bir ayete uzun basarak favorilere ekleyebilirsiniz.',
+                    AppLocalizations.of(context).favoritesHint,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: Colors.white24,

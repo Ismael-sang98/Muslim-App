@@ -6,6 +6,8 @@ import 'package:flutter_compass/flutter_compass.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/localized_names.dart';
+import '../../l10n/app_localizations.dart';
 
 class QiblaScreen extends StatefulWidget {
   const QiblaScreen({super.key});
@@ -118,7 +120,7 @@ class _QiblaScreenState extends State<QiblaScreen>
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          'Kıble',
+          AppLocalizations.of(context).qibla,
           style: GoogleFonts.poppins(
             color: Colors.white,
             fontWeight: FontWeight.w600,
@@ -134,14 +136,13 @@ class _QiblaScreenState extends State<QiblaScreen>
       _QiblaStatus.loading => _buildLoading(),
       _QiblaStatus.permissionDenied => _buildError(
         icon: Icons.location_off_rounded,
-        message:
-            'Konum iznine ihtiyaç var.\nKıble yönünü hesaplamak için izin verin.',
-        buttonLabel: 'İzin Ver',
+        message: AppLocalizations.of(context).locationPermissionNeeded,
+        buttonLabel: AppLocalizations.of(context).grantPermission,
         onTap: () async => Geolocator.openAppSettings(),
       ),
       _QiblaStatus.noSensor => _buildError(
         icon: Icons.sensors_off_rounded,
-        message: 'Bu cihazda manyetometre sensörü bulunamadı.',
+        message: AppLocalizations.of(context).noMagnetometer,
         buttonLabel: null,
         onTap: null,
       ),
@@ -300,6 +301,9 @@ class _QiblaScreenState extends State<QiblaScreen>
                                         qiblaBearing: _qiblaBearing,
                                         isAligned: _isAligned,
                                         glowValue: pulse,
+                                        langCode: Localizations.localeOf(
+                                          context,
+                                        ).languageCode,
                                       ),
                                     ),
                                   ),
@@ -339,7 +343,7 @@ class _QiblaScreenState extends State<QiblaScreen>
 
                     SizedBox(height: gap * 0.35),
                     Text(
-                      'Kabe • Mekke  21.42°N  39.82°E',
+                      '${AppLocalizations.of(context).kaabaMecca}  21.42°N  39.82°E',
                       style: GoogleFonts.poppins(
                         fontSize: 11,
                         color: Colors.white24,
@@ -370,7 +374,7 @@ class _QiblaScreenState extends State<QiblaScreen>
         ),
         const SizedBox(height: 2),
         Text(
-          'KABE YÖNİ',
+          AppLocalizations.of(context).kaabaDirection,
           style: GoogleFonts.poppins(
             fontSize: compact ? 9 : 11,
             color: AppTheme.lightGreen,
@@ -426,7 +430,9 @@ class _QiblaScreenState extends State<QiblaScreen>
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             child: Text(
-              _isAligned ? 'Kıbleye dönüyorsunuz' : 'Telefonu döndürün',
+              _isAligned
+                  ? AppLocalizations.of(context).facingQibla
+                  : AppLocalizations.of(context).rotatePhone,
               key: ValueKey(_isAligned),
               style: GoogleFonts.poppins(
                 color: _isAligned ? AppTheme.lightGreen : Colors.white38,
@@ -447,11 +453,13 @@ class _CompassPainter extends CustomPainter {
   final double qiblaBearing;
   final bool isAligned;
   final double glowValue;
+  final String langCode;
 
   const _CompassPainter({
     required this.qiblaBearing,
     required this.isAligned,
     required this.glowValue,
+    required this.langCode,
   });
 
   static const _kGreen = Color(0xFF2EA85D);
@@ -539,7 +547,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * labelR,
-      'N',
+      compassLabel(langCode, 'N'),
       -pi / 2,
       _kRed,
       15,
@@ -549,7 +557,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * labelR,
-      'S',
+      compassLabel(langCode, 'S'),
       pi / 2,
       Colors.white70,
       13,
@@ -559,7 +567,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * labelR,
-      'E',
+      compassLabel(langCode, 'E'),
       0,
       Colors.white70,
       13,
@@ -569,7 +577,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * labelR,
-      'W',
+      compassLabel(langCode, 'W'),
       pi,
       Colors.white70,
       13,
@@ -579,7 +587,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * 0.76,
-      'NE',
+      compassLabel(langCode, 'NE'),
       -pi / 4,
       Colors.white38,
       9,
@@ -589,7 +597,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * 0.76,
-      'SE',
+      compassLabel(langCode, 'SE'),
       pi / 4,
       Colors.white38,
       9,
@@ -599,7 +607,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * 0.76,
-      'SW',
+      compassLabel(langCode, 'SW'),
       3 * pi / 4,
       Colors.white38,
       9,
@@ -609,7 +617,7 @@ class _CompassPainter extends CustomPainter {
       canvas,
       center,
       radius * 0.76,
-      'NW',
+      compassLabel(langCode, 'NW'),
       -3 * pi / 4,
       Colors.white38,
       9,
@@ -746,5 +754,6 @@ class _CompassPainter extends CustomPainter {
   bool shouldRepaint(_CompassPainter old) =>
       old.qiblaBearing != qiblaBearing ||
       old.isAligned != isAligned ||
-      old.glowValue != glowValue;
+      old.glowValue != glowValue ||
+      old.langCode != langCode;
 }

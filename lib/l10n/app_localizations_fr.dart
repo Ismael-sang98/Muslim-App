@@ -203,4 +203,286 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get minutesBefore30 => '30 minutes avant';
+
+  @override
+  String get sectionAppearance => 'APPARENCE';
+
+  @override
+  String get sectionLanguage => 'LANGUE';
+
+  @override
+  String get sectionLocation => 'EMPLACEMENT';
+
+  @override
+  String get sectionReminder => 'RAPPEL';
+
+  @override
+  String get sectionNotifications => 'NOTIFICATIONS';
+
+  @override
+  String get sectionAbout => 'À PROPOS';
+
+  @override
+  String get themeLight => 'Clair';
+
+  @override
+  String get themeDark => 'Sombre';
+
+  @override
+  String get themeSystem => 'Système';
+
+  @override
+  String get notSelected => 'Non sélectionné';
+
+  @override
+  String get aboutApp => 'À propos de l\'application';
+
+  @override
+  String reminderDescription(int count) {
+    return 'Recevez une notification $count minutes avant chaque prière';
+  }
+
+  @override
+  String minutesShort(int count) {
+    return '$count min';
+  }
+
+  @override
+  String get langTurkish => 'Türkçe';
+
+  @override
+  String get langEnglish => 'English';
+
+  @override
+  String get langFrench => 'Français';
+
+  @override
+  String get searchHint => 'Rechercher...';
+
+  @override
+  String get continueButton => 'Continuer';
+
+  @override
+  String get otherPrayers => 'Autres prières';
+
+  @override
+  String get badgeStale => 'Ancien';
+
+  @override
+  String get badgeOffline => 'Hors ligne';
+
+  @override
+  String get exactAlarmsDisabled =>
+      'Notifications exactes désactivées — Appuyez pour activer';
+
+  @override
+  String get qiblaDirection => 'Direction de la Qibla';
+
+  @override
+  String get qiblaSubtitle => 'Trouvez la direction de la Kaaba';
+
+  @override
+  String get verseOfTheDay => 'Verset du jour';
+
+  @override
+  String get cityNotSelected => 'Aucune ville sélectionnée';
+
+  @override
+  String get explore => 'Découvrir';
+
+  @override
+  String get calendarSubtitle => 'Horaires de prière mensuels';
+
+  @override
+  String get hadith => 'Hadith';
+
+  @override
+  String get hadithSubtitle => 'Lire les recueils authentiques';
+
+  @override
+  String get hadithOfTheDay => 'HADITH DU JOUR';
+
+  @override
+  String get readMore => 'Lire la suite';
+
+  @override
+  String get qibla => 'Qibla';
+
+  @override
+  String get locationPermissionNeeded =>
+      'L\'autorisation de localisation est requise.\nAccordez l\'accès pour calculer la direction de la Qibla.';
+
+  @override
+  String get grantPermission => 'Autoriser';
+
+  @override
+  String get noMagnetometer =>
+      'Aucun capteur magnétomètre trouvé sur cet appareil.';
+
+  @override
+  String get kaabaMecca => 'Kaaba • La Mecque';
+
+  @override
+  String get kaabaDirection => 'DIRECTION DE LA KAABA';
+
+  @override
+  String get facingQibla => 'Vous êtes face à la Qibla';
+
+  @override
+  String get rotatePhone => 'Tournez votre téléphone';
+
+  @override
+  String get quran => 'Coran';
+
+  @override
+  String get quranSearchHint => 'Rechercher ou taper 2:255';
+
+  @override
+  String get surahs => 'Sourates';
+
+  @override
+  String get verses => 'Versets';
+
+  @override
+  String get juz => 'Juz';
+
+  @override
+  String get continueReading => 'Reprendre la lecture';
+
+  @override
+  String get connectionError => 'Erreur de connexion.';
+
+  @override
+  String get connectionErrorCheckInternet =>
+      'Erreur de connexion.\nVeuillez vérifier votre connexion internet.';
+
+  @override
+  String get connectionErrorRetry => 'Erreur de connexion. Veuillez réessayer.';
+
+  @override
+  String get noVerseResults => 'Aucun verset trouvé.';
+
+  @override
+  String get goDirectly => 'Aller directement';
+
+  @override
+  String get copyArabic => 'Copier le texte arabe';
+
+  @override
+  String get copyTranslation => 'Copier la traduction';
+
+  @override
+  String get copied => 'Copié !';
+
+  @override
+  String get removeFromFavorites => 'Retirer des favoris';
+
+  @override
+  String get addToFavorites => 'Ajouter aux favoris';
+
+  @override
+  String get loadingError => 'Erreur de chargement';
+
+  @override
+  String get favorites => 'Favoris';
+
+  @override
+  String get noFavoritesYet => 'Vous n\'avez pas encore ajouté de favoris.';
+
+  @override
+  String get favoritesHint =>
+      'Appuyez longuement sur un verset pour l\'ajouter aux favoris.';
+
+  @override
+  String get reciter => 'Récitateur';
+
+  @override
+  String get hadithSearchHint => 'Rechercher (texte ou n°)...';
+
+  @override
+  String get chapters => 'Chapitres';
+
+  @override
+  String get hadithsLabel => 'hadiths';
+
+  @override
+  String get collectionUnavailableInLang =>
+      'Ce recueil n\'est pas disponible dans la langue choisie — affiché en anglais';
+
+  @override
+  String get noResults => 'Aucun résultat';
+
+  @override
+  String get noFavoriteHadith => 'Aucun hadith favori';
+
+  @override
+  String get favoriteHadithHint =>
+      'Appuyez sur ⭐ pour ajouter un hadith à vos favoris';
+
+  @override
+  String get errorTimeout => 'La requête a expiré. Veuillez réessayer.';
+
+  @override
+  String get errorNoInternet =>
+      'Pas de connexion internet. Vous êtes hors ligne.';
+
+  @override
+  String errorServer(int code) {
+    return 'Erreur serveur ($code).';
+  }
+
+  @override
+  String get fontSize => 'Taille du texte';
+
+  @override
+  String resumeReadingAt(int number) {
+    return 'Reprenez où vous vous êtes arrêté · #$number';
+  }
+
+  @override
+  String get favorite => 'Favori';
+
+  @override
+  String get favorited => 'Ajouté';
+
+  @override
+  String get copy => 'Copier';
+
+  @override
+  String get share => 'Partager';
+
+  @override
+  String get previous => 'Précédent';
+
+  @override
+  String get next => 'Suivant';
+
+  @override
+  String get dataSource => 'Source des données';
+
+  @override
+  String get developer => 'Développeur';
+
+  @override
+  String get contact => 'Contact';
+
+  @override
+  String notifReminderTitle(String prayer) {
+    return '🕌 Prière $prayer';
+  }
+
+  @override
+  String notifReminderBody(String prayer, int minutes) {
+    return '$minutes minutes avant la prière $prayer';
+  }
+
+  @override
+  String notifAtTimeTitle(String prayer) {
+    return '🕌 C\'est l\'heure de $prayer';
+  }
+
+  @override
+  String notifAtTimeBody(String prayer) {
+    return 'C\'est l\'heure de la prière $prayer';
+  }
 }

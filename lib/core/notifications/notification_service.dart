@@ -1,9 +1,13 @@
 import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+import '../hive/hive_service.dart';
 import '../hive/models/horaires_jour_model.dart';
+import '../utils/localized_names.dart';
+import '../../l10n/app_localizations.dart';
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _plugin =
@@ -237,52 +241,31 @@ class NotificationService {
     await updatePersistentNotification(horaires);
   }
 
+  /// Localizations resolved from the persisted app language (no BuildContext
+  /// is available when notifications are scheduled in the background).
+  static AppLocalizations get _l10n {
+    final lang = HiveService.getOrCreateSettings().langue;
+    return lookupAppLocalizations(Locale(lang));
+  }
+
   static String _buildAtTimeTitle(String prayerKey) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return '🕌 ${names[prayerKey] ?? prayerKey} Vakti Girdi';
+    final l10n = _l10n;
+    return l10n.notifAtTimeTitle(prayerName(l10n, prayerKey));
   }
 
   static String _buildAtTimeBody(String prayerKey) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return '${names[prayerKey] ?? prayerKey} namazının vakti geldi';
+    final l10n = _l10n;
+    return l10n.notifAtTimeBody(prayerName(l10n, prayerKey));
   }
 
   static String _buildTitle(String prayerKey) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return '🕌 ${names[prayerKey] ?? prayerKey} Vakti';
+    final l10n = _l10n;
+    return l10n.notifReminderTitle(prayerName(l10n, prayerKey));
   }
 
   static String _buildBody(String prayerKey, int minutes) {
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
-    return '${names[prayerKey] ?? prayerKey} namazına $minutes dakika kaldı';
+    final l10n = _l10n;
+    return l10n.notifReminderBody(prayerName(l10n, prayerKey), minutes);
   }
 
   static Future<void> updatePersistentNotification(
@@ -316,19 +299,12 @@ class NotificationService {
     nextKey ??= 'imsak';
     nextTime ??= today.imsak;
 
-    const names = {
-      'imsak': 'İmsak',
-      'gunes': 'Güneş',
-      'ogle': 'Öğle',
-      'ikindi': 'İkindi',
-      'aksam': 'Akşam',
-      'yatsi': 'Yatsı',
-    };
+    final l10n = _l10n;
 
     await _plugin.show(
       _persistentId,
-      '🕌 ${names[nextKey] ?? nextKey} — $nextTime',
-      'Bir sonraki namaz',
+      '🕌 ${prayerName(l10n, nextKey)} — $nextTime',
+      l10n.nextPrayer,
       const NotificationDetails(
         android: AndroidNotificationDetails(
           _persistentChannelId,

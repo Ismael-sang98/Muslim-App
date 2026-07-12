@@ -63,7 +63,8 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
 
   Future<void> _loadData() async {
     if (_villeId.isEmpty) {
-      state = PrayerDataError('Şehir seçilmedi');
+      // Localized in the UI (see _buildError).
+      state = PrayerDataError('no_city');
       return;
     }
 
@@ -138,7 +139,8 @@ class PrayerDataNotifier extends StateNotifier<PrayerDataState> {
           minutesAvantRappel: settings.minutesAvantRappel,
         ));
       } else {
-        state = PrayerDataError('İnternet bağlantısı yok ve önbellek bulunamadı');
+        // Localized in the UI (see _buildError).
+        state = PrayerDataError('no_data');
       }
     }
   }
