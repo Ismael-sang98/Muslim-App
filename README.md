@@ -34,7 +34,7 @@
 - **Resmi Diyanet Vakitleri** — Türkiye'nin tüm il ve ilçeleri için API üzerinden alınan veriler
 - **Akıllı Bildirimler** — Her namaz için 10, 20 veya 30 dakika önce hatırlatma + tam vakitte bildirim
 - **Geri Sayım** — Sonraki namaza kalan süreyi gerçek zamanlı gösteren sayaç
-- **Şehir Seçimi** — Türkiye'nin tüm il ve ilçeleri mevcut
+- **Şehir Seçimi** — Türkiye'nin tüm il ve ilçeleri; **GPS ile otomatik konum algılama** (« Konumumu kullan »)
 - **Çevrimdışı Önbellek** — İnternet bağlantısı olmadan erişim için veriler önbelleğe alınır
 
 #### 🏠 Ana Ekran Widget'ları
@@ -138,7 +138,7 @@ flutter test
 | İzin | Neden |
 |---|---|
 | `INTERNET` | API üzerinden vakitleri ve Kuran verilerini almak için |
-| `ACCESS_FINE_LOCATION` | Kıble yönü hesabı için GPS konumu |
+| `ACCESS_FINE_LOCATION` | Kıble yönü ve otomatik şehir algılama için GPS konumu |
 | `VIBRATE` | Kıble hizalandığında titreşim |
 | `RECEIVE_BOOT_COMPLETED` | Yeniden başlatma sonrası bildirimleri yeniden planlamak için |
 | `POST_NOTIFICATIONS` | Bildirimleri göstermek için (Android 13+) |
@@ -159,7 +159,7 @@ flutter test
 - **Official Diyanet Prayer Times** — Data fetched via API for all provinces and districts in Turkey
 - **Smart Notifications** — Configurable reminder 10, 20 or 30 minutes before each prayer + notification at the exact time
 - **Live Countdown** — Real-time timer to the next prayer
-- **City Selection** — All provinces and districts in Turkey available
+- **City Selection** — All provinces and districts in Turkey; **automatic GPS location detection** ("Use my location")
 - **Offline Cache** — Data cached for access without an internet connection
 
 #### 🏠 Home-screen Widgets
@@ -271,7 +271,8 @@ flutter test
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Scheduled (localized) notifications |
 | [home_widget](https://pub.dev/packages/home_widget) | Home-screen widgets (Android) |
 | [timezone](https://pub.dev/packages/timezone) | Timezone handling (Europe/Istanbul) |
-| [geolocator](https://pub.dev/packages/geolocator) | GPS position for Qibla calculation |
+| [geolocator](https://pub.dev/packages/geolocator) | GPS position for Qibla + automatic city detection |
+| [geocoding](https://pub.dev/packages/geocoding) | Reverse-geocoding GPS → province/district |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Magnetometer heading stream |
 | [share_plus](https://pub.dev/packages/share_plus) | Sharing hadiths and verses |
 | [shimmer](https://pub.dev/packages/shimmer) | Skeleton loading placeholders |
@@ -309,7 +310,7 @@ flutter build apk --release
 | Permission | Reason |
 |---|---|
 | `INTERNET` | Fetching prayer times and Quran data via API |
-| `ACCESS_FINE_LOCATION` | GPS location for Qibla direction |
+| `ACCESS_FINE_LOCATION` | GPS location for Qibla direction and automatic city detection |
 | `VIBRATE` | Haptic feedback when aligned with Qibla |
 | `RECEIVE_BOOT_COMPLETED` | Reschedule notifications after device reboot |
 | `POST_NOTIFICATIONS` | Display notifications (Android 13+) |
@@ -330,7 +331,7 @@ flutter build apk --release
 - **Horaires officiels Diyanet** — données récupérées via API pour toutes les provinces et districts de Turquie
 - **Notifications intelligentes** — rappel configurable 10, 20 ou 30 minutes avant chaque prière + notification à l'heure exacte
 - **Compte à rebours en direct** — minuterie en temps réel jusqu'à la prochaine prière
-- **Sélection de la ville** — toutes les provinces et districts de Turquie disponibles
+- **Sélection de la ville** — toutes les provinces et districts de Turquie ; **détection automatique par GPS** (« Utiliser ma position »)
 - **Cache hors-ligne** — les données sont mises en cache pour un accès sans connexion
 
 #### 🏠 Widgets d'écran d'accueil
@@ -442,7 +443,8 @@ flutter test
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Notifications planifiées (localisées) |
 | [home_widget](https://pub.dev/packages/home_widget) | Widgets d'écran d'accueil (Android) |
 | [timezone](https://pub.dev/packages/timezone) | Gestion du fuseau horaire (Europe/Istanbul) |
-| [geolocator](https://pub.dev/packages/geolocator) | Position GPS pour le calcul de la Qibla |
+| [geolocator](https://pub.dev/packages/geolocator) | Position GPS pour la Qibla + détection auto de la ville |
+| [geocoding](https://pub.dev/packages/geocoding) | Géocodage inverse GPS → province/district |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Flux de cap magnétomètre |
 | [share_plus](https://pub.dev/packages/share_plus) | Partage des hadiths et versets |
 | [shimmer](https://pub.dev/packages/shimmer) | Squelettes de chargement |
@@ -480,7 +482,7 @@ flutter build apk --release
 | Permission | Raison |
 |---|---|
 | `INTERNET` | Récupération des horaires et des données Coran via API |
-| `ACCESS_FINE_LOCATION` | Position GPS pour la direction Qibla |
+| `ACCESS_FINE_LOCATION` | Position GPS pour la Qibla et la détection automatique de la ville |
 | `VIBRATE` | Retour haptique quand la Qibla est alignée |
 | `RECEIVE_BOOT_COMPLETED` | Replanification des notifications après redémarrage |
 | `POST_NOTIFICATIONS` | Affichage des notifications (Android 13+) |

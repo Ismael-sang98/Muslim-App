@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/widgets/gradient_scaffold.dart';
+import '../../core/widgets/location_detect_button.dart';
 import '../../l10n/app_localizations.dart';
 import 'onboarding_provider.dart';
 
@@ -140,6 +141,25 @@ class _CityPage extends ConsumerWidget {
                   ).animate().fadeIn(duration: 400.ms),
                 ),
                 const Spacer(),
+                // Auto-detect city from GPS
+                Center(
+                  child: LocationDetectButton(
+                    onDetected: (m) {
+                      final notifier = ref.read(onboardingProvider.notifier);
+                      notifier.selectProvince(m.provinceId, m.provinceNom);
+                      if (m.hasDistrict) {
+                        notifier.selectDistrict(m.districtId!, m.districtNom!);
+                      } else {
+                        _openDistrictPicker(
+                          context,
+                          ref,
+                          ref.read(onboardingProvider),
+                        );
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
                 // Province
                 Text(
                   l10n.province,

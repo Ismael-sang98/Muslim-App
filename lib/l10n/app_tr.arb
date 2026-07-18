@@ -197,6 +197,21 @@
   "dataSource": "Veri kaynağı",
   "developer": "Geliştirici",
   "contact": "İletişim",
+  "useMyLocation": "Konumumu kullan",
+  "locating": "Konum belirleniyor…",
+  "locationServiceOff": "Konum servisi kapalı. Lütfen açın.",
+  "locationPermissionDenied": "Konum izni reddedildi.",
+  "cityNotDetected": "Şehir otomatik bulunamadı, lütfen elle seçin.",
+  "locationError": "Konum alınamadı.",
+  "locationOpenSettings": "Konum izni kapalı. Ayarlardan etkinleştirin.",
+  "cityDetected": "{city} seçildi",
+  "@cityDetected": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
   "notifReminderTitle": "🕌 {prayer} Vakti",
   "@notifReminderTitle": {
     "placeholders": {

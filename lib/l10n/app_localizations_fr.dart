@@ -467,6 +467,36 @@ class AppLocalizationsFr extends AppLocalizations {
   String get contact => 'Contact';
 
   @override
+  String get useMyLocation => 'Utiliser ma position';
+
+  @override
+  String get locating => 'Localisation…';
+
+  @override
+  String get locationServiceOff =>
+      'Les services de localisation sont désactivés. Veuillez les activer.';
+
+  @override
+  String get locationPermissionDenied =>
+      'Autorisation de localisation refusée.';
+
+  @override
+  String get cityNotDetected =>
+      'Impossible de détecter votre ville automatiquement, sélectionnez-la manuellement.';
+
+  @override
+  String get locationError => 'Impossible d\'obtenir votre position.';
+
+  @override
+  String get locationOpenSettings =>
+      'Autorisation de localisation désactivée. Activez-la dans les Réglages.';
+
+  @override
+  String cityDetected(String city) {
+    return '$city sélectionnée';
+  }
+
+  @override
   String notifReminderTitle(String prayer) {
     return '🕌 Prière $prayer';
   }

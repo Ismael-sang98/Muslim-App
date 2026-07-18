@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/hive/models/horaires_jour_model.dart';
 import '../../core/notifications/notification_service.dart';
+import '../../core/services/location_city_service.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/location_detect_button.dart';
 import '../../l10n/app_localizations.dart';
 import '../onboarding/onboarding_provider.dart';
 import '../home/home_provider.dart';
@@ -479,6 +481,14 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
 
     return Column(
       children: [
+        SizedBox(
+          width: double.infinity,
+          child: LocationDetectButton(
+            foreground: AppTheme.primaryGreen,
+            onDetected: _applyDetected,
+          ),
+        ),
+        const SizedBox(height: 8),
         _LocationRow(
           icon: Icons.public_rounded,
           label: l10n.city,
@@ -542,6 +552,26 @@ class _LocationSectionState extends ConsumerState<_LocationSection> {
           unawaited(_updateCityAndReschedule(id, nom, prov.nom));
         },
       );
+    });
+  }
+
+  void _applyDetected(GeoCityMatch match) {
+    if (match.hasDistrict) {
+      unawaited(_updateCityAndReschedule(
+        match.districtId!,
+        match.districtNom!,
+        match.provinceNom,
+      ));
+      return;
+    }
+    // Province only → pre-select it and let the user pick the district.
+    ref.read(villesTourquieProvider).whenData((villes) {
+      final province = villes.provinces
+          .where((p) => p.id == match.provinceId)
+          .firstOrNull;
+      if (province == null) return;
+      setState(() => _pendingProvince = province);
+      _openDistrictPicker();
     });
   }
 

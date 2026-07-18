@@ -970,6 +970,54 @@ abstract class AppLocalizations {
   /// **'İletişim'**
   String get contact;
 
+  /// No description provided for @useMyLocation.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konumumu kullan'**
+  String get useMyLocation;
+
+  /// No description provided for @locating.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konum belirleniyor…'**
+  String get locating;
+
+  /// No description provided for @locationServiceOff.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konum servisi kapalı. Lütfen açın.'**
+  String get locationServiceOff;
+
+  /// No description provided for @locationPermissionDenied.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konum izni reddedildi.'**
+  String get locationPermissionDenied;
+
+  /// No description provided for @cityNotDetected.
+  ///
+  /// In tr, this message translates to:
+  /// **'Şehir otomatik bulunamadı, lütfen elle seçin.'**
+  String get cityNotDetected;
+
+  /// No description provided for @locationError.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konum alınamadı.'**
+  String get locationError;
+
+  /// No description provided for @locationOpenSettings.
+  ///
+  /// In tr, this message translates to:
+  /// **'Konum izni kapalı. Ayarlardan etkinleştirin.'**
+  String get locationOpenSettings;
+
+  /// No description provided for @cityDetected.
+  ///
+  /// In tr, this message translates to:
+  /// **'{city} seçildi'**
+  String cityDetected(String city);
+
   /// No description provided for @notifReminderTitle.
   ///
   /// In tr, this message translates to:

@@ -463,6 +463,35 @@ class AppLocalizationsEn extends AppLocalizations {
   String get contact => 'Contact';
 
   @override
+  String get useMyLocation => 'Use my location';
+
+  @override
+  String get locating => 'Locating…';
+
+  @override
+  String get locationServiceOff =>
+      'Location services are off. Please turn them on.';
+
+  @override
+  String get locationPermissionDenied => 'Location permission denied.';
+
+  @override
+  String get cityNotDetected =>
+      'Couldn\'t detect your city automatically, please select it manually.';
+
+  @override
+  String get locationError => 'Couldn\'t get your location.';
+
+  @override
+  String get locationOpenSettings =>
+      'Location permission is off. Enable it in Settings.';
+
+  @override
+  String cityDetected(String city) {
+    return '$city selected';
+  }
+
+  @override
   String notifReminderTitle(String prayer) {
     return '🕌 $prayer Time';
   }

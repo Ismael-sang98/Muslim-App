@@ -467,6 +467,33 @@ class AppLocalizationsTr extends AppLocalizations {
   String get contact => 'İletişim';
 
   @override
+  String get useMyLocation => 'Konumumu kullan';
+
+  @override
+  String get locating => 'Konum belirleniyor…';
+
+  @override
+  String get locationServiceOff => 'Konum servisi kapalı. Lütfen açın.';
+
+  @override
+  String get locationPermissionDenied => 'Konum izni reddedildi.';
+
+  @override
+  String get cityNotDetected => 'Şehir otomatik bulunamadı, lütfen elle seçin.';
+
+  @override
+  String get locationError => 'Konum alınamadı.';
+
+  @override
+  String get locationOpenSettings =>
+      'Konum izni kapalı. Ayarlardan etkinleştirin.';
+
+  @override
+  String cityDetected(String city) {
+    return '$city seçildi';
+  }
+
+  @override
   String notifReminderTitle(String prayer) {
     return '🕌 $prayer Vakti';
   }
