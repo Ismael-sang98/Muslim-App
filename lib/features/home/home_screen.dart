@@ -10,6 +10,7 @@ import '../../core/utils/hijri_converter.dart';
 import '../../core/utils/localized_names.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/widgets/gradient_scaffold.dart';
+import '../../core/widgets/home_widget_service.dart';
 import '../../core/services/update_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../qibla/qibla_screen.dart';
@@ -35,8 +36,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) UpdateService.checkForUpdate(context);
+      if (!mounted) return;
+      UpdateService.checkForUpdate(context);
+      _pushWidget();
     });
+  }
+
+  void _pushWidget() {
+    if (!mounted) return;
+    final settings = ref.read(settingsProvider);
+    final villeId = settings.villeId;
+    final next = ref.read(nextPrayerProvider(villeId));
+    final today = ref.read(todayHorairesProvider(villeId));
+    if (next == null || today == null) return;
+
+    final l10n = AppLocalizations.of(context);
+    final lang = Localizations.localeOf(context).languageCode;
+    final now = DateTime.now();
+    final dateStr =
+        '${now.day} ${localizedMonth(lang, now.month)} ${now.year}';
+    final prayers = [
+      for (final k in HorairesJourModel.prayerKeys)
+        (key: k, name: prayerName(l10n, k), time: today.timeForPrayer(k)),
+    ];
+    HomeWidgetService.update(
+      prayers: prayers,
+      label: l10n.nextPrayer,
+      city: settings.villeNom,
+      date: dateStr,
+    );
   }
 
   @override
@@ -53,6 +81,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
       ref.invalidate(currentPrayerProvider(villeId));
       ref.invalidate(exactAlarmGrantedProvider);
       _rescheduleNotifications(villeId);
+      _pushWidget();
     }
   }
 
@@ -73,6 +102,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final settings = ref.watch(settingsProvider);
     final villeId = settings.villeId;
     final prayerState = ref.watch(prayerDataProvider(villeId));
+
+    // Keep both home-screen widgets in sync when the next prayer changes.
+    ref.listen(nextPrayerProvider(villeId), (_, next) {
+      if (next != null) _pushWidget();
+    });
 
     return GradientScaffold(
       body: switch (prayerState) {

@@ -37,6 +37,11 @@
 - **Şehir Seçimi** — Türkiye'nin tüm il ve ilçeleri mevcut
 - **Çevrimdışı Önbellek** — İnternet bağlantısı olmadan erişim için veriler önbelleğe alınır
 
+#### 🏠 Ana Ekran Widget'ları
+- **Sonraki Namaz Widget'ı** — telefon ana ekranında sonraki namaz + saat + şehir
+- **Tüm Vakitler Widget'ı** — günün 6 vakti, sonraki vakit turuncu ile vurgulanır
+- **Kendi Kendine Güncelleme** — uygulama kapalıyken bile yenilenir; dokununca uygulama açılır
+
 #### 📖 Kuran-ı Kerim
 - **114 Sure** — Tam Kuran metni Arapça (Scheherazade New) ile
 - **Çok Dilli Mealler** — Türkçe, İngilizce ve Fransızca meal desteği
@@ -157,6 +162,11 @@ flutter test
 - **City Selection** — All provinces and districts in Turkey available
 - **Offline Cache** — Data cached for access without an internet connection
 
+#### 🏠 Home-screen Widgets
+- **Next Prayer Widget** — next prayer + time + city on your phone's home screen
+- **All Times Widget** — the day's six prayer times, the next one highlighted in orange
+- **Self-updating** — refreshes on its own even when the app is closed; tap to open the app
+
 #### 📖 Holy Quran
 - **114 Surahs** — Full Quran in Arabic (Scheherazade New font)
 - **Multi-language Translations** — Turkish, English and French
@@ -259,6 +269,7 @@ flutter test
 | [flutter_localizations + intl](https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization) | Internationalization (TR/EN/FR) |
 | [just_audio](https://pub.dev/packages/just_audio) | Verse-by-verse audio playback |
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Scheduled (localized) notifications |
+| [home_widget](https://pub.dev/packages/home_widget) | Home-screen widgets (Android) |
 | [timezone](https://pub.dev/packages/timezone) | Timezone handling (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | GPS position for Qibla calculation |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Magnetometer heading stream |
@@ -321,6 +332,11 @@ flutter build apk --release
 - **Compte à rebours en direct** — minuterie en temps réel jusqu'à la prochaine prière
 - **Sélection de la ville** — toutes les provinces et districts de Turquie disponibles
 - **Cache hors-ligne** — les données sont mises en cache pour un accès sans connexion
+
+#### 🏠 Widgets d'écran d'accueil
+- **Widget Prochaine prière** — prochaine prière + heure + ville sur l'écran d'accueil du téléphone
+- **Widget Toutes les prières** — les 6 vakit du jour, la prochaine surlignée en orange
+- **Auto-mise à jour** — se rafraîchit tout seul même app fermée ; un tap ouvre l'app
 
 #### 📖 Coran
 - **114 sourates** — texte arabe intégral (police Scheherazade New)
@@ -424,6 +440,7 @@ flutter test
 | [flutter_localizations + intl](https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization) | Internationalisation (TR/EN/FR) |
 | [just_audio](https://pub.dev/packages/just_audio) | Lecture audio verset par verset |
 | [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) | Notifications planifiées (localisées) |
+| [home_widget](https://pub.dev/packages/home_widget) | Widgets d'écran d'accueil (Android) |
 | [timezone](https://pub.dev/packages/timezone) | Gestion du fuseau horaire (Europe/Istanbul) |
 | [geolocator](https://pub.dev/packages/geolocator) | Position GPS pour le calcul de la Qibla |
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Flux de cap magnétomètre |
