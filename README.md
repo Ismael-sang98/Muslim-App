@@ -85,6 +85,13 @@
 - **Namaza Özel Bildirimler** — Her namaz için ayrı açma/kapama; her birinin rengi farklı
 - **Şehir Güncelleme** — İl ve ilçeyi istediğin zaman değiştir
 
+#### 🎨 Tasarım — Cam Efekti (Glassmorphism)
+- **Tutarlı Glassmorphism** — tüm ekranlar aynı tasarım dilini paylaşır: organik yeşil "blob" arka planlar ve gerçek bulanıklıkla (BackdropFilter) yarı saydam cam kartlar
+- **Paylaşılan Bileşenler** — `BlobBackground` ve `GlassCard` (`core/widgets/`) tüm sayfalarda yeniden kullanılır; kod tekrarı yoktur
+- **Altın Vurgu** — başlıklar, ince kenarlıklar ve aktif ikonlarda; asla dolgu olarak değil
+- **Space Grotesk** — önemli rakamlar için (saat, takvim tarihleri, Kıble dereceleri)
+- **Sade Okuma** — Kuran metni arkasında dingin bir zemin; akıcı kaydırma için uzun listelerde bulanıklık yoktur
+
 ### Kurulum
 
 ```bash
@@ -210,6 +217,13 @@ flutter test
 - **Per-prayer Notifications** — Individual toggle per prayer, each with its own accent color
 - **City Update** — Change province and district at any time
 
+#### 🎨 Design — Glassmorphism
+- **Consistent glassmorphism** — every screen shares one design language: organic green "blob" backgrounds and translucent glass cards with real blur (BackdropFilter)
+- **Shared components** — `BlobBackground` and `GlassCard` (`core/widgets/`) are reused across all pages — no duplicated UI code
+- **Gold accent** — on titles, thin borders and active icons only; never as a fill
+- **Space Grotesk** — for important numerals (time, calendar dates, Qibla degrees)
+- **Sober reading** — a calm background behind the Quran text; no blur on scrolling lists to keep performance smooth
+
 ### Installation
 
 ```bash
@@ -276,7 +290,7 @@ flutter test
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Magnetometer heading stream |
 | [share_plus](https://pub.dev/packages/share_plus) | Sharing hadiths and verses |
 | [shimmer](https://pub.dev/packages/shimmer) | Skeleton loading placeholders |
-| [Google Fonts](https://pub.dev/packages/google_fonts) | Typography (Poppins) |
+| [Google Fonts](https://pub.dev/packages/google_fonts) | Typography (Poppins UI + Space Grotesk numerals) |
 | [Scheherazade New](https://software.sil.org/scheherazade/) | Arabic Quranic font (bundled) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | UI animations |
 | [mocktail](https://pub.dev/packages/mocktail) | Unit test mocking (dev) |
@@ -382,6 +396,13 @@ flutter build apk --release
 - **Notifications par prière** — bascule individuelle par prière, chacune avec sa propre couleur
 - **Mise à jour de la ville** — changez province et district à tout moment
 
+#### 🎨 Design — Glassmorphism
+- **Glassmorphism cohérent** — toutes les pages partagent un langage visuel unique : fonds organiques en « blobs » verts et cartes en verre translucide à vrai flou (BackdropFilter)
+- **Composants partagés** — `BlobBackground` et `GlassCard` (`core/widgets/`) réutilisés sur toutes les pages — aucun code d'UI dupliqué
+- **Accent or** — sur les titres, fines bordures et icônes actives uniquement ; jamais en fond
+- **Space Grotesk** — pour les chiffres importants (heure, dates du calendrier, degrés Qibla)
+- **Lecture sobre** — fond calme derrière le texte du Coran ; pas de flou sur les listes qui défilent pour des performances fluides
+
 ### Installation
 
 ```bash
@@ -448,7 +469,7 @@ flutter test
 | [flutter_compass](https://pub.dev/packages/flutter_compass) | Flux de cap magnétomètre |
 | [share_plus](https://pub.dev/packages/share_plus) | Partage des hadiths et versets |
 | [shimmer](https://pub.dev/packages/shimmer) | Squelettes de chargement |
-| [Google Fonts](https://pub.dev/packages/google_fonts) | Typographies (Poppins) |
+| [Google Fonts](https://pub.dev/packages/google_fonts) | Typographies (Poppins UI + chiffres Space Grotesk) |
 | [Scheherazade New](https://software.sil.org/scheherazade/) | Police arabe coranique (bundlée) |
 | [flutter_animate](https://pub.dev/packages/flutter_animate) | Animations d'interface |
 | [mocktail](https://pub.dev/packages/mocktail) | Mocking pour les tests (dev) |

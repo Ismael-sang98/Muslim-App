@@ -41,36 +41,40 @@ class HubScreen extends StatelessWidget {
         children: [
           const Positioned.fill(child: BlobBackground()),
           SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 28, 20, 100),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _Header(),
-              const SizedBox(height: 28),
-              ...entries.asMap().entries.map(
-                (e) => Padding(
-                  padding: const EdgeInsets.only(bottom: 18),
-                  child: _HubCard(entry: e.value)
-                      .animate(delay: (120 + 90 * e.key).ms)
+            bottom: false,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 28, 20, 100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _Header(),
+                  const SizedBox(height: 28),
+                  ...entries.asMap().entries.map(
+                    (e) => Padding(
+                      padding: const EdgeInsets.only(bottom: 18),
+                      child: _HubCard(entry: e.value)
+                          .animate(delay: (120 + 90 * e.key).ms)
+                          .fadeIn(duration: 400.ms)
+                          .slideY(
+                            begin: 0.14,
+                            duration: 400.ms,
+                            curve: Curves.easeOut,
+                          ),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const _DailyHadithCard()
+                      .animate(delay: 320.ms)
                       .fadeIn(duration: 400.ms)
                       .slideY(
                         begin: 0.14,
                         duration: 400.ms,
                         curve: Curves.easeOut,
                       ),
-                ),
+                ],
               ),
-              const SizedBox(height: 6),
-              const _DailyHadithCard()
-                  .animate(delay: 320.ms)
-                  .fadeIn(duration: 400.ms)
-                  .slideY(begin: 0.14, duration: 400.ms, curve: Curves.easeOut),
-            ],
+            ),
           ),
-        ),
-      ),
         ],
       ),
     );
@@ -119,75 +123,70 @@ class _DailyHadithCard extends ConsumerWidget {
             borderRadius: BorderRadius.circular(22),
             child: GlassCard(
               radius: 22,
-              blur: 16,
+              blur: 10,
+              fillOpacity: 0,
               borderColor: Colors.white.withValues(alpha: 0.16),
               padding: const EdgeInsets.all(20),
               child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.auto_awesome_rounded,
-                          size: 16,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).hadithOfTheDay,
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.2,
                           color: AppTheme.accentOrange.withValues(alpha: 0.9),
                         ),
-                        const SizedBox(width: 8),
-                        Text(
-                          AppLocalizations.of(context).hadithOfTheDay,
-                          style: GoogleFonts.poppins(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 1.2,
-                            color: AppTheme.accentOrange.withValues(alpha: 0.9),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      daily.item.text,
-                      maxLines: 4,
-                      textAlign: TextAlign.justify,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                        fontSize: 13.5,
-                        height: 1.6,
-                        color: Colors.white.withValues(alpha: 0.85),
                       ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    daily.item.text,
+                    maxLines: 4,
+                    textAlign: TextAlign.justify,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      height: 1.6,
+                      color: Colors.white.withValues(alpha: 0.85),
                     ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '${daily.collectionName} · #${daily.item.number}',
-                            style: GoogleFonts.poppins(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white.withValues(alpha: 0.45),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          AppLocalizations.of(context).readMore,
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          '${daily.collectionName} · #${daily.item.number}',
                           style: GoogleFonts.poppins(
                             fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: AppTheme.lightGreen,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white.withValues(alpha: 0.45),
                           ),
                         ),
-                        Icon(
-                          Icons.arrow_forward_rounded,
-                          size: 14,
+                      ),
+                      Text(
+                        AppLocalizations.of(context).readMore,
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
                           color: AppTheme.lightGreen,
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        size: 14,
+                        color: AppTheme.lightGreen,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
+          ),
         );
       },
     );
@@ -287,80 +286,80 @@ class _HubCard extends ConsumerWidget {
           blur: 16,
           borderColor: entry.color.withValues(alpha: 0.40),
           child: Stack(
-              children: [
-                // Decorative watermark
-                Positioned(
-                  right: -18,
-                  bottom: -22,
-                  child: Icon(
-                    entry.icon,
-                    size: 130,
-                    color: entry.color.withValues(alpha: 0.10),
-                  ),
+            children: [
+              // Decorative watermark
+              Positioned(
+                right: -18,
+                bottom: -22,
+                child: Icon(
+                  entry.icon,
+                  size: 130,
+                  color: entry.color.withValues(alpha: 0.10),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 24,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: entry.color.withValues(alpha: 0.22),
-                          borderRadius: BorderRadius.circular(18),
-                          border: Border.all(
-                            color: entry.color.withValues(alpha: 0.35),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 24,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: entry.color.withValues(alpha: 0.22),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(
+                          color: entry.color.withValues(alpha: 0.35),
+                        ),
+                      ),
+                      child: Icon(entry.icon, color: entry.color, size: 30),
+                    ),
+                    const SizedBox(width: 18),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            entry.title,
+                            style: GoogleFonts.poppins(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        child: Icon(entry.icon, color: entry.color, size: 30),
-                      ),
-                      const SizedBox(width: 18),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              entry.title,
-                              style: GoogleFonts.poppins(
-                                fontSize: 19,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                              ),
+                          const SizedBox(height: 4),
+                          Text(
+                            entry.subtitle,
+                            style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              color: Colors.white.withValues(alpha: 0.60),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              entry.subtitle,
-                              style: GoogleFonts.poppins(
-                                fontSize: 13,
-                                color: Colors.white.withValues(alpha: 0.60),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: entry.color.withValues(alpha: 0.18),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.arrow_forward_rounded,
-                          color: entry.color,
-                          size: 18,
-                        ),
+                    ),
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: entry.color.withValues(alpha: 0.18),
+                        shape: BoxShape.circle,
                       ),
-                    ],
-                  ),
+                      child: Icon(
+                        Icons.arrow_forward_rounded,
+                        color: entry.color,
+                        size: 18,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
