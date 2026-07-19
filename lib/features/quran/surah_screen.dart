@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/theme/quran_colors.dart';
+import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 import 'quran_provider.dart';
 
@@ -204,43 +205,59 @@ class _SurahScreenState extends ConsumerState<SurahScreen>
       }
     });
 
-    return Scaffold(
-      backgroundColor: QuranColors.bg(context),
-      appBar: AppBar(
-        backgroundColor: QuranColors.appBar(context),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+    return GradientScaffold(
+      body: SafeArea(
+        bottom: false,
+        child: Column(
           children: [
-            Text(
-              widget.chapter['name_arabic'] as String? ?? '',
-              style: const TextStyle(
-                fontFamily: 'Lateef',
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.w300,
+            // Floated header (sober, no separate opaque band)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(4, 6, 8, 6),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.chapter['name_arabic'] as String? ?? '',
+                          style: const TextStyle(
+                            fontFamily: 'Lateef',
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        Text(
+                          widget.chapter['name_simple'] as String? ?? '',
+                          style: GoogleFonts.poppins(
+                            color: Colors.white60,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.mic_none_rounded,
+                      color: Colors.white70,
+                    ),
+                    tooltip: AppLocalizations.of(context).reciter,
+                    onPressed: () => _showReciterSheet(context),
+                  ),
+                ],
               ),
             ),
-            Text(
-              widget.chapter['name_simple'] as String? ?? '',
-              style: GoogleFonts.poppins(color: Colors.white60, fontSize: 15),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.mic_none_rounded, color: Colors.white70),
-            tooltip: AppLocalizations.of(context).reciter,
-            onPressed: () => _showReciterSheet(context),
-          ),
-          const SizedBox(width: 6),
-        ],
-      ),
-      body: Stack(
+            Expanded(
+              child: Stack(
         children: [
           versesAsync.when(
             loading: () => const Center(
@@ -375,6 +392,10 @@ class _SurahScreenState extends ConsumerState<SurahScreen>
             },
           ),
         ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

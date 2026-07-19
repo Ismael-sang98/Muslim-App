@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/theme/quran_colors.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 import 'quran_provider.dart';
 import 'surah_screen.dart';
@@ -14,25 +15,39 @@ class FavoritesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final favorites = ref.watch(favoritesProvider);
 
-    return Scaffold(
-      backgroundColor: QuranColors.bg(context),
-      appBar: AppBar(
-        backgroundColor: QuranColors.appBar(context),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          AppLocalizations.of(context).favorites,
-          style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
-        ),
-      ),
-      body: favorites.isEmpty
+    return GradientScaffold(
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                // Floated header (no opaque band)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 6, 16, 6),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      Text(
+                        AppLocalizations.of(context).favorites,
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: favorites.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -97,6 +112,12 @@ class FavoritesScreen extends ConsumerWidget {
                 );
               },
             ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

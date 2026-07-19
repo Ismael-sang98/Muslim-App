@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/theme/quran_colors.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
+import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 import 'quran_provider.dart';
 import 'surah_screen.dart';
@@ -65,90 +67,120 @@ class _QuranScreenState extends ConsumerState<QuranScreen> {
     final isSearching = _query.trim().length >= 2;
     final lastRead = ref.watch(lastReadProvider);
 
-    return Scaffold(
-      backgroundColor: QuranColors.bg(context),
-      appBar: AppBar(
-        backgroundColor: QuranColors.appBar(context),
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Text(
-          AppLocalizations.of(context).quran,
-          style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.star_rounded, color: Colors.white70),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const FavoritesScreen()),
-            ),
-          ),
-        ],
-      ),
-      body: Column(
+    return GradientScaffold(
+      body: Stack(
         children: [
-          // Search bar
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-            child: TextField(
-              controller: _searchController,
-              onChanged: (v) => setState(() => _query = v),
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context).quranSearchHint,
-                hintStyle: GoogleFonts.poppins(
-                  color: Colors.white38,
-                  fontSize: 13,
-                ),
-                prefixIcon: const Icon(Icons.search, color: Colors.white38),
-                suffixIcon: _query.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.white38,
-                          size: 18,
+          const Positioned.fill(child: BlobBackground()),
+          SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                // Floated header (no opaque band)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 12, 8, 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          AppLocalizations.of(context).quran,
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 26,
+                          ),
                         ),
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() => _query = '');
-                        },
-                      )
-                    : null,
-                filled: true,
-                fillColor: QuranColors.searchFill(context),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.star_rounded,
+                          color: AppTheme.accentOrange,
+                        ),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const FavoritesScreen(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 12),
-              ),
+
+                // Search bar (glass)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  child: GlassCard(
+                    radius: 13,
+                    blur: 16,
+                    borderColor: Colors.white.withValues(alpha: 0.14),
+                    padding: EdgeInsets.zero,
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: (v) => setState(() => _query = v),
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context).quranSearchHint,
+                        hintStyle: GoogleFonts.poppins(
+                          color: Colors.white38,
+                          fontSize: 13,
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: Colors.white38,
+                        ),
+                        suffixIcon: _query.isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.white38,
+                                  size: 18,
+                                ),
+                                onPressed: () {
+                                  _searchController.clear();
+                                  setState(() => _query = '');
+                                },
+                              )
+                            : null,
+                        filled: false,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // Toggle Sureler / Cüz (hidden when searching)
+                if (!isSearching)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                    child: _ViewToggle(
+                      showJuz: _showJuz,
+                      onToggle: (v) => setState(() => _showJuz = v),
+                    ),
+                  ),
+
+                // Reprendre card (visible when not searching and lastRead exists)
+                if (!isSearching && lastRead != null)
+                  _Reprendre(lastRead: lastRead),
+
+                // Content
+                Expanded(
+                  child: isSearching
+                      ? _SearchResults(query: _query.trim())
+                      : _showJuz
+                      ? _JuzGrid(juzStartSurah: _juzStartSurah)
+                      : _ChapterList(),
+                ),
+              ],
             ),
-          ),
-
-          // Toggle Sureler / Cüz (hidden when searching)
-          if (!isSearching)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-              child: _ViewToggle(
-                showJuz: _showJuz,
-                onToggle: (v) => setState(() => _showJuz = v),
-              ),
-            ),
-
-          // Reprendre card (visible when not searching and lastRead exists)
-          if (!isSearching && lastRead != null) _Reprendre(lastRead: lastRead),
-
-          // Content
-          Expanded(
-            child: isSearching
-                ? _SearchResults(query: _query.trim())
-                : _showJuz
-                ? _JuzGrid(juzStartSurah: _juzStartSurah)
-                : _ChapterList(),
           ),
         ],
       ),
@@ -166,11 +198,10 @@ class _ViewToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(24),
-      ),
+    return GlassCard(
+      radius: 24,
+      blur: 14,
+      borderColor: Colors.white.withValues(alpha: 0.12),
       padding: const EdgeInsets.all(3),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -257,53 +288,51 @@ class _Reprendre extends ConsumerWidget {
               ),
             ),
           ),
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: AppTheme.primaryGreen.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: AppTheme.primaryGreen.withValues(alpha: 0.4),
-              ),
-            ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.play_circle_outline_rounded,
-                  color: AppTheme.lightGreen,
-                  size: 22,
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context).continueReading,
-                        style: GoogleFonts.poppins(
-                          color: AppTheme.lightGreen,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        '$surahName · Ayet ${verseIndex + 1}',
-                        style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+            child: GlassCard(
+              radius: 14,
+              blur: 16,
+              borderColor: AppTheme.primaryGreen.withValues(alpha: 0.45),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.play_circle_outline_rounded,
+                    color: AppTheme.lightGreen,
+                    size: 22,
                   ),
-                ),
-                const Icon(
-                  Icons.chevron_right,
-                  color: AppTheme.lightGreen,
-                  size: 20,
-                ),
-              ],
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context).continueReading,
+                          style: GoogleFonts.poppins(
+                            color: AppTheme.lightGreen,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          '$surahName · Ayet ${verseIndex + 1}',
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.chevron_right,
+                    color: AppTheme.lightGreen,
+                    size: 20,
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -681,53 +710,51 @@ class _DirectVerseCard extends StatelessWidget {
               SurahScreen(chapter: chapter, targetVerseNumber: safeVerse),
         ),
       ),
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: AppTheme.accentOrange.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(
-            color: AppTheme.accentOrange.withValues(alpha: 0.4),
-          ),
-        ),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.my_location_rounded,
-              color: AppTheme.accentOrange,
-              size: 22,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context).goDirectly,
-                    style: GoogleFonts.poppins(
-                      color: AppTheme.accentOrange,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    '$nameSimple · Ayet $safeVerse',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        child: GlassCard(
+          radius: 14,
+          blur: 16,
+          borderColor: AppTheme.accentOrange.withValues(alpha: 0.45),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.my_location_rounded,
+                color: AppTheme.accentOrange,
+                size: 22,
               ),
-            ),
-            const Icon(
-              Icons.chevron_right,
-              color: AppTheme.accentOrange,
-              size: 20,
-            ),
-          ],
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context).goDirectly,
+                      style: GoogleFonts.poppins(
+                        color: AppTheme.accentOrange,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      '$nameSimple · Ayet $safeVerse',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(
+                Icons.chevron_right,
+                color: AppTheme.accentOrange,
+                size: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );

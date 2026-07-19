@@ -7,6 +7,9 @@ import '../../core/hive/models/horaires_jour_model.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/services/location_city_service.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
+import '../../core/widgets/gradient_scaffold.dart';
 import '../../core/widgets/location_detect_button.dart';
 import '../../l10n/app_localizations.dart';
 import '../onboarding/onboarding_provider.dart';
@@ -26,14 +29,18 @@ class SettingsScreen extends ConsumerWidget {
         ? settings.villeProvinceNom!
         : settings.villeNom;
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
+    return GradientScaffold(
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          Column(
         children: [
           _SettingsHeader(cityName: cityName),
           Expanded(
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 24, 16, 100),
+            child: Theme(
+              data: Theme.of(context).copyWith(brightness: Brightness.dark),
+              child: ListView(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 100),
               children: [
                 // ── APPEARANCE ───────────────────────────────────────────────
                 _SettingsGroup(
@@ -147,6 +154,9 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ],
             ),
+            ),
+          ),
+        ],
           ),
         ],
       ),
@@ -177,14 +187,12 @@ class _SettingsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(gradient: AppTheme.mainGradient),
+    return Padding(
       padding: EdgeInsets.fromLTRB(
         24,
         MediaQuery.of(context).padding.top + 20,
         24,
-        28,
+        20,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,23 +252,11 @@ class _SettingsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final cardColor = Theme.of(context).cardTheme.color ?? Colors.white;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.06),
-                  blurRadius: 14,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-      ),
+    return GlassCard(
+      radius: 20,
+      blur: 16,
+      borderColor: Colors.white.withValues(alpha: 0.14),
+      padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -293,9 +289,7 @@ class _SettingsGroup extends StatelessWidget {
           Divider(
             height: 1,
             thickness: 1,
-            color: isDark
-                ? Colors.white.withValues(alpha: 0.07)
-                : Colors.black.withValues(alpha: 0.06),
+            color: Colors.white.withValues(alpha: 0.10),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
@@ -671,7 +665,7 @@ class _LocationRow extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,
-                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                    color: Colors.white.withValues(alpha: 0.92),
                   ),
                 ),
               ],
@@ -798,7 +792,7 @@ class _AboutRow extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
+                color: Colors.white.withValues(alpha: 0.92),
               ),
             ),
           ),

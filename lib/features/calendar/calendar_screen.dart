@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/hive/models/horaires_jour_model.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/localized_names.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 import 'calendar_provider.dart';
@@ -48,46 +50,65 @@ class _CalendarScreenState extends ConsumerState<CalendarScreen> {
     final canPop = ModalRoute.of(context)?.canPop ?? false;
 
     return GradientScaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            _CalendarHeader(
-              selectedMonth: selectedMonth,
-              onBack: canPop ? () => Navigator.pop(context) : null,
-              onPrev: () {
-                _pageController.previousPage(
-                  duration: const Duration(milliseconds: 350),
-                  curve: Curves.easeInOut,
-                );
-              },
-              onNext: () {
-                _pageController.nextPage(
-                  duration: const Duration(milliseconds: 350),
-                  curve: Curves.easeInOut,
-                );
-              },
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                _CalendarHeader(
+                  selectedMonth: selectedMonth,
+                  onBack: canPop ? () => Navigator.pop(context) : null,
+                  onPrev: () {
+                    _pageController.previousPage(
+                      duration: const Duration(milliseconds: 350),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                  onNext: () {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 350),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 0, 12, 90),
+                    child: GlassCard(
+                      radius: 24,
+                      blur: 16,
+                      borderColor: Colors.white.withValues(alpha: 0.16),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        children: [
+                          _WeekdayHeaders(),
+                          Expanded(
+                            child: PageView.builder(
+                              controller: _pageController,
+                              onPageChanged: (page) {
+                                setState(() => _currentPage = page);
+                                ref
+                                    .read(selectedMonthProvider.notifier)
+                                    .state = _pageToMonth(page);
+                              },
+                              itemBuilder: (_, page) {
+                                final month = _pageToMonth(page);
+                                return _MonthGrid(selectedMonth: month);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 4),
-            _WeekdayHeaders(),
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                onPageChanged: (page) {
-                  setState(() => _currentPage = page);
-                  ref.read(selectedMonthProvider.notifier).state = _pageToMonth(
-                    page,
-                  );
-                },
-                itemBuilder: (_, page) {
-                  final month = _pageToMonth(page);
-                  return _MonthGrid(selectedMonth: month);
-                },
-              ),
-            ),
-            const SizedBox(height: 80),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -115,19 +136,8 @@ class _CalendarHeader extends StatelessWidget {
 
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 18),
-          decoration: const BoxDecoration(
-            color: AppTheme.darkGreen,
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-            /*boxShadow: [
-              BoxShadow(
-                color: Color(0x40000000),
-                offset: Offset(0, 4),
-                blurRadius: 4,
-              ),
-            ],*/
-          ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -171,8 +181,6 @@ class _CalendarHeader extends StatelessWidget {
           duration: 400.ms,
           curve: Curves.easeOut,
         ),
-        const SizedBox(height: 8),
-        const Divider(color: Colors.white24, height: 1, thickness: 1),
         Column(
           children: [
             Row(
@@ -188,9 +196,10 @@ class _CalendarHeader extends StatelessWidget {
                 ),
                 Text(
                   '$monthName ${selectedMonth.year}',
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                  style: GoogleFonts.spaceGrotesk(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: -0.5,
                     color: Colors.white,
                   ),
                 ),
@@ -206,12 +215,10 @@ class _CalendarHeader extends StatelessWidget {
             ),
           ],
         ).animate().fadeIn(duration: 400.ms, delay: 200.ms),
-        const Divider(color: Colors.white24, height: 1, thickness: 1),
         const SizedBox(height: 4),
       ],
     );
   }
-
 }
 
 // ── Weekday headers ────────────────────────────────────────────────────────────
@@ -222,9 +229,8 @@ class _WeekdayHeaders extends StatelessWidget {
     final lang = Localizations.localeOf(context).languageCode;
     // 1 = Monday … 7 = Sunday (5 = Friday, highlighted)
     final weekdays = [1, 2, 3, 4, 5, 6, 7];
-    return Container(
-      color: Colors.black.withValues(alpha: 0.15),
-      padding: const EdgeInsets.symmetric(vertical: 10),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
       child: Row(
         children: weekdays
             .map(
@@ -368,9 +374,10 @@ class _DayCell extends StatelessWidget {
           children: [
             Text(
               '$day',
-              style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: isToday ? FontWeight.w700 : FontWeight.w400,
+              style: GoogleFonts.spaceGrotesk(
+                fontSize: 15,
+                fontWeight: isToday ? FontWeight.w700 : FontWeight.w500,
+                letterSpacing: -0.5,
                 color: Colors.white,
               ),
             ),

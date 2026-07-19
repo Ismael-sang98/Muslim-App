@@ -7,6 +7,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/localized_names.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
 import '../../l10n/app_localizations.dart';
 
 class QiblaScreen extends StatefulWidget {
@@ -111,7 +113,7 @@ class _QiblaScreenState extends State<QiblaScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: const Color(0xFF07120C),
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -127,7 +129,12 @@ class _QiblaScreenState extends State<QiblaScreen>
           ),
         ),
       ),
-      body: _buildBody(),
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          _buildBody(),
+        ],
+      ),
     );
   }
 
@@ -151,17 +158,8 @@ class _QiblaScreenState extends State<QiblaScreen>
   }
 
   Widget _buildLoading() {
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: RadialGradient(
-          center: Alignment.topCenter,
-          radius: 1.6,
-          colors: [Color(0xFF112219), Color(0xFF07120C)],
-        ),
-      ),
-      child: const Center(
-        child: CircularProgressIndicator(color: AppTheme.primaryGreen),
-      ),
+    return const Center(
+      child: CircularProgressIndicator(color: AppTheme.primaryGreen),
     );
   }
 
@@ -227,16 +225,9 @@ class _QiblaScreenState extends State<QiblaScreen>
   Widget _buildCompass() {
     final rotation = -_heading * pi / 180;
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
       height: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: RadialGradient(
-          center: Alignment.center,
-          radius: 1.2,
-          colors: [Color(0xFF112219), Color(0xFF07120C)],
-        ),
-      ),
       child: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -361,28 +352,38 @@ class _QiblaScreenState extends State<QiblaScreen>
   }
 
   Widget _buildBearingDisplay({bool compact = false}) {
-    return Column(
-      children: [
-        Text(
-          '${_qiblaBearing.toStringAsFixed(1)}°',
-          style: GoogleFonts.poppins(
-            fontSize: compact ? 28 : 40,
-            fontWeight: FontWeight.w200,
-            color: Colors.white,
-            letterSpacing: 2,
+    return GlassCard(
+      radius: 22,
+      blur: 14,
+      borderColor: Colors.white.withValues(alpha: 0.18),
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 24 : 32,
+        vertical: compact ? 12 : 16,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${_qiblaBearing.toStringAsFixed(1)}°',
+            style: GoogleFonts.spaceGrotesk(
+              fontSize: compact ? 32 : 46,
+              fontWeight: FontWeight.w300,
+              color: Colors.white,
+              letterSpacing: -1,
+            ),
           ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          AppLocalizations.of(context).kaabaDirection,
-          style: GoogleFonts.poppins(
-            fontSize: compact ? 9 : 11,
-            color: AppTheme.lightGreen,
-            letterSpacing: 4,
-            fontWeight: FontWeight.w500,
+          const SizedBox(height: 2),
+          Text(
+            AppLocalizations.of(context).kaabaDirection,
+            style: GoogleFonts.poppins(
+              fontSize: compact ? 9 : 11,
+              color: AppTheme.lightGreen,
+              letterSpacing: 4,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

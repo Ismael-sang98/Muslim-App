@@ -3,6 +3,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../core/widgets/location_detect_button.dart';
 import '../../l10n/app_localizations.dart';
@@ -27,13 +29,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      body: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
+      body: Stack(
         children: [
-          _SplashPage(onNext: _nextStep),
-          _CityPage(onNext: _startOnboarding),
-          const _LoadingPage(),
+          const Positioned.fill(child: BlobBackground()),
+          PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              _SplashPage(onNext: _nextStep),
+              _CityPage(onNext: _startOnboarding),
+              const _LoadingPage(),
+            ],
+          ),
         ],
       ),
     );
@@ -343,45 +350,43 @@ class _GreenInputTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         height: 52,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isEnabled
-                ? AppTheme.darkGreen.withValues(alpha: 0.7)
-                : AppTheme.darkGreen.withValues(alpha: 0.3),
-            width: 1.5,
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              color: Colors.white.withValues(alpha: isEnabled ? 0.8 : 0.4),
-              size: 22,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                hasValue ? value! : placeholder,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: hasValue ? FontWeight.w400 : FontWeight.w300,
-                  color: hasValue
-                      ? Colors.white
-                      : Colors.white.withValues(alpha: 0.5),
+        child: GlassCard(
+          radius: 14,
+          blur: 14,
+          fillOpacity: isEnabled ? 0.16 : 0.10,
+          borderColor: hasValue
+              ? AppTheme.lightGreen.withValues(alpha: 0.45)
+              : Colors.white.withValues(alpha: isEnabled ? 0.22 : 0.12),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: Colors.white.withValues(alpha: isEnabled ? 0.8 : 0.4),
+                size: 22,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  hasValue ? value! : placeholder,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: hasValue ? FontWeight.w400 : FontWeight.w300,
+                    color: hasValue
+                        ? Colors.white
+                        : Colors.white.withValues(alpha: 0.5),
+                  ),
                 ),
               ),
-            ),
-            Icon(
-              Icons.keyboard_arrow_down,
-              color: Colors.white.withValues(alpha: isEnabled ? 0.7 : 0.3),
-              size: 22,
-            ),
-          ],
+              Icon(
+                Icons.keyboard_arrow_down,
+                color: Colors.white.withValues(alpha: isEnabled ? 0.7 : 0.3),
+                size: 22,
+              ),
+            ],
+          ),
         ),
       ),
     );

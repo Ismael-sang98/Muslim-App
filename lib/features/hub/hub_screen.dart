@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/localized_names.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 import '../calendar/calendar_screen.dart';
@@ -35,7 +37,10 @@ class HubScreen extends StatelessWidget {
     ];
 
     return GradientScaffold(
-      body: SafeArea(
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          SafeArea(
         bottom: false,
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 28, 20, 100),
@@ -65,6 +70,8 @@ class HubScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+        ],
       ),
     );
   }
@@ -110,15 +117,12 @@ class _DailyHadithCard extends ConsumerWidget {
               );
             },
             borderRadius: BorderRadius.circular(22),
-            child: Ink(
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(22),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
+            child: GlassCard(
+              radius: 22,
+              blur: 16,
+              borderColor: Colors.white.withValues(alpha: 0.16),
+              padding: const EdgeInsets.all(20),
+              child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
@@ -184,7 +188,6 @@ class _DailyHadithCard extends ConsumerWidget {
                 ),
               ),
             ),
-          ),
         );
       },
     );
@@ -279,36 +282,11 @@ class _HubCard extends ConsumerWidget {
           );
         },
         borderRadius: BorderRadius.circular(22),
-        child: Ink(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                AppTheme.darkGreen.withValues(alpha: 0.92),
-                Color.lerp(
-                  AppTheme.darkGreen,
-                  entry.color,
-                  0.28,
-                )!.withValues(alpha: 0.85),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(22),
-            border: Border.all(
-              color: entry.color.withValues(alpha: 0.35),
-              width: 1.5,
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.22),
-                offset: const Offset(0, 5),
-                blurRadius: 12,
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(22),
-            child: Stack(
+        child: GlassCard(
+          radius: 22,
+          blur: 16,
+          borderColor: entry.color.withValues(alpha: 0.40),
+          child: Stack(
               children: [
                 // Decorative watermark
                 Positioned(
@@ -383,7 +361,6 @@ class _HubCard extends ConsumerWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

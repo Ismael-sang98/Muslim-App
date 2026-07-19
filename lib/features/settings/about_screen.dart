@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
+import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -25,120 +28,146 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return GradientScaffold(
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          SafeArea(
+            child: Column(
+              children: [
+                // Floated header (no opaque band)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 8, 16, 4),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      Text(
+                        AppLocalizations.of(context).about,
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 16),
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: AppTheme.darkGreen,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          AppLocalizations.of(context).about,
-          style: GoogleFonts.poppins(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
+                        // Logo
+                        Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: AppTheme.darkGreen,
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.14),
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset('assets/Logo.png'),
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        Text(
+                          'Muslim',
+                          style: GoogleFonts.poppins(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w700,
+                            color: AppTheme.lightGreen,
+                          ),
+                        ),
+
+                        Text(
+                          'v$_version',
+                          style: GoogleFonts.spaceGrotesk(
+                            fontSize: 13,
+                            letterSpacing: -0.3,
+                            color: Colors.white.withValues(alpha: 0.5),
+                          ),
+                        ),
+
+                        const SizedBox(height: 32),
+
+                        _InfoCard(
+                          children: [
+                            _InfoRow(
+                              icon: Icons.data_object,
+                              label: AppLocalizations.of(context).dataSource,
+                              value: 'Diyanet İşleri Başkanlığı',
+                            ),
+                            _Divider(),
+                            _InfoRow(
+                              icon: Icons.person_outline,
+                              label: AppLocalizations.of(context).developer,
+                              value: 'Ismael Sanogo',
+                            ),
+                            _Divider(),
+                            _InfoRow(
+                              icon: Icons.smartphone,
+                              label: 'Platform',
+                              value: 'Android',
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        _InfoCard(
+                          children: [
+                            _LinkRow(
+                              icon: Icons.code,
+                              label: 'GitHub',
+                              onTap: () => _launch(
+                                'https://github.com/Ismael-sang98/Muslim-App',
+                              ),
+                            ),
+                            _Divider(),
+                            _LinkRow(
+                              icon: Icons.email_outlined,
+                              label: AppLocalizations.of(context).contact,
+                              onTap: () =>
+                                  _launch('mailto:ismaelsang98@gmail.com'),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 32),
+
+                        Text(
+                          '© 2026 Ismael Sanogo\nTüm hakları saklıdır',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            fontSize: 11,
+                            color: Colors.white.withValues(alpha: 0.4),
+                            height: 1.6,
+                          ),
+                        ),
+
+                        const SizedBox(height: 24),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 24),
-
-            // Logo
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: AppTheme.darkGreen,
-                borderRadius: BorderRadius.circular(24),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Image.asset('assets/Logo.png'),
-            ),
-
-            const SizedBox(height: 16),
-
-            Text(
-              'Muslim',
-              style: GoogleFonts.poppins(
-                fontSize: 26,
-                fontWeight: FontWeight.w700,
-                color: AppTheme.primaryGreen,
-              ),
-            ),
-
-            Text(
-              'v$_version',
-              style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey),
-            ),
-
-            const SizedBox(height: 32),
-
-            _InfoCard(
-              isDark: isDark,
-              children: [
-                _InfoRow(
-                  icon: Icons.data_object,
-                  label: AppLocalizations.of(context).dataSource,
-                  value: 'Diyanet İşleri Başkanlığı',
-                ),
-                _Divider(),
-                _InfoRow(
-                  icon: Icons.person_outline,
-                  label: AppLocalizations.of(context).developer,
-                  value: 'Ismael Sanogo',
-                ),
-                _Divider(),
-                _InfoRow(
-                  icon: Icons.smartphone,
-                  label: 'Platform',
-                  value: 'Android',
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            _InfoCard(
-              isDark: isDark,
-              children: [
-                _LinkRow(
-                  icon: Icons.code,
-                  label: 'GitHub',
-                  onTap: () =>
-                      _launch('https://github.com/Ismael-sang98/Muslim-App'),
-                ),
-                _Divider(),
-                _LinkRow(
-                  icon: Icons.email_outlined,
-                  label: AppLocalizations.of(context).contact,
-                  onTap: () => _launch('mailto:ismaelsang98@gmail.com'),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 32),
-
-            Text(
-              '© 2026 Ismael Sanogo\nTüm hakları saklıdır',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.poppins(
-                fontSize: 11,
-                color: Colors.grey,
-                height: 1.6,
-              ),
-            ),
-
-            const SizedBox(height: 24),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -153,26 +182,15 @@ class _AboutScreenState extends State<AboutScreen> {
 
 class _InfoCard extends StatelessWidget {
   final List<Widget> children;
-  final bool isDark;
-  const _InfoCard({required this.children, required this.isDark});
+  const _InfoCard({required this.children});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1E2A23) : Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.06),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-      ),
+    return GlassCard(
+      radius: 16,
+      blur: 16,
+      borderColor: Colors.white.withValues(alpha: 0.14),
+      padding: EdgeInsets.zero,
       child: Column(children: children),
     );
   }
@@ -191,22 +209,22 @@ class _InfoRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon, size: 20, color: AppTheme.primaryGreen),
+          Icon(icon, size: 20, color: AppTheme.lightGreen),
           const SizedBox(width: 14),
           Flexible(
             child: Text(
               label,
               style: GoogleFonts.poppins(
                 fontSize: 13,
-                color: Theme.of(context).textTheme.bodyMedium?.color,
+                color: Colors.white.withValues(alpha: 0.6),
               ),
             ),
           ),
-          const SizedBox(width: 60),
+          const SizedBox(width: 40),
           Expanded(
             child: Text(
               value,
@@ -214,7 +232,7 @@ class _InfoRow extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
+                color: Colors.white.withValues(alpha: 0.92),
               ),
             ),
           ),
@@ -243,17 +261,21 @@ class _LinkRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
         child: Row(
           children: [
-            Icon(icon, size: 20, color: AppTheme.primaryGreen),
+            Icon(icon, size: 20, color: AppTheme.lightGreen),
             const SizedBox(width: 14),
             Text(
               label,
               style: GoogleFonts.poppins(
                 fontSize: 13,
-                color: Theme.of(context).textTheme.bodyMedium?.color,
+                color: Colors.white.withValues(alpha: 0.85),
               ),
             ),
             const Spacer(),
-            const Icon(Icons.open_in_new, size: 16, color: Colors.grey),
+            Icon(
+              Icons.open_in_new,
+              size: 16,
+              color: Colors.white.withValues(alpha: 0.4),
+            ),
           ],
         ),
       ),
@@ -263,6 +285,10 @@ class _LinkRow extends StatelessWidget {
 
 class _Divider extends StatelessWidget {
   @override
-  Widget build(BuildContext context) =>
-      const Divider(height: 1, indent: 52, endIndent: 0);
+  Widget build(BuildContext context) => Divider(
+    height: 1,
+    indent: 52,
+    endIndent: 0,
+    color: Colors.white.withValues(alpha: 0.10),
+  );
 }

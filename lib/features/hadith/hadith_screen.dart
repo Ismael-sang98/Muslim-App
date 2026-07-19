@@ -9,6 +9,7 @@ import '../../core/api/hadith_api_service.dart';
 import '../../core/config/hadith_editions.dart';
 import '../../core/hive/hive_service.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/blob_background.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 import '../settings/settings_provider.dart';
@@ -47,16 +48,23 @@ class _HadithScreenState extends ConsumerState<HadithScreen> {
     final canPop = ModalRoute.of(context)?.canPop ?? false;
 
     return GradientScaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            _HadithHeader(canPop: canPop),
-            _SearchBar(controller: _searchController),
-            if (!showFavorites) _CollectionChips(selected: selectedColl),
-            Expanded(child: showFavorites ? _FavoritesBody() : _EditionBody()),
-          ],
-        ),
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                _HadithHeader(canPop: canPop),
+                _SearchBar(controller: _searchController),
+                if (!showFavorites) _CollectionChips(selected: selectedColl),
+                Expanded(
+                  child: showFavorites ? _FavoritesBody() : _EditionBody(),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -72,19 +80,8 @@ class _HadithHeader extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final showFavorites = ref.watch(hadithShowFavoritesProvider);
 
-    return Container(
-      padding: const EdgeInsets.fromLTRB(4, 8, 8, 12),
-      decoration: const BoxDecoration(
-        color: AppTheme.darkGreen,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-        /*boxShadow: [
-          BoxShadow(
-            color: Color(0x40000000),
-            offset: Offset(0, 4),
-            //blurRadius: 4,
-          ),
-        ],*/
-      ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 8, 8, 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -10,6 +10,8 @@ import '../../core/utils/hijri_converter.dart';
 import '../../core/utils/localized_names.dart';
 import '../../core/notifications/notification_service.dart';
 import '../../core/widgets/gradient_scaffold.dart';
+import '../../core/widgets/glass_card.dart';
+import '../../core/widgets/blob_background.dart';
 import '../../core/widgets/home_widget_service.dart';
 import '../../core/services/update_service.dart';
 import '../../l10n/app_localizations.dart';
@@ -20,7 +22,6 @@ import '../settings/settings_provider.dart';
 import 'home_provider.dart';
 import 'widgets/next_prayer_card.dart';
 import 'widgets/prayer_list_tile.dart';
-import 'widgets/countdown_timer_widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -53,8 +54,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
     final l10n = AppLocalizations.of(context);
     final lang = Localizations.localeOf(context).languageCode;
     final now = DateTime.now();
-    final dateStr =
-        '${now.day} ${localizedMonth(lang, now.month)} ${now.year}';
+    final dateStr = '${now.day} ${localizedMonth(lang, now.month)} ${now.year}';
     final prayers = [
       for (final k in HorairesJourModel.prayerKeys)
         (key: k, name: prayerName(l10n, k), time: today.timeForPrayer(k)),
@@ -142,104 +142,120 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
     final exactAlarmGranted = ref.watch(exactAlarmGrantedProvider);
 
-    return SafeArea(
-      bottom: false,
-      child: Column(
-        children: [
-          // ── Bannière permission alarme exacte (Android 12 uniquement) ──────
-          if (exactAlarmGranted is AsyncData<bool> &&
-              exactAlarmGranted.value == false)
-            _ExactAlarmBanner(
-              onTap: () async {
-                await NotificationService.requestExactAlarmPermission();
-              },
-            ),
+    return Stack(
+      children: [
+        const Positioned.fill(child: BlobBackground()),
+        SafeArea(
+          bottom: false,
+          child: Column(
+            children: [
+              // ── Bannière permission alarme exacte (Android 12 uniquement) ──────
+              if (exactAlarmGranted is AsyncData<bool> &&
+                  exactAlarmGranted.value == false)
+                _ExactAlarmBanner(
+                  onTap: () async {
+                    await NotificationService.requestExactAlarmPermission();
+                  },
+                ),
 
-          // ── Dark green header ──────────────────────────────────────────────
-          _HomeHeader(
-            today: today,
-            freshness: freshness,
-            villeNom: settings.villeNom as String,
-            onRefresh: () {
-              HapticFeedback.lightImpact();
-              ref.read(prayerDataProvider(villeId).notifier).refresh();
-            },
-          ),
-          // ── Scrollable upper section + dark panel ──────────────────────────
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async =>
-                  ref.read(prayerDataProvider(villeId).notifier).refresh(),
-              color: AppTheme.accentOrange,
-              backgroundColor: AppTheme.darkGreen,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    // Location badge
-                    if ((settings.villeNom as String).isNotEmpty)
-                      Center(
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 16),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(
-                              0xFFD9D9D9,
-                            ).withValues(alpha: 0.28),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Text(
-                            settings.villeNom as String,
-                            style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
+              // ── Dark green header ──────────────────────────────────────────────
+              _HomeHeader(
+                today: today,
+                freshness: freshness,
+                villeNom: settings.villeNom as String,
+                onRefresh: () {
+                  HapticFeedback.lightImpact();
+                  ref.read(prayerDataProvider(villeId).notifier).refresh();
+                },
+              ),
+              // ── Scrollable upper section + dark panel ──────────────────────────
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async =>
+                      ref.read(prayerDataProvider(villeId).notifier).refresh(),
+                  color: AppTheme.accentOrange,
+                  backgroundColor: AppTheme.darkGreen,
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      children: [
+                        // Location capsule — plain translucent (no blur, keeps the
+                        // simultaneous BackdropFilter count down).
+                        /*
+                        if ((settings.villeNom as String).isNotEmpty)
+                          Center(
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 14),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 7,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.15),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.location_on_rounded,
+                                    size: 14,
+                                    color: Colors.white.withValues(alpha: 0.8),
+                                  ),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    settings.villeNom as String,
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+                          ),*/
+
+                        // Next prayer hero (glass)
+                        if (nextPrayer != null)
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+                            child: NextPrayerCard(nextPrayer: nextPrayer),
                           ),
+
+                        const SizedBox(height: 18),
+
+                        // ── Qibla button ───────────────────────────────────────
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                          child: _QiblaButton(),
                         ),
-                      ),
 
-                    // Next prayer
-                    if (nextPrayer != null)
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-                        child: NextPrayerCard(nextPrayer: nextPrayer),
-                      ),
+                        // ── Daily verse card ───────────────────────────────────
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
+                          child: _DailyVerseCard(),
+                        ),
 
-                    // Countdown
-                    const CountdownTimerWidget(),
-
-                    const SizedBox(height: 10),
-
-                    // ── Qibla button ───────────────────────────────────────
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-                      child: _QiblaButton(),
+                        // ── Dark green prayer panel ────────────────────────────
+                        if (today != null)
+                          _PrayerListPanel(
+                            today: today,
+                            currentPrayer: currentPrayer,
+                            nextPrayerKey: nextPrayer?.prayerKey,
+                          ),
+                      ],
                     ),
-
-                    // ── Daily verse card ───────────────────────────────────
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-                      child: _DailyVerseCard(),
-                    ),
-
-                    // ── Dark green prayer panel ────────────────────────────
-                    if (today != null)
-                      _PrayerListPanel(
-                        today: today,
-                        currentPrayer: currentPrayer,
-                        nextPrayerKey: nextPrayer?.prayerKey,
-                      ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -332,52 +348,71 @@ class _HomeHeader extends StatelessWidget {
         ? today!.dateHijri
         : HijriConverter.toHijriString(now);
 
-    //     final hijriStr = today?.dateHijri.isNotEmpty == true
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 16, 16, 24),
-      decoration: const BoxDecoration(
-        color: AppTheme.darkGreen,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(15)),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x40000000),
-            offset: Offset(0, 4),
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  dateStr,
-                  style: GoogleFonts.poppins(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
-                    color: AppTheme.lightGreen,
-                  ),
+    // Soft shadow so the floating text stays legible over the green blobs.
+    const softShadow = [
+      Shadow(color: Color(0x66000000), blurRadius: 8, offset: Offset(0, 1)),
+    ];
+
+    return Padding(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      dateStr,
+                      style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.lightGreen,
+                        shadows: softShadow,
+                      ),
+                    ),
+
+                    Text(
+                      hijriStr,
+                      style: GoogleFonts.poppins(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white.withValues(alpha: 0.62),
+                        shadows: softShadow,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 2),
-              ],
-            ),
+              ),
+              if (freshness != null && freshness != DataFreshness.fresh)
+                _FreshnessBadge(freshness: freshness!),
+              //A jouter
+              if (villeNom.isNotEmpty)
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_rounded,
+                      size: 14,
+                      color: Colors.white.withValues(alpha: 1),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      villeNom,
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white.withValues(alpha: 1),
+                      ),
+                    ),
+                  ],
+                ),
+            ],
           ),
-          if (freshness != null && freshness != DataFreshness.fresh)
-            _FreshnessBadge(freshness: freshness!),
-          Text(
-            hijriStr,
-            style: GoogleFonts.poppins(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              color: Colors.white.withValues(alpha: 0.7),
-            ),
-          ),
-        ],
-      ),
-    ).animate().slideY(begin: -0.3, duration: 400.ms, curve: Curves.easeOut);
+        )
+        .animate()
+        .fadeIn(duration: 400.ms)
+        .slideY(begin: -0.2, duration: 400.ms, curve: Curves.easeOut);
   }
 }
 
@@ -396,42 +431,54 @@ class _PrayerListPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        color: AppTheme.darkGreen,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-      ),
-      child: Column(
-        children: [
-          const SizedBox(height: 20),
-          Text(
-            AppLocalizations.of(context).otherPrayers,
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.white70,
-              letterSpacing: 1.5,
-            ),
-          ),
-          const SizedBox(height: 8),
-          ...HorairesJourModel.prayerKeys.asMap().entries.map((e) {
-            final i = e.key;
-            final key = e.value;
-            return PrayerListTile(
-                  prayerKey: key,
-                  time: today.timeForPrayer(key),
-                  isActive: currentPrayer == key,
-                  isNext: nextPrayerKey == key,
-                )
-                .animate(delay: (50 * i).ms)
-                .fadeIn(duration: 300.ms)
-                .slideX(begin: 0.2);
-          }),
+    final now = DateTime.now();
+    final ref0 = DateTime(now.year, now.month, now.day);
 
-          // Mosque silhouette at bottom
-          SizedBox(height: MediaQuery.of(context).padding.bottom + 20),
-        ],
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        16,
+        4,
+        16,
+        MediaQuery.of(context).padding.bottom + 24,
+      ),
+      child: GlassCard(
+        radius: 24,
+        blur: 10,
+        fillOpacity: 0.02,
+        borderColor: Colors.white.withValues(alpha: 0.16),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        child: Column(
+          children: [
+            Text(
+              AppLocalizations.of(context).otherPrayers,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.white70,
+                letterSpacing: 1.5,
+              ),
+            ),
+            const SizedBox(height: 10),
+            ...HorairesJourModel.prayerKeys.asMap().entries.map((e) {
+              final i = e.key;
+              final key = e.value;
+              // Dim prayers whose time has already passed today.
+              final passed = today.timeAsDateTime(key, ref0).isBefore(now);
+              return Opacity(
+                    opacity: passed ? 0.35 : 1.0,
+                    child: PrayerListTile(
+                      prayerKey: key,
+                      time: today.timeForPrayer(key),
+                      isActive: currentPrayer == key,
+                      isNext: nextPrayerKey == key,
+                    ),
+                  )
+                  .animate(delay: (50 * i).ms)
+                  .fadeIn(duration: 300.ms)
+                  .slideX(begin: 0.15);
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -525,13 +572,12 @@ class _QiblaButton extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (_) => const QiblaScreen()),
       ),
-      child: Container(
+      child: GlassCard(
+        radius: 18,
+        blur: 100,
+        fillOpacity: 0.05,
+        borderColor: Colors.white.withValues(alpha: 0.10),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.10),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
-        ),
         child: Row(
           children: [
             Container(
@@ -621,15 +667,12 @@ class _DailyVerseCard extends ConsumerWidget {
               }
             });
           },
-          child: Container(
+          child: GlassCard(
+            radius: 18,
+            blur: 10,
+            fillOpacity: 0,
+            borderColor: AppTheme.primaryGreen.withValues(alpha: 0.30),
             padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.07),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: AppTheme.primaryGreen.withValues(alpha: 0.3),
-              ),
-            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

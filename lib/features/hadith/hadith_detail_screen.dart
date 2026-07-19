@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../core/api/hadith_api_service.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/widgets/blob_background.dart';
+import '../../core/widgets/glass_card.dart';
 import '../../core/widgets/gradient_scaffold.dart';
 import '../../l10n/app_localizations.dart';
 import 'hadith_provider.dart';
@@ -67,7 +69,10 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      body: SafeArea(
+      body: Stack(
+        children: [
+          const Positioned.fill(child: BlobBackground()),
+          SafeArea(
         bottom: false,
         child: Column(
           children: [
@@ -107,6 +112,8 @@ class _HadithDetailScreenState extends ConsumerState<HadithDetailScreen> {
           ],
         ),
       ),
+        ],
+      ),
     );
   }
 }
@@ -126,19 +133,8 @@ class _DetailHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(4, 8, 16, 12),
-      decoration: const BoxDecoration(
-        color: AppTheme.darkGreen,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0x40000000),
-            offset: Offset(0, 4),
-            blurRadius: 4,
-          ),
-        ],
-      ),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 8, 16, 8),
       child: Row(
         children: [
           IconButton(
@@ -259,8 +255,13 @@ class _DetailPage extends ConsumerWidget {
     );
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
-      child: Column(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 40),
+      child: GlassCard(
+        radius: 22,
+        blur: 18,
+        borderColor: Colors.white.withValues(alpha: 0.16),
+        padding: const EdgeInsets.all(20),
+        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -403,6 +404,7 @@ class _DetailPage extends ConsumerWidget {
             ],
           ),
         ],
+        ),
       ),
     );
   }

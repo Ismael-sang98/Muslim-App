@@ -93,7 +93,7 @@ class NotificationToggleTile extends ConsumerWidget {
                   style: GoogleFonts.poppins(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                    color: Colors.white.withValues(alpha: 0.92),
                   ),
                 ),
                 if (todayTime != null)

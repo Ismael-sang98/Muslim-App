@@ -142,7 +142,7 @@ class _CustomBottomNav extends StatelessWidget {
       height: 61 + MediaQuery.of(context).padding.bottom,
       decoration: BoxDecoration(
         color: Theme.of(context).brightness == Brightness.dark
-            ? const Color(0xFF161B22)
+            ? const Color(0xFF0C2A19)
             : AppTheme.darkGreen,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(50)),
         boxShadow: [
